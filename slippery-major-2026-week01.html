@@ -169,7 +169,7 @@
     margin:28px auto;max-width:60ch;
     display:grid;grid-template-columns:180px minmax(0,1fr);gap:20px;align-items:center;
     padding:18px 20px;background:#fafbfc;border:1px solid var(--rule);
-    border-left:3px solid var(--red);border-radius:4px;text-align:left;
+    border-left:3px solid var(--red);border-radius:4px;text-align:center;
   }
   .kramer img{display:block;width:100%;height:auto;border-radius:3px;background:#eceef0}
   .kramer blockquote{margin:0;font-size:16.5px;line-height:1.55;color:#2c2e32}
@@ -196,7 +196,7 @@
   .game:first-child{border-top:0;padding-top:8px}
   .game h4{
     margin:0;font-family:var(--display);font-size:20px;font-weight:700;
-    color:var(--ink);letter-spacing:-.018em;
+    color:var(--ink);letter-spacing:-.018em;text-align:center;
   }
   .game h4 .rec{font-weight:500;color:var(--meta);font-size:15.5px}
   .game h4 .vs{color:#bec0c4;font-weight:500;padding:0 4px}
@@ -218,7 +218,7 @@
   .bar i{display:block;height:100%;background:var(--ink);border-radius:3px}
   .bar--r i{margin-left:auto}
 
-  .copy{max-width:70ch;margin:0;text-align:left}
+  .copy{max-width:66ch;margin:0 auto;text-align:center}
   .copy p{margin:0 0 15px}
   .copy p:last-child{margin-bottom:0}
   .copy strong{color:var(--ink);font-weight:600}
@@ -247,8 +247,10 @@
     .rail--right{order:2}
     .note__bd{padding:22px 18px 32px}
     .hed{font-size:26px}
-    .prose{max-width:none;text-align:left}
-    .kramer{grid-template-columns:1fr;max-width:none;text-align:left}
+    .prose{max-width:none}
+    .copy{max-width:none}
+    .kramer{grid-template-columns:1fr;max-width:none}
+    .kramer img{margin:0 auto}
     .kramer img{max-width:200px}
     .masthead nav{display:none}
     .teams{grid-template-columns:1fr;gap:14px;text-align:left}
