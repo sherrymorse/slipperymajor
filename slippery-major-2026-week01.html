@@ -3,24 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Slippery Nipple League, Week One: Face First into the Mechanism</title>
+<title>Slippery Nipple League 2026, Week One: Face First into the Mechanism</title>
 <meta name="description" content="Slippery Major 2026, Week One League Manager's Note — Commissioner's Predictions.">
-<meta property="og:title" content="Slippery Nipple League, Week One: Face First into the Mechanism">
-<meta property="og:description" content="The new/old Commissioner's Predictions. 0-0, .000 so far in 2026.">
+<meta property="og:title" content="Slippery Nipple League 2026, Week One: Face First into the Mechanism">
+<meta property="og:description" content="The new, old Commissioner's Predictions. 0-0, .000 so far in 2026.">
 <meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#ffffff;
-    --page:#f1f2f3;
-    --rule:#e3e4e6;
-    --ink:#1d1d1f;
-    --body:#48494b;
-    --meta:#77787b;
+    --page:#eef0f2;
+    --rule:#e4e6e9;
+    --hair:#f1f2f4;
+    --ink:#15171a;
+    --body:#45474b;
+    --meta:#797c82;
     --red:#c8102e;
-    --deep:#16171a;
-    --link:#0a66a8;
-    --win:#1f8a4c;
+    --deep:#12141a;
+    --link:#0a5fa5;
     --shell:min(1480px,100%);
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --display:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --lift:0 1px 2px rgba(18,20,26,.04),0 1px 10px rgba(18,20,26,.035);
   }
 
   *{box-sizing:border-box}
@@ -29,256 +35,237 @@
     margin:0;
     background:var(--page);
     color:var(--body);
-    font:400 15px/1.62 "Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;
-    letter-spacing:.002em;
+    font:400 15.5px/1.66 var(--sans);
+    -webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
   }
   a{color:var(--link);text-decoration:none}
   a:hover{text-decoration:underline}
-  a:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:2px}
+  a:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:3px}
 
   /* ---------- masthead ---------- */
-  .masthead{
-    background:var(--deep);
-    border-bottom:3px solid var(--red);
-  }
+  .masthead{background:var(--deep);border-bottom:3px solid var(--red)}
   .masthead__in{
-    width:var(--shell);margin:0 auto;padding:0 18px;
-    height:48px;display:flex;align-items:center;gap:22px;
+    width:var(--shell);margin:0 auto;padding:0 20px;
+    height:52px;display:flex;align-items:center;gap:24px;
   }
   .wordmark{
-    font-weight:800;font-size:17px;letter-spacing:.16em;
-    color:#fff;text-transform:uppercase;
-    border-right:1px solid #38393d;padding-right:20px;line-height:1;
+    font-family:var(--display);font-weight:800;font-size:16px;
+    letter-spacing:.17em;color:#fff;text-transform:uppercase;
+    border-right:1px solid #2f323a;padding-right:22px;line-height:1;
   }
   .wordmark em{color:var(--red);font-style:normal}
-  .masthead nav{display:flex;gap:20px;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-  .masthead nav a{color:#c9cacc}
+  .masthead nav{display:flex;gap:22px;font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+  .masthead nav a{color:#b9bcc3}
   .masthead nav a:hover{color:#fff;text-decoration:none}
-  .masthead nav a[aria-current]{color:#fff;box-shadow:inset 0 -3px 0 var(--red);padding-bottom:14px}
+  .masthead nav a[aria-current]{color:#fff;box-shadow:inset 0 -3px 0 var(--red);padding-bottom:16px}
 
   /* ---------- league bar ---------- */
   .leaguebar{background:#fff;border-bottom:1px solid var(--rule)}
   .leaguebar__in{
-    width:var(--shell);margin:0 auto;padding:13px 18px;
-    display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;
+    width:var(--shell);margin:0 auto;padding:15px 20px;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;
   }
   .leaguebar h1{
-    margin:0;font-size:21px;font-weight:700;color:var(--ink);letter-spacing:-.012em;
+    margin:0;font-family:var(--display);font-size:22px;font-weight:700;
+    color:var(--ink);letter-spacing:-.018em;
   }
   .leaguebar p{margin:0;font-size:12.5px;color:var(--meta)}
-  .leaguebar .sep{color:#c5c6c8}
+  .leaguebar .sep{color:#c9cbcf}
 
   /* ---------- grid ---------- */
   .shell{
-    width:var(--shell);margin:0 auto;padding:18px;
-    display:grid;grid-template-columns:230px minmax(0,1fr) 300px;gap:18px;align-items:start;
+    width:var(--shell);margin:0 auto;padding:20px;
+    display:grid;grid-template-columns:232px minmax(0,1fr) 304px;gap:20px;align-items:start;
   }
 
   /* ---------- modules ---------- */
-  .mod{background:var(--paper);border:1px solid var(--rule);border-radius:3px;margin-bottom:18px}
+  .mod{background:var(--paper);border:1px solid var(--rule);border-radius:6px;margin-bottom:20px;box-shadow:var(--lift)}
   .mod:last-child{margin-bottom:0}
   .mod__hd{
-    padding:10px 13px;border-bottom:1px solid var(--rule);
+    padding:11px 14px;border-bottom:1px solid var(--rule);
     display:flex;justify-content:space-between;align-items:center;gap:10px;
   }
-  .mod__hd h2{margin:0;font-size:13.5px;font-weight:700;color:var(--ink);letter-spacing:-.005em}
+  .mod__hd h2{margin:0;font-family:var(--display);font-size:13.5px;font-weight:700;color:var(--ink);letter-spacing:-.005em}
   .mod__hd a{font-size:11.5px}
-  .mod__bd{padding:11px 13px}
-  .mod__ft{padding:9px 13px;border-top:1px solid var(--rule);font-size:12px}
+  .mod__bd{padding:12px 14px}
+  .mod__ft{padding:10px 14px;border-top:1px solid var(--rule);font-size:12px;color:var(--meta)}
 
   /* scoreboard rail */
   .sb{list-style:none;margin:0;padding:0}
-  .sb li{padding:9px 0;border-bottom:1px dotted #dcdddf}
+  .sb li{padding:10px 0;border-bottom:1px solid var(--hair)}
   .sb li:last-child{border-bottom:0;padding-bottom:2px}
   .sb li:first-child{padding-top:2px}
-  .sb__row{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;line-height:1.4}
+  .sb__row{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;line-height:1.45}
   .sb__row+.sb__row{margin-top:3px}
   .sb__name{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .sb__pts{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;flex:none}
-  .sb__pts--zero{color:#a9aaad;font-weight:400}
-  .sb__lead .sb__name{font-weight:700}
+  .sb__pts{font-weight:700;color:var(--ink);flex:none}
+  .sb__pts--zero{color:#aeb1b6;font-weight:400}
 
   /* quick links */
-  .ql{list-style:none;margin:0;padding:0;font-size:13px}
-  .ql li{padding:7px 0;border-bottom:1px solid #f0f0f1}
+  .ql{list-style:none;margin:0;padding:0;font-size:13.5px}
+  .ql li{padding:8px 0;border-bottom:1px solid var(--hair)}
   .ql li:last-child{border-bottom:0}
 
   /* standings */
   table.stand{width:100%;border-collapse:collapse;font-size:12.5px}
-  table.stand caption{
-    caption-side:top;text-align:left;padding:0 0 7px;
-    font-size:11px;color:var(--meta);letter-spacing:.04em;
-  }
+  table.stand caption{caption-side:top;text-align:left;padding:0 0 8px;font-size:11.5px;color:var(--meta)}
   table.stand th{
-    text-align:right;font-size:10.5px;color:var(--meta);font-weight:600;
-    padding:0 0 6px;border-bottom:1px solid var(--rule);letter-spacing:.04em;
+    text-align:right;font-family:var(--display);font-size:10.5px;color:var(--meta);
+    font-weight:600;padding:0 0 7px;border-bottom:1px solid var(--rule);letter-spacing:.06em;
   }
   table.stand th:first-child{text-align:left}
-  table.stand td{padding:6px 0;border-bottom:1px solid #f2f2f3;text-align:right;font-variant-numeric:tabular-nums}
+  table.stand td{padding:7px 0;border-bottom:1px solid var(--hair);text-align:right}
   table.stand td:first-child{text-align:left;color:var(--ink)}
   table.stand tr:last-child td{border-bottom:0}
-  .owner{font-weight:700}
+  .owner{font-weight:600}
   .team{color:var(--meta);font-weight:400}
+
+  /* scoring rail */
+  .score{list-style:none;margin:0;padding:0;font-size:13px}
+  .score li{padding:8px 0;border-bottom:1px solid var(--hair);display:flex;justify-content:space-between;gap:10px}
+  .score li:last-child{border-bottom:0}
+  .score b{color:var(--ink);font-weight:600;flex:none}
+  .score span{color:var(--meta);text-align:right}
+  .score .new{color:var(--red);font-weight:700}
 
   /* news rail */
   .news{list-style:none;margin:0;padding:0;font-size:13px}
-  .news li{padding:10px 0;border-bottom:1px solid #f0f0f1;line-height:1.45}
+  .news li{padding:11px 0;border-bottom:1px solid var(--hair);line-height:1.5}
   .news li:last-child{border-bottom:0;padding-bottom:0}
-  .news b{color:var(--ink)}
-  .news span{display:block;color:var(--meta);font-size:11.5px;margin-top:2px}
-
-  /* picks rail */
-  .picks{list-style:none;margin:0;padding:0;font-size:13px}
-  .picks li{
-    display:flex;justify-content:space-between;gap:8px;
-    padding:7px 0;border-bottom:1px solid #f2f2f3;
-  }
-  .picks li:last-child{border-bottom:0}
-  .picks .w{font-weight:700;color:var(--ink)}
-  .picks .u{color:var(--meta)}
-  .flag{
-    display:inline-block;margin-left:6px;padding:1px 5px;border-radius:2px;
-    background:#fdeaed;color:var(--red);font-size:10px;font-weight:700;letter-spacing:.05em;
-  }
+  .news b{color:var(--ink);font-weight:600}
+  .news span{display:block;color:var(--meta);font-size:12px;margin-top:2px}
 
   /* ---------- the note ---------- */
-  .note{background:var(--paper);border:1px solid var(--rule);border-radius:3px}
+  .note{background:var(--paper);border:1px solid var(--rule);border-radius:6px;box-shadow:var(--lift)}
   .note__hd{
-    padding:10px 22px;border-bottom:1px solid var(--rule);
+    padding:11px 24px;border-bottom:1px solid var(--rule);
     display:flex;justify-content:space-between;align-items:center;
   }
-  .note__hd span{font-size:13px;color:var(--ink);font-weight:700}
+  .note__hd span{font-family:var(--display);font-size:13px;color:var(--ink);font-weight:700}
   .note__hd a{font-size:11.5px}
-  .note__bd{padding:26px 46px 40px}
+  .note__bd{padding:30px 52px 44px}
 
-  .note__bd h2.hed{
-    margin:0 0 18px;
-    font-size:31px;line-height:1.2;font-weight:700;color:var(--ink);
-    letter-spacing:-.021em;
+  .hed{
+    margin:0 0 8px;font-family:var(--display);
+    font-size:34px;line-height:1.16;font-weight:700;color:var(--ink);
+    letter-spacing:-.026em;text-wrap:balance;
   }
   .byline{
-    margin:-10px 0 20px;padding-bottom:16px;border-bottom:1px solid var(--rule);
-    font-size:12px;color:var(--meta);
+    margin:0 0 24px;padding-bottom:18px;border-bottom:1px solid var(--rule);
+    font-size:12.5px;color:var(--meta);
   }
 
-  figure.hero{margin:0 0 24px}
-  figure.hero img{display:block;width:100%;height:auto;border:1px solid var(--rule);background:#f7f7f8}
-  figure.hero figcaption{margin-top:7px;font-size:11.5px;color:var(--meta);text-align:center}
+  figure.hero{margin:0 0 26px}
+  figure.hero img{display:block;width:100%;height:auto;border-radius:4px;background:#f4f5f6}
 
-  .prose{max-width:66ch;margin:0 auto;text-align:center}
-  .prose p{margin:0 0 17px}
+  .prose{max-width:64ch;margin:0 auto;text-align:center}
+  .prose p{margin:0 0 18px}
   .prose p:last-child{margin-bottom:0}
-  .prose strong{color:#2f3032;font-weight:700}
-  .prose em{font-style:italic}
+  .prose strong{color:#26282c;font-weight:600}
 
-  blockquote.saw{
-    margin:24px auto;padding:16px 20px;max-width:52ch;
-    border-left:3px solid var(--red);background:#fafafb;
-    text-align:left;font-size:15px;color:#3c3d3f;
+  /* Kramer quote block */
+  .kramer{
+    margin:28px auto;max-width:60ch;
+    display:grid;grid-template-columns:180px minmax(0,1fr);gap:20px;align-items:center;
+    padding:18px 20px;background:#fafbfc;border:1px solid var(--rule);
+    border-left:3px solid var(--red);border-radius:4px;text-align:left;
   }
-  blockquote.saw p{margin:0 0 8px}
-  blockquote.saw cite{display:block;font-style:normal;font-size:12px;color:var(--meta)}
+  .kramer img{display:block;width:100%;height:auto;border-radius:3px;background:#eceef0}
+  .kramer blockquote{margin:0;font-size:16.5px;line-height:1.55;color:#2c2e32}
+  .kramer cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;color:var(--meta)}
 
   .eq{
-    margin:26px 0;color:#c2c3c5;font-size:13px;text-align:center;
-    overflow:hidden;white-space:nowrap;user-select:none;letter-spacing:.06em;
+    margin:28px 0;color:#c6c8cc;font-size:12.5px;text-align:center;
+    overflow:hidden;white-space:nowrap;user-select:none;letter-spacing:.08em;
   }
 
   /* predictions header */
   .predhd{
-    margin:34px 0 6px;padding:16px 0;text-align:center;
+    margin:36px 0 8px;padding:18px 0;text-align:center;
     border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
   }
   .predhd h3{
-    margin:0;font-size:16px;font-weight:700;color:var(--ink);
-    letter-spacing:.1em;text-transform:uppercase;
+    margin:0;font-family:var(--display);font-size:15px;font-weight:700;
+    color:var(--ink);letter-spacing:.13em;text-transform:uppercase;
   }
-  .predhd p{margin:6px 0 0;font-size:13px;color:var(--meta)}
+  .predhd p{margin:7px 0 0;font-size:13px;color:var(--meta)}
 
   /* matchups */
-  .games{margin:28px 0 0;counter-reset:g}
-  .game{
-    border-top:1px solid var(--rule);padding:22px 0 24px;
+  .game{border-top:1px solid var(--rule);padding:26px 0 28px}
+  .game:first-child{border-top:0;padding-top:8px}
+  .game h4{
+    margin:0;font-family:var(--display);font-size:20px;font-weight:700;
+    color:var(--ink);letter-spacing:-.018em;
   }
-  .game:first-child{border-top:0;padding-top:4px}
-
-  .game__hd{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 16px;margin-bottom:4px}
-  .game__hd h4{
-    margin:0;font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.012em;
-  }
-  .game__hd h4 .rec{font-weight:400;color:var(--meta);font-size:15px}
-  .game__hd h4 .vs{color:#b9babc;font-weight:400;padding:0 3px}
-  .game__tag{
-    font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-    color:#fff;background:var(--ink);padding:3px 8px;border-radius:2px;flex:none;
-  }
-  .game__tag--upset{background:var(--red)}
+  .game h4 .rec{font-weight:500;color:var(--meta);font-size:15.5px}
+  .game h4 .vs{color:#bec0c4;font-weight:500;padding:0 4px}
 
   .teams{
-    display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;
-    margin:12px 0 16px;padding:12px 14px;background:#fafafb;border:1px solid #eeeff0;border-radius:3px;
-    font-size:12.5px;
+    display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;
+    margin:14px 0 18px;padding:14px 16px;background:#fafbfc;
+    border:1px solid var(--rule);border-radius:5px;font-size:12.5px;
   }
   .side{min-width:0}
   .side--r{text-align:right}
-  .side b{display:block;color:var(--ink);font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .side i{font-style:normal;color:var(--meta);display:block;margin-top:1px}
-  .live{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1;margin-top:5px}
-  .live--zero{color:#b3b4b6}
-  .odds{flex:none;text-align:center;color:var(--meta);font-size:10.5px;letter-spacing:.06em;padding:0 4px}
-  .odds b{display:block;color:#9a9b9e;font-size:12px;margin-bottom:5px;font-weight:700}
-  .bar{height:4px;border-radius:2px;background:#dfe0e2;overflow:hidden;margin-top:8px}
-  .bar i{display:block;height:100%;background:var(--ink)}
+  .side b{display:block;color:var(--ink);font-family:var(--display);font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .side i{font-style:normal;color:var(--meta);display:block;margin-top:2px}
+  .live{font-family:var(--display);font-size:21px;font-weight:700;color:var(--ink);line-height:1.1;margin-top:6px}
+  .live--zero{color:#b6b9be}
+  .odds{flex:none;text-align:center;color:var(--meta);font-size:10.5px;letter-spacing:.07em;padding:0 6px}
+  .odds b{display:block;color:#a2a5aa;font-size:11.5px;margin-bottom:6px;font-weight:700}
+  .bar{height:4px;border-radius:3px;background:#e1e3e6;overflow:hidden;margin-top:9px}
+  .bar i{display:block;height:100%;background:var(--ink);border-radius:3px}
   .bar--r i{margin-left:auto}
 
-  .game .copy{max-width:70ch;margin:0;text-align:left}
-  .game .copy p{margin:0 0 14px}
-  .game .copy p:last-child{margin-bottom:0}
-  .game .copy strong{color:var(--ink)}
+  .copy{max-width:70ch;margin:0;text-align:left}
+  .copy p{margin:0 0 15px}
+  .copy p:last-child{margin-bottom:0}
+  .copy strong{color:var(--ink);font-weight:600}
 
   .signoff{
-    margin:40px auto 0;max-width:66ch;text-align:center;
-    padding-top:22px;border-top:1px solid var(--rule);
+    margin:42px auto 0;max-width:64ch;text-align:center;
+    padding-top:24px;border-top:1px solid var(--rule);
   }
-  .signoff p{margin:0 0 12px}
+  .signoff p{margin:0 0 13px}
   .signoff .ps{font-size:13.5px;color:var(--meta)}
-  .signoff .sig{font-weight:700;color:var(--ink);font-size:15px}
+  .signoff .sig{font-family:var(--display);font-weight:700;color:var(--ink);font-size:15.5px}
 
   footer.page{
-    width:var(--shell);margin:0 auto;padding:22px 18px 40px;
+    width:var(--shell);margin:0 auto;padding:24px 20px 44px;
     font-size:11.5px;color:var(--meta);text-align:center;
   }
 
   /* ---------- responsive ---------- */
   @media (max-width:1180px){
-    .shell{grid-template-columns:minmax(0,1fr) 290px}
+    .shell{grid-template-columns:minmax(0,1fr) 292px}
     .rail--left{display:none}
   }
   @media (max-width:900px){
     .shell{grid-template-columns:minmax(0,1fr);padding:12px}
-    .rail--right{order:2}
     .note{order:1}
-    .note__bd{padding:20px 18px 30px}
-    .note__bd h2.hed{font-size:25px}
+    .rail--right{order:2}
+    .note__bd{padding:22px 18px 32px}
+    .hed{font-size:26px}
     .prose{max-width:none;text-align:left}
-    blockquote.saw{margin-left:0;margin-right:0}
+    .kramer{grid-template-columns:1fr;max-width:none;text-align:left}
+    .kramer img{max-width:200px}
     .masthead nav{display:none}
-    .teams{grid-template-columns:1fr;gap:12px;text-align:left}
+    .teams{grid-template-columns:1fr;gap:14px;text-align:left}
     .side--r{text-align:left}
     .odds{text-align:left;padding:0}
     .bar--r i{margin-left:0}
-    .game__hd h4{font-size:17px}
+    .game h4{font-size:18px}
     .eq{font-size:11px}
   }
 
   @media print{
     body{background:#fff;font-size:10.5pt}
-    .masthead,.leaguebar,.rail--left,.rail--right,footer.page{display:none!important}
+    .masthead,.leaguebar,.rail--left,.rail--right,footer.page,.note__hd{display:none!important}
     .shell{display:block;width:auto;padding:0}
-    .note{border:0}
-    .note__hd{display:none}
+    .note{border:0;box-shadow:none}
     .note__bd{padding:0}
-    .game{break-inside:avoid}
+    .game,.kramer{break-inside:avoid}
     figure.hero img{max-height:3.2in;width:auto;margin:0 auto}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -301,7 +288,7 @@
 <div class="leaguebar">
   <div class="leaguebar__in">
     <h1>The Slippery Nipple League</h1>
-    <p>2026 Season <span class="sep">&middot;</span> Week 1 <span class="sep">&middot;</span> Sunday, September 13 <span class="sep">&middot;</span> Year 23</p>
+    <p>2026 Season <span class="sep">&middot;</span> Week One <span class="sep">&middot;</span> Sunday, September 13 <span class="sep">&middot;</span> Year 23</p>
   </div>
 </div>
 
@@ -315,26 +302,26 @@
         <ul class="sb">
           <li>
             <div class="sb__row"><span class="sb__name">Saquon Deez Nuts</span><span class="sb__pts sb__pts--zero">0.00</span></div>
-            <div class="sb__row sb__lead"><span class="sb__name">The McDouble</span><span class="sb__pts">11.30</span></div>
+            <div class="sb__row"><span class="sb__name">The McDouble</span><span class="sb__pts">11.30</span></div>
           </li>
           <li>
             <div class="sb__row"><span class="sb__name">The Embalmers</span><span class="sb__pts">27.00</span></div>
-            <div class="sb__row sb__lead"><span class="sb__name">BBnbubbalove</span><span class="sb__pts">33.30</span></div>
+            <div class="sb__row"><span class="sb__name">BBnbubbalove</span><span class="sb__pts">33.30</span></div>
           </li>
           <li>
-            <div class="sb__row sb__lead"><span class="sb__name">PracticeMakesPaper</span><span class="sb__pts">19.90</span></div>
+            <div class="sb__row"><span class="sb__name">PracticeMakesPaper</span><span class="sb__pts">19.90</span></div>
             <div class="sb__row"><span class="sb__name">Art The Clown</span><span class="sb__pts">10.90</span></div>
           </li>
           <li>
-            <div class="sb__row sb__lead"><span class="sb__name">Deerstalker</span><span class="sb__pts">14.82</span></div>
+            <div class="sb__row"><span class="sb__name">Deerstalker</span><span class="sb__pts">14.82</span></div>
             <div class="sb__row"><span class="sb__name">Last in line</span><span class="sb__pts sb__pts--zero">0.00</span></div>
           </li>
           <li>
             <div class="sb__row"><span class="sb__name">Jannik Sinner</span><span class="sb__pts sb__pts--zero">0.00</span></div>
-            <div class="sb__row sb__lead"><span class="sb__name">DDT</span><span class="sb__pts">4.10</span></div>
+            <div class="sb__row"><span class="sb__name">DDT</span><span class="sb__pts">4.10</span></div>
           </li>
           <li>
-            <div class="sb__row sb__lead"><span class="sb__name">BLITZKRIEG</span><span class="sb__pts">13.90</span></div>
+            <div class="sb__row"><span class="sb__name">BLITZKRIEG</span><span class="sb__pts">13.90</span></div>
             <div class="sb__row"><span class="sb__name">Aloka</span><span class="sb__pts sb__pts--zero">0.00</span></div>
           </li>
         </ul>
@@ -363,7 +350,7 @@
     </div>
 
     <div class="note__bd">
-      <h2 class="hed">Slippery Nipple League, Week One: Face First into the Mechanism</h2>
+      <h2 class="hed">Slippery Nipple League 2026, Week One: Face First into the Mechanism</h2>
       <p class="byline">Posted by the Commissioner &middot; Sunday, September 13, 2026</p>
 
       <figure class="hero">
@@ -381,12 +368,15 @@
 
         <p>But that's what being grateful is for &ndash; knowing how to savor the moment and appreciate what's in front of us. And right here, right now.. the truth is: we get to do this weekend thirteen more times when all is said and done and we have the whole season in front of us to savor.</p>
 
-        <p>Jon Kramer (Saw IV) once said,</p>
+        <p>John Kramer (Saw IV) once said,</p>
 
-        <blockquote class="saw">
-          <p>&ldquo;Cherish your life is the concept that this whole clinic was built on. Cherish your life. Your life.&rdquo;</p>
-          <cite>&mdash; Jon Kramer, Saw IV</cite>
-        </blockquote>
+        <div class="kramer">
+          <img src="https://i.redd.it/d10ftdv5b2wg1.jpeg" alt="John Kramer." loading="lazy">
+          <blockquote>
+            &ldquo;Cherish your life is the concept that this whole clinic was built on. Cherish your life. Your life.&rdquo;
+            <cite>&mdash; John Kramer, Saw IV</cite>
+          </blockquote>
+        </div>
 
         <p>And I'm grateful to have built this clinic of misfits we call Slippery Major along with Andrew, for all of us.</p>
 
@@ -442,10 +432,7 @@
 
         <!-- 1 -->
         <article class="game">
-          <div class="game__hd">
-            <h4>Matt <span class="rec">(0-0)</span><span class="vs">vs.</span>Zack <span class="rec">(0-0)</span></h4>
-            <span class="game__tag">Matt</span>
-          </div>
+          <h4>Matt <span class="rec">(0-0)</span><span class="vs">vs.</span>Zack <span class="rec">(0-0)</span></h4>
           <div class="teams">
             <div class="side">
               <b>Saquon Deez Nuts</b><i>Matt &middot; proj 115.51</i>
@@ -468,10 +455,7 @@
 
         <!-- 2 -->
         <article class="game">
-          <div class="game__hd">
-            <h4>Andrew <span class="rec">(0-0)</span><span class="vs">vs.</span>Mark <span class="rec">(0-0)</span></h4>
-            <span class="game__tag">Andrew</span>
-          </div>
+          <h4>Andrew <span class="rec">(0-0)</span><span class="vs">vs.</span>Mark <span class="rec">(0-0)</span></h4>
           <div class="teams">
             <div class="side">
               <b>The Embalmers</b><i>Andrew &middot; proj 112.47</i>
@@ -494,10 +478,7 @@
 
         <!-- 3 -->
         <article class="game">
-          <div class="game__hd">
-            <h4>Walter <span class="rec">(0-0)</span><span class="vs">vs.</span>Caiden <span class="rec">(0-0)</span></h4>
-            <span class="game__tag game__tag--upset">Caiden &middot; Upset</span>
-          </div>
+          <h4>Walter <span class="rec">(0-0)</span><span class="vs">vs.</span>Caiden <span class="rec">(0-0)</span></h4>
           <div class="teams">
             <div class="side">
               <b>Team PracticeMakesPaper</b><i>Walter &middot; proj 107.42</i>
@@ -525,10 +506,7 @@
 
         <!-- 4 -->
         <article class="game">
-          <div class="game__hd">
-            <h4>Cameron <span class="rec">(0-0)</span><span class="vs">vs.</span>Scott <span class="rec">(0-0)</span></h4>
-            <span class="game__tag">Scott</span>
-          </div>
+          <h4>Cameron <span class="rec">(0-0)</span><span class="vs">vs.</span>Scott <span class="rec">(0-0)</span></h4>
           <div class="teams">
             <div class="side">
               <b>Deerstalker</b><i>Cameron &middot; proj 91.39</i>
@@ -551,10 +529,7 @@
 
         <!-- 5 -->
         <article class="game">
-          <div class="game__hd">
-            <h4>Jason <span class="rec">(0-0)</span><span class="vs">vs.</span>David <span class="rec">(0-0)</span></h4>
-            <span class="game__tag">David</span>
-          </div>
+          <h4>Jason <span class="rec">(0-0)</span><span class="vs">vs.</span>David <span class="rec">(0-0)</span></h4>
           <div class="teams">
             <div class="side">
               <b>Jannik Sinner</b><i>Jason &middot; proj 93.62</i>
@@ -579,10 +554,7 @@
 
         <!-- 6 -->
         <article class="game">
-          <div class="game__hd">
-            <h4>Daniel <span class="rec">(0-0)</span><span class="vs">vs.</span>Binh <span class="rec">(0-0)</span></h4>
-            <span class="game__tag game__tag--upset">Binh &middot; Upset</span>
-          </div>
+          <h4>Daniel <span class="rec">(0-0)</span><span class="vs">vs.</span>Binh <span class="rec">(0-0)</span></h4>
           <div class="teams">
             <div class="side">
               <b>BLITZKRIEG</b><i>Daniel &middot; proj 117.41</i>
@@ -617,41 +589,41 @@
   <!-- ======== RIGHT RAIL ======== -->
   <aside class="rail rail--right">
     <section class="mod">
-      <div class="mod__hd"><h2>Commissioner's Picks</h2></div>
+      <div class="mod__hd"><h2>Scoring</h2></div>
       <div class="mod__bd">
-        <ul class="picks">
-          <li><span class="w">Matt</span><span class="u">over Zack</span></li>
-          <li><span class="w">Andrew</span><span class="u">over Mark</span></li>
-          <li><span class="w">Caiden <span class="flag">Upset</span></span><span class="u">over Walter</span></li>
-          <li><span class="w">Scott</span><span class="u">over Cameron</span></li>
-          <li><span class="w">David</span><span class="u">over Jason</span></li>
-          <li><span class="w">Binh <span class="flag">Upset</span></span><span class="u">over Daniel</span></li>
+        <ul class="score">
+          <li><b>Receptions</b><span class="new">0.5 &mdash; new for 2026</span></li>
+          <li><b>Rush / rec yards</b><span>1 per 10</span></li>
+          <li><b>Passing yards</b><span>1 per 25</span></li>
+          <li><b>Passing TD</b><span>6</span></li>
+          <li><b>Interception</b><span>&minus;2</span></li>
+          <li><b>DST sack / INT</b><span>1 / 2</span></li>
         </ul>
       </div>
-      <div class="mod__ft">Two against the Sleeper mechanism this week.</div>
+      <div class="mod__ft">Half-PPR replaces standard after 23 seasons.</div>
     </section>
 
     <section class="mod" id="standings">
       <div class="mod__hd"><h2>Standings</h2></div>
       <div class="mod__bd">
         <table class="stand">
-          <caption>Everybody starts here. Week 1, 2026.</caption>
+          <caption>Everybody starts here.</caption>
           <thead>
             <tr><th scope="col">Team</th><th scope="col">W</th><th scope="col">L</th></tr>
           </thead>
           <tbody>
-            <tr><td><span class="owner">Daniel</span> <span class="team">BLITZKRIEG</span></td><td>0</td><td>0</td></tr>
             <tr><td><span class="owner">Andrew</span> <span class="team">The Embalmers</span></td><td>0</td><td>0</td></tr>
-            <tr><td><span class="owner">Scott</span> <span class="team">Last in line</span></td><td>0</td><td>0</td></tr>
-            <tr><td><span class="owner">David</span> <span class="team">DDT</span></td><td>0</td><td>0</td></tr>
-            <tr><td><span class="owner">Cameron</span> <span class="team">Deerstalker</span></td><td>0</td><td>0</td></tr>
-            <tr><td><span class="owner">Matt</span> <span class="team">Saquon Deez Nuts</span></td><td>0</td><td>0</td></tr>
             <tr><td><span class="owner">Binh</span> <span class="team">Aloka</span></td><td>0</td><td>0</td></tr>
-            <tr><td><span class="owner">Zack</span> <span class="team">The McDouble</span></td><td>0</td><td>0</td></tr>
-            <tr><td><span class="owner">Walter</span> <span class="team">PracticeMakesPaper</span></td><td>0</td><td>0</td></tr>
-            <tr><td><span class="owner">Mark</span> <span class="team">BBnbubbalove</span></td><td>0</td><td>0</td></tr>
-            <tr><td><span class="owner">Jason</span> <span class="team">Jannik Sinner</span></td><td>0</td><td>0</td></tr>
             <tr><td><span class="owner">Caiden</span> <span class="team">Art The Clown</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Cameron</span> <span class="team">Deerstalker</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Daniel</span> <span class="team">BLITZKRIEG</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">David</span> <span class="team">DDT</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Jason</span> <span class="team">Jannik Sinner</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Mark</span> <span class="team">BBnbubbalove</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Matt</span> <span class="team">Saquon Deez Nuts</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Scott</span> <span class="team">Last in line</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Walter</span> <span class="team">PracticeMakesPaper</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Zack</span> <span class="team">The McDouble</span></td><td>0</td><td>0</td></tr>
           </tbody>
         </table>
       </div>
@@ -662,11 +634,11 @@
       <div class="mod__hd"><h2>Around the League</h2></div>
       <div class="mod__bd">
         <ul class="news">
-          <li><b>New this year: half-PPR.</b><span>Standard scoring retired after 23 seasons. Every roster reads differently than the one you drafted.</span></li>
-          <li><b>Bowers out for Andrew.</b><span>Meniscus trim Tuesday. Mayer starts in Las Vegas.</span></li>
-          <li><b>Tua ruled out in Atlanta.</b><span>Right oblique. Cooper Rush starts, which reshapes the Bijan and Pitts picks.</span></li>
-          <li><b>Stribling carted off.</b><span>Ankle, ruled out. A donut from a starter in a game his team won by twenty.</span></li>
-          <li><b>Storms in Jacksonville and Kansas City.</b><span>88 degrees and a 34% storm chance at EverBank; south winds Monday night at Arrowhead.</span></li>
+          <li><b>Bowers out in Las Vegas.</b><span>Meniscus trim Tuesday, expected to miss a game or two. Mayer starts.</span></li>
+          <li><b>Tua ruled out in Atlanta.</b><span>Right oblique. Cooper Rush starts, with Penix still recovering from knee surgery.</span></li>
+          <li><b>Stribling carted off.</b><span>Ankle, ruled out &mdash; a donut from a starter in a game his team won by twenty.</span></li>
+          <li><b>Kamara likely out for New Orleans.</b><span>MCL. Etienne takes over the backfield for his home-team debut.</span></li>
+          <li><b>Storms in Jacksonville and Kansas City.</b><span>88 degrees with a 34% storm chance at EverBank; south winds Monday night at Arrowhead.</span></li>
         </ul>
       </div>
     </section>
