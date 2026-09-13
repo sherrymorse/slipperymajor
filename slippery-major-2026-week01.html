@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slippery Nipple League, Week One: Face First into the Mechanism</title>
+<meta name="description" content="Slippery Major 2026, Week One League Manager's Note — Commissioner's Predictions.">
+<meta property="og:title" content="Slippery Nipple League, Week One: Face First into the Mechanism">
+<meta property="og:description" content="The new/old Commissioner's Predictions. 0-0, .000 so far in 2026.">
+<meta property="og:type" content="article">
+<style>
+  :root{
+    --paper:#ffffff;
+    --page:#f1f2f3;
+    --rule:#e3e4e6;
+    --ink:#1d1d1f;
+    --body:#48494b;
+    --meta:#77787b;
+    --red:#c8102e;
+    --deep:#16171a;
+    --link:#0a66a8;
+    --win:#1f8a4c;
+    --shell:min(1480px,100%);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--page);
+    color:var(--body);
+    font:400 15px/1.62 "Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;
+    letter-spacing:.002em;
+  }
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  a:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:2px}
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    background:var(--deep);
+    border-bottom:3px solid var(--red);
+  }
+  .masthead__in{
+    width:var(--shell);margin:0 auto;padding:0 18px;
+    height:48px;display:flex;align-items:center;gap:22px;
+  }
+  .wordmark{
+    font-weight:800;font-size:17px;letter-spacing:.16em;
+    color:#fff;text-transform:uppercase;
+    border-right:1px solid #38393d;padding-right:20px;line-height:1;
+  }
+  .wordmark em{color:var(--red);font-style:normal}
+  .masthead nav{display:flex;gap:20px;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .masthead nav a{color:#c9cacc}
+  .masthead nav a:hover{color:#fff;text-decoration:none}
+  .masthead nav a[aria-current]{color:#fff;box-shadow:inset 0 -3px 0 var(--red);padding-bottom:14px}
+
+  /* ---------- league bar ---------- */
+  .leaguebar{background:#fff;border-bottom:1px solid var(--rule)}
+  .leaguebar__in{
+    width:var(--shell);margin:0 auto;padding:13px 18px;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;
+  }
+  .leaguebar h1{
+    margin:0;font-size:21px;font-weight:700;color:var(--ink);letter-spacing:-.012em;
+  }
+  .leaguebar p{margin:0;font-size:12.5px;color:var(--meta)}
+  .leaguebar .sep{color:#c5c6c8}
+
+  /* ---------- grid ---------- */
+  .shell{
+    width:var(--shell);margin:0 auto;padding:18px;
+    display:grid;grid-template-columns:230px minmax(0,1fr) 300px;gap:18px;align-items:start;
+  }
+
+  /* ---------- modules ---------- */
+  .mod{background:var(--paper);border:1px solid var(--rule);border-radius:3px;margin-bottom:18px}
+  .mod:last-child{margin-bottom:0}
+  .mod__hd{
+    padding:10px 13px;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+  }
+  .mod__hd h2{margin:0;font-size:13.5px;font-weight:700;color:var(--ink);letter-spacing:-.005em}
+  .mod__hd a{font-size:11.5px}
+  .mod__bd{padding:11px 13px}
+  .mod__ft{padding:9px 13px;border-top:1px solid var(--rule);font-size:12px}
+
+  /* scoreboard rail */
+  .sb{list-style:none;margin:0;padding:0}
+  .sb li{padding:9px 0;border-bottom:1px dotted #dcdddf}
+  .sb li:last-child{border-bottom:0;padding-bottom:2px}
+  .sb li:first-child{padding-top:2px}
+  .sb__row{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;line-height:1.4}
+  .sb__row+.sb__row{margin-top:3px}
+  .sb__name{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sb__pts{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;flex:none}
+  .sb__pts--zero{color:#a9aaad;font-weight:400}
+  .sb__lead .sb__name{font-weight:700}
+
+  /* quick links */
+  .ql{list-style:none;margin:0;padding:0;font-size:13px}
+  .ql li{padding:7px 0;border-bottom:1px solid #f0f0f1}
+  .ql li:last-child{border-bottom:0}
+
+  /* standings */
+  table.stand{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.stand caption{
+    caption-side:top;text-align:left;padding:0 0 7px;
+    font-size:11px;color:var(--meta);letter-spacing:.04em;
+  }
+  table.stand th{
+    text-align:right;font-size:10.5px;color:var(--meta);font-weight:600;
+    padding:0 0 6px;border-bottom:1px solid var(--rule);letter-spacing:.04em;
+  }
+  table.stand th:first-child{text-align:left}
+  table.stand td{padding:6px 0;border-bottom:1px solid #f2f2f3;text-align:right;font-variant-numeric:tabular-nums}
+  table.stand td:first-child{text-align:left;color:var(--ink)}
+  table.stand tr:last-child td{border-bottom:0}
+  .owner{font-weight:700}
+  .team{color:var(--meta);font-weight:400}
+
+  /* news rail */
+  .news{list-style:none;margin:0;padding:0;font-size:13px}
+  .news li{padding:10px 0;border-bottom:1px solid #f0f0f1;line-height:1.45}
+  .news li:last-child{border-bottom:0;padding-bottom:0}
+  .news b{color:var(--ink)}
+  .news span{display:block;color:var(--meta);font-size:11.5px;margin-top:2px}
+
+  /* picks rail */
+  .picks{list-style:none;margin:0;padding:0;font-size:13px}
+  .picks li{
+    display:flex;justify-content:space-between;gap:8px;
+    padding:7px 0;border-bottom:1px solid #f2f2f3;
+  }
+  .picks li:last-child{border-bottom:0}
+  .picks .w{font-weight:700;color:var(--ink)}
+  .picks .u{color:var(--meta)}
+  .flag{
+    display:inline-block;margin-left:6px;padding:1px 5px;border-radius:2px;
+    background:#fdeaed;color:var(--red);font-size:10px;font-weight:700;letter-spacing:.05em;
+  }
+
+  /* ---------- the note ---------- */
+  .note{background:var(--paper);border:1px solid var(--rule);border-radius:3px}
+  .note__hd{
+    padding:10px 22px;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .note__hd span{font-size:13px;color:var(--ink);font-weight:700}
+  .note__hd a{font-size:11.5px}
+  .note__bd{padding:26px 46px 40px}
+
+  .note__bd h2.hed{
+    margin:0 0 18px;
+    font-size:31px;line-height:1.2;font-weight:700;color:var(--ink);
+    letter-spacing:-.021em;
+  }
+  .byline{
+    margin:-10px 0 20px;padding-bottom:16px;border-bottom:1px solid var(--rule);
+    font-size:12px;color:var(--meta);
+  }
+
+  figure.hero{margin:0 0 24px}
+  figure.hero img{display:block;width:100%;height:auto;border:1px solid var(--rule);background:#f7f7f8}
+  figure.hero figcaption{margin-top:7px;font-size:11.5px;color:var(--meta);text-align:center}
+
+  .prose{max-width:66ch;margin:0 auto;text-align:center}
+  .prose p{margin:0 0 17px}
+  .prose p:last-child{margin-bottom:0}
+  .prose strong{color:#2f3032;font-weight:700}
+  .prose em{font-style:italic}
+
+  blockquote.saw{
+    margin:24px auto;padding:16px 20px;max-width:52ch;
+    border-left:3px solid var(--red);background:#fafafb;
+    text-align:left;font-size:15px;color:#3c3d3f;
+  }
+  blockquote.saw p{margin:0 0 8px}
+  blockquote.saw cite{display:block;font-style:normal;font-size:12px;color:var(--meta)}
+
+  .eq{
+    margin:26px 0;color:#c2c3c5;font-size:13px;text-align:center;
+    overflow:hidden;white-space:nowrap;user-select:none;letter-spacing:.06em;
+  }
+
+  /* predictions header */
+  .predhd{
+    margin:34px 0 6px;padding:16px 0;text-align:center;
+    border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
+  }
+  .predhd h3{
+    margin:0;font-size:16px;font-weight:700;color:var(--ink);
+    letter-spacing:.1em;text-transform:uppercase;
+  }
+  .predhd p{margin:6px 0 0;font-size:13px;color:var(--meta)}
+
+  /* matchups */
+  .games{margin:28px 0 0;counter-reset:g}
+  .game{
+    border-top:1px solid var(--rule);padding:22px 0 24px;
+  }
+  .game:first-child{border-top:0;padding-top:4px}
+
+  .game__hd{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 16px;margin-bottom:4px}
+  .game__hd h4{
+    margin:0;font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.012em;
+  }
+  .game__hd h4 .rec{font-weight:400;color:var(--meta);font-size:15px}
+  .game__hd h4 .vs{color:#b9babc;font-weight:400;padding:0 3px}
+  .game__tag{
+    font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+    color:#fff;background:var(--ink);padding:3px 8px;border-radius:2px;flex:none;
+  }
+  .game__tag--upset{background:var(--red)}
+
+  .teams{
+    display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;
+    margin:12px 0 16px;padding:12px 14px;background:#fafafb;border:1px solid #eeeff0;border-radius:3px;
+    font-size:12.5px;
+  }
+  .side{min-width:0}
+  .side--r{text-align:right}
+  .side b{display:block;color:var(--ink);font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .side i{font-style:normal;color:var(--meta);display:block;margin-top:1px}
+  .live{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1;margin-top:5px}
+  .live--zero{color:#b3b4b6}
+  .odds{flex:none;text-align:center;color:var(--meta);font-size:10.5px;letter-spacing:.06em;padding:0 4px}
+  .odds b{display:block;color:#9a9b9e;font-size:12px;margin-bottom:5px;font-weight:700}
+  .bar{height:4px;border-radius:2px;background:#dfe0e2;overflow:hidden;margin-top:8px}
+  .bar i{display:block;height:100%;background:var(--ink)}
+  .bar--r i{margin-left:auto}
+
+  .game .copy{max-width:70ch;margin:0;text-align:left}
+  .game .copy p{margin:0 0 14px}
+  .game .copy p:last-child{margin-bottom:0}
+  .game .copy strong{color:var(--ink)}
+
+  .signoff{
+    margin:40px auto 0;max-width:66ch;text-align:center;
+    padding-top:22px;border-top:1px solid var(--rule);
+  }
+  .signoff p{margin:0 0 12px}
+  .signoff .ps{font-size:13.5px;color:var(--meta)}
+  .signoff .sig{font-weight:700;color:var(--ink);font-size:15px}
+
+  footer.page{
+    width:var(--shell);margin:0 auto;padding:22px 18px 40px;
+    font-size:11.5px;color:var(--meta);text-align:center;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1180px){
+    .shell{grid-template-columns:minmax(0,1fr) 290px}
+    .rail--left{display:none}
+  }
+  @media (max-width:900px){
+    .shell{grid-template-columns:minmax(0,1fr);padding:12px}
+    .rail--right{order:2}
+    .note{order:1}
+    .note__bd{padding:20px 18px 30px}
+    .note__bd h2.hed{font-size:25px}
+    .prose{max-width:none;text-align:left}
+    blockquote.saw{margin-left:0;margin-right:0}
+    .masthead nav{display:none}
+    .teams{grid-template-columns:1fr;gap:12px;text-align:left}
+    .side--r{text-align:left}
+    .odds{text-align:left;padding:0}
+    .bar--r i{margin-left:0}
+    .game__hd h4{font-size:17px}
+    .eq{font-size:11px}
+  }
+
+  @media print{
+    body{background:#fff;font-size:10.5pt}
+    .masthead,.leaguebar,.rail--left,.rail--right,footer.page{display:none!important}
+    .shell{display:block;width:auto;padding:0}
+    .note{border:0}
+    .note__hd{display:none}
+    .note__bd{padding:0}
+    .game{break-inside:avoid}
+    figure.hero img{max-height:3.2in;width:auto;margin:0 auto}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead__in">
+    <div class="wordmark">Slippery<em>&middot;</em>Major</div>
+    <nav>
+      <a href="#note" aria-current="page">LM Note</a>
+      <a href="#scoreboard">Scoreboard</a>
+      <a href="#standings">Standings</a>
+      <a href="https://sleeper.com/leagues/1389739314136502272/league">Sleeper</a>
+    </nav>
+  </div>
+</header>
+
+<div class="leaguebar">
+  <div class="leaguebar__in">
+    <h1>The Slippery Nipple League</h1>
+    <p>2026 Season <span class="sep">&middot;</span> Week 1 <span class="sep">&middot;</span> Sunday, September 13 <span class="sep">&middot;</span> Year 23</p>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- ======== LEFT RAIL ======== -->
+  <aside class="rail rail--left" id="scoreboard">
+    <section class="mod">
+      <div class="mod__hd"><h2>Scores</h2></div>
+      <div class="mod__bd">
+        <ul class="sb">
+          <li>
+            <div class="sb__row"><span class="sb__name">Saquon Deez Nuts</span><span class="sb__pts sb__pts--zero">0.00</span></div>
+            <div class="sb__row sb__lead"><span class="sb__name">The McDouble</span><span class="sb__pts">11.30</span></div>
+          </li>
+          <li>
+            <div class="sb__row"><span class="sb__name">The Embalmers</span><span class="sb__pts">27.00</span></div>
+            <div class="sb__row sb__lead"><span class="sb__name">BBnbubbalove</span><span class="sb__pts">33.30</span></div>
+          </li>
+          <li>
+            <div class="sb__row sb__lead"><span class="sb__name">PracticeMakesPaper</span><span class="sb__pts">19.90</span></div>
+            <div class="sb__row"><span class="sb__name">Art The Clown</span><span class="sb__pts">10.90</span></div>
+          </li>
+          <li>
+            <div class="sb__row sb__lead"><span class="sb__name">Deerstalker</span><span class="sb__pts">14.82</span></div>
+            <div class="sb__row"><span class="sb__name">Last in line</span><span class="sb__pts sb__pts--zero">0.00</span></div>
+          </li>
+          <li>
+            <div class="sb__row"><span class="sb__name">Jannik Sinner</span><span class="sb__pts sb__pts--zero">0.00</span></div>
+            <div class="sb__row sb__lead"><span class="sb__name">DDT</span><span class="sb__pts">4.10</span></div>
+          </li>
+          <li>
+            <div class="sb__row sb__lead"><span class="sb__name">BLITZKRIEG</span><span class="sb__pts">13.90</span></div>
+            <div class="sb__row"><span class="sb__name">Aloka</span><span class="sb__pts sb__pts--zero">0.00</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="mod__ft"><a href="https://sleeper.com/leagues/1389739314136502272/league">Full scoreboard &raquo;</a></div>
+    </section>
+
+    <section class="mod">
+      <div class="mod__hd"><h2>Quick Links</h2></div>
+      <div class="mod__bd">
+        <ul class="ql">
+          <li><a href="https://sleeper.com/leagues/1389739314136502272/league">League Home</a></li>
+          <li><a href="https://sleeper.com/leagues/1389739314136502272/league">Rules &amp; Scoring</a></li>
+          <li><a href="https://sleeper.com/leagues/1389739314136502272/league">Standings</a></li>
+          <li><a href="https://sleeper.com/leagues/1389739314136502272/league">Transactions</a></li>
+        </ul>
+      </div>
+    </section>
+  </aside>
+
+  <!-- ======== THE NOTE ======== -->
+  <main class="note" id="note">
+    <div class="note__hd">
+      <span>League Manager's Note</span>
+      <a href="#note">Edit LM Note</a>
+    </div>
+
+    <div class="note__bd">
+      <h2 class="hed">Slippery Nipple League, Week One: Face First into the Mechanism</h2>
+      <p class="byline">Posted by the Commissioner &middot; Sunday, September 13, 2026</p>
+
+      <figure class="hero">
+        <img src="https://media1.tenor.com/m/pLLVNNOJEMYAAAAd/trampoline-fail.gif"
+             alt="A backyard trampoline attempt that does not go according to plan."
+             width="498" height="449" loading="eager">
+      </figure>
+
+      <div class="prose">
+        <p>Sometimes in life, it behooves you to take inventory and look in the mirror at what time exposes in all of us. Some of us are green with envy. Others are red with passion, but today I want to focus on one thing time exposes in all of us: the things we take for granted.</p>
+
+        <p>We talk a lot of shit about how ready we are for the season to be over, but without fail 3-6 weeks into the cold turkey coffin we call the offseason, one truth remains: anyone who says thoughts haven't begun creeping in about how much they miss fantasy &ndash; is either lying or isn't being honest with themselves.</p>
+
+        <p>Let me be clear, though: seven of anything is both a lot to hand over and a lot to take, depending on your perspective. Andrew might disagree, but from my perspective &ndash; it's great to be back, and seven months is just way too long to wait.</p>
+
+        <p>But that's what being grateful is for &ndash; knowing how to savor the moment and appreciate what's in front of us. And right here, right now.. the truth is: we get to do this weekend thirteen more times when all is said and done and we have the whole season in front of us to savor.</p>
+
+        <p>Jon Kramer (Saw IV) once said,</p>
+
+        <blockquote class="saw">
+          <p>&ldquo;Cherish your life is the concept that this whole clinic was built on. Cherish your life. Your life.&rdquo;</p>
+          <cite>&mdash; Jon Kramer, Saw IV</cite>
+        </blockquote>
+
+        <p>And I'm grateful to have built this clinic of misfits we call Slippery Major along with Andrew, for all of us.</p>
+
+        <p>Actually, for me the reward is twofold: both in the commissioner's chair writing this nonsense, and in the proverbial saddle as an FF owner, where a beautiful thing happens:</p>
+
+        <p>.. every September, the situation we created for ourselves on draft day lives on and reminds us each day that the next five months is our oyster to screw up or ride to glory as we see fit.</p>
+
+        <p>Our.. red-rocket to crash or to crash into, if you will. Or, if the national anthems today have you feeling patriotic today&hellip; our rockets red glare, so to speak.</p>
+
+        <p>Now before I get into the predictions, I know what you're thinking.</p>
+
+        <p>No, not that &ndash; the other thing:</p>
+
+        <p>&hellip; what are the odds Jason wrote this himself &ndash; and how long will it be before he subcontracts the weekly write up to AI?</p>
+
+        <p>&hellip; how many weeks of this will Daniel have to sit through before Jason does the whole Jeff bit, again?</p>
+
+        <p>Well, if that's the thought you're having I'm sorry to disappoint you but the answer is never.</p>
+
+        <p>Not on the Jeff thing &ndash; don't worry, that's coming.</p>
+
+        <p>It's just that I refuse to use AI to write this &ndash; not because I don't want to make my life easier, but because the mechanism actually sucks at recreating something that can't be replicated: me. &ndash; and the feeling I get when reading and writing these.</p>
+
+        <p>For me, this is just fun.</p>
+
+        <p>And no matter who the creator is &ndash; Cameron, myself, or anyone else who wants to get face first into the business the way a McNulty would (I've enjoyed every second of Cameron's write up the last few years, btw!) &ndash; AI would likely do an equally shitty job at recreating you (yes, you) too because, well &ndash; sometimes the mechanism just isn't all it's cracked up to be.</p>
+
+        <p>Slippery Major, and the mechanism we created on the other hand?</p>
+
+        <p>It's a thing of beauty &ndash; it simply reveals what you have cultivated, and what is standing right in front of it.</p>
+
+        <p>It leaves no one else to blame but you for the decisions you've made.</p>
+
+        <p>And the chat is your mechanism to complain and bitch and moan about what you see fit, and there's nothing China or a flock camera or your nosey neighbor can do about it.</p>
+
+        <p>Because &ndash; in the end, the mechanism known as Slippery Major reveals all.</p>
+
+        <p>Last season it revealed that Daniel was once again serious about kicking ass and taking names in our league, like he used to. <strong>(Congrats to Daniel, by the way)</strong></p>
+
+        <p>And by all measures, he looks to have done the same thing again here in 2026.</p>
+
+        <p>So without further adieu, sit back and warm the seat up on that porcelain mechanism you're on &ndash; or perhaps kiss your wife/gf/pet laying next to you, and then turn over for five minutes while I go to town on this crimson rocket of a week one slate the fantasy gods have blessed us with here in Slippery Major.</p>
+      </div>
+
+      <div class="eq" aria-hidden="true">==================================================================</div>
+
+      <div class="predhd">
+        <h3>Commissioner's Predictions</h3>
+        <p>The new, old Commissioner &middot; Week One &middot; Season Record: 0-0 (.000)</p>
+      </div>
+
+      <div class="games">
+
+        <!-- 1 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Matt <span class="rec">(0-0)</span><span class="vs">vs.</span>Zack <span class="rec">(0-0)</span></h4>
+            <span class="game__tag">Matt</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>Saquon Deez Nuts</b><i>Matt &middot; proj 115.51</i>
+              <div class="live live--zero">0.00</div>
+              <div class="bar"><i style="width:64%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>64% &middot; 36%</div>
+            <div class="side side--r">
+              <b>The McDouble</b><i>Zack &middot; proj 99.86</i>
+              <div class="live">11.30</div>
+              <div class="bar bar--r"><i style="width:36%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>is it time to sound the alarm on Christian McCaffrey already? It's a little premature, I think &ndash; but there's no denying there will be a market for his understudy this week where waivers are concerned. And I'm not sure who came first on the Zack/Matt stack (or who to refer to as the understudy of the other), but what better way to start the season off than having our Slippery twins face off against one another in Week One? Speaking of stacks, Matt is definitely taking an interesting approach to players on the same team, this season. I tend to give Matt the benefit of the doubt because his record over the last few years speaks for itself, but having two sets of players (Hurts/Barkley and Metcalf/Boswell) could pay dividends in the form of a fantastic four appearance in the next few weeks &ndash; OR, it could also have him on the phone/hotline seeking to diversify his portfolio, as well.</p>
+            <p>Zack's portfolio in our league is very impressive &ndash; in the regular season, at least. But the fact remains, one Bowman is going to emerge from this one victorious and the other will have some things to figure out going into Week 2, so who is it going to be?</p>
+            <p>Well, Zack has a same-team stack of his own with Harrison/McBride. Without a reliable QB to get the ball to both, and with the weather potentially being on and off rainy in Philly, I tend to think this will be a pretty low scoring battle &ndash; of which <strong>I think Matt emerges victorious</strong> &ndash; but I think Sleeper has Zack's chances way too low. <strong>This one will be close.</strong></p>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Andrew <span class="rec">(0-0)</span><span class="vs">vs.</span>Mark <span class="rec">(0-0)</span></h4>
+            <span class="game__tag">Andrew</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>The Embalmers</b><i>Andrew &middot; proj 112.47</i>
+              <div class="live">27.00</div>
+              <div class="bar"><i style="width:70%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>70% &middot; 30%</div>
+            <div class="side side--r">
+              <b>BBnbubbalove</b><i>Mark &middot; proj 92.98</i>
+              <div class="live">33.30</div>
+              <div class="bar bar--r"><i style="width:30%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>Stafford really put Mark behind the eight ball here, on TNF in a really uncharacteristic and unexpected way: he just looked &ldquo;off&rdquo; to be honest &ndash; for whatever reason. Perhaps San Fran's defense is much improved, or perhaps he's getting the first returns in on what father time always does but either way QB problems are not something Mark usually has to deal with &ndash; so it will be interesting to see how he navigates this issue, should it persist. And for Andrew, it's just another day in paradise, another 70% edge going into a game in Slippery Major.</p>
+            <p>But the part about Andrew's good fortune the other night that Andrew is most grateful for is that he might not have to suffer any real consequences for not having Brock Bowers this week. Mayer will give you 60-70% of what Bowers produces, and the team apparently agrees apparent in the fact that they extended his contract to the tune of 45 million dollars. YIKES.</p>
+            <p>So, will Andrew get away with this one, or does Mark have something waiting for Larry like I do? I think Mark has a great team, and JSN proved his worth and then some on TNF &ndash; but ultimately the 4 points by Stafford will prove too much to overcome when this week is all said and done. <strong>Andrew rolls in this one about the same amount that Stafford should have scored, and once again starts the season 1-0 in Slippery Major.</strong></p>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Walter <span class="rec">(0-0)</span><span class="vs">vs.</span>Caiden <span class="rec">(0-0)</span></h4>
+            <span class="game__tag game__tag--upset">Caiden &middot; Upset</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>Team PracticeMakesPaper</b><i>Walter &middot; proj 107.42</i>
+              <div class="live">19.90</div>
+              <div class="bar"><i style="width:66%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>66% &middot; 34%</div>
+            <div class="side side--r">
+              <b>Art The Clown</b><i>Caiden &middot; proj 90.97</i>
+              <div class="live">10.90</div>
+              <div class="bar bar--r"><i style="width:34%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>this is such a fun match up from a number of perspectives, but the one I tend to gravitate towards is that each one has something to prove, today. Caiden is an absolute STUD when it comes to fantasy football knowledge. No, seriously &ndash; he is. Anyone who plays with him other leagues has seen what he is capable of. The only problem is: his luck in Slippery Major so far is as bad as his luck is good in IDV (another awesome league some of us play in). Even with a completely clean slate and all new players, his luck seemed to have picked up where it left off with Price/AJ Brown combining for just 10 points between the two, in spite of the new half ppr format.</p>
+            <p>And there's no getting around it: 10 points between two players drafted in the first rounds is not what he had in mind, on draft day &ndash; but alas, the fantasy gods do what they do and there is absolutely nothing he could have done about Darnold and AJ Brown going out for the game. Both of these developments directly impacted his box score/point total on TNF.</p>
+            <p>But thankfully, that's the beauty of Sundays. Ultimately, we have many more bullets on the chamber to make good on the upside which could propel us past the meager start we are sometimes left to deal with courtesy of the various unfortunate ways that TNF can play out. (Lord knows I've had more than my fair share of that over the years).</p>
+            <p>So, what's this match up looking like.. upon further review?</p>
+            <p>Well, not sure what he's going with at gametime, but the potential up/down swing of playing JD5 and having Philly's DST is his version of a trick I often use to get back into games in which I'm down substantially: play the defense of the QB my opponent has, and hope to ride both ends of it when and if things go in my favor.</p>
+            <p>I think most outcomes have JD5 having an average day against Philly, but it's much greater than a nonzero change that Caiden finds a way back into this game with this particular path.</p>
+            <p>.. and that's not his only path to victory. Aubrey being projected for less than 7 points is an insult to software engineers and kickers, everywhere. Even Walter has to know that isn't going to stick. And although he has an EXCELLENT TEAM im going to go out on a limb on this one, and go against Sleeper's predicted outcome for the first time this season: <strong>Caiden comes all the way back in this one, defeats all odds, and bests Walter to start 1-0 and go over .500 in Slippery Major for the first time in league history.</strong></p>
+            <p>Walter has a kick-ass team, though, so no worries!</p>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Cameron <span class="rec">(0-0)</span><span class="vs">vs.</span>Scott <span class="rec">(0-0)</span></h4>
+            <span class="game__tag">Scott</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>Deerstalker</b><i>Cameron &middot; proj 91.39</i>
+              <div class="live">14.82</div>
+              <div class="bar"><i style="width:33%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>33% &middot; 67%</div>
+            <div class="side side--r">
+              <b>Last in line</b><i>Scott &middot; proj 109.68</i>
+              <div class="live live--zero">0.00</div>
+              <div class="bar bar--r"><i style="width:67%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>WNF/TNF was not kind to those who adhere to &ldquo;draft good players on good teams&rdquo;, and Cameron was no exception this week. If you'd have told me before the Rams/49ers game that the Rams DST would not register a single sack, I'd have brought you into a padded room to get fit for a straight-jacket &ndash; but, that's what happened. Furthermore, Drake Maye decided to turn back the clock in the worst way possible &ndash; to how we expected him to look if it were his first NFL regular season football game: skittish, nervous, indecisive. Basically, the opposite of the traits he showed throughout the regular season and playoffs, last year &ndash; his breakout season.</p>
+            <p>And of course, Scott did what he always does: draft a nice variety of very skilled, dependable veterans, not taking too many risks or drafting too many players who work against one another in most setups. And while my software LOVES his team, I'm not sure he would be the favorite that he is in this one if Cameron's team didn't decide to hand it to him in such a gift-giving fashion.</p>
+            <p>But, we can only play out the string with the cards as they have been dealt &ndash; and the truth is the Cameron will have a bit of a hill to climb to get back into this thing. Having said that, he has THE FUCKING SQUAD to do it with. In my yearly predictions, in this year's packet, I predicted Cameron and David would make the SB. I'll hold on saying who will win that one, but even though I think Cameron will be the one standing when the smoke clears, ultimately <strong>this week I think he falls just short, and his team lets Scott's off the hook a bit, allowing Scott to grab this one and start 1-0, yet again in Slippery Major.</strong></p>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Jason <span class="rec">(0-0)</span><span class="vs">vs.</span>David <span class="rec">(0-0)</span></h4>
+            <span class="game__tag">David</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>Jannik Sinner</b><i>Jason &middot; proj 93.62</i>
+              <div class="live live--zero">0.00</div>
+              <div class="bar"><i style="width:39%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>39% &middot; 61%</div>
+            <div class="side side--r">
+              <b>DDT</b><i>David &middot; proj 105.68</i>
+              <div class="live">4.10</div>
+              <div class="bar bar--r"><i style="width:61%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>yes &ndash; it's true, David. And I'm not sure if you heard or saw, but at the draft and in the packet, I predicted you and Cameron to be the last two teams standing and our Superbowl participants for 2026 in Slippery Major.</p>
+            <p>And soo.. I would be soooo disappointed if you made me look like a fool and do something other than defeat me this week, ya know?</p>
+            <p>Either way, it's all gravy baby. I'm either on my way to being a genius and launching you to a refreshing (1-0) start in the league that has been very unlucky for you over the years &ndash; or, I'm wrong and although I am very sorry to have caused your (0-1) start, at least the blind squirrel caught a nut for once, right?</p>
+            <p>But don't worry too much, there aren't many nuts to go around if Kyle Pitts doesn't have a day. If Caiden's path to victory like I said above involves one single thing (Eagles DST having a day), then my version of that is similar: Kyle Pitts must have a day.</p>
+            <p>If Kyle pitts scores 15 or more, this one is far from over. If anything else plays out, however, I'm taking smart money, and the likely result: <strong>THE WOLF ROLLS in this one, taking out the commish, and catapults his way to a well deserved (1-0) start!</strong></p>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Daniel <span class="rec">(0-0)</span><span class="vs">vs.</span>Binh <span class="rec">(0-0)</span></h4>
+            <span class="game__tag game__tag--upset">Binh &middot; Upset</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>BLITZKRIEG</b><i>Daniel &middot; proj 117.41</i>
+              <div class="live">13.90</div>
+              <div class="bar"><i style="width:60%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>60% &middot; 40%</div>
+            <div class="side side--r">
+              <b>Aloka</b><i>Binh &middot; proj 105.80</i>
+              <div class="live live--zero">0.00</div>
+              <div class="bar bar--r"><i style="width:40%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>by my count, this is the match up of the week &ndash; not just because Daniel is our defending champion, but because my software also loves Binh's team and thinks he will be one of the final four when all is said and done. The only problem? It thinks Daniel will once again be #1 &ndash; which would this time surprise absolutely no one. Binh has had many really good seasons in Slippery Major but the one consistent thing is that his teams are either really good, or they tend to struggle all season.</p>
+            <p>I suppose you could say the same for Daniel, over the course of the last decade or so &ndash; but he seems re-dedicated to his craft.</p>
+            <p>This looks like a high scoring game when you first glance at their players, but for some reason I think this one is going to play out a little bit more conservatively than some people might think. Obviously both Daniel and Binh have amazing teams that will likely be in the playoffs, but I think this week will come down to James Cook and what kind of effect his fantasy day has on the Houston DST.</p>
+            <p>Houston is going for its third straight home win over Buffalo, after 23-20 in 2024 and 23-19 last season, and most of that was built by their defense. Most of that was as a result of them putting a lid on Josh Allen. They've had no such luck with James Cook over the same stretch and I think that's will be the key to victory for Binh in this banger of a season opener. <strong>Binh takes it, and Jason goes against the Sleeper mechanism twice in the same write-up :)</strong></p>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="signoff">
+        <p>Good luck to everyone in Week One, and let's hope for <strong>NO MORE INJURIES THIS WEEK!</strong></p>
+        <p class="ps">PS. Savor the moment, and take time to smell the roses. This day only comes once a year!</p>
+        <p class="sig">-Commish</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ======== RIGHT RAIL ======== -->
+  <aside class="rail rail--right">
+    <section class="mod">
+      <div class="mod__hd"><h2>Commissioner's Picks</h2></div>
+      <div class="mod__bd">
+        <ul class="picks">
+          <li><span class="w">Matt</span><span class="u">over Zack</span></li>
+          <li><span class="w">Andrew</span><span class="u">over Mark</span></li>
+          <li><span class="w">Caiden <span class="flag">Upset</span></span><span class="u">over Walter</span></li>
+          <li><span class="w">Scott</span><span class="u">over Cameron</span></li>
+          <li><span class="w">David</span><span class="u">over Jason</span></li>
+          <li><span class="w">Binh <span class="flag">Upset</span></span><span class="u">over Daniel</span></li>
+        </ul>
+      </div>
+      <div class="mod__ft">Two against the Sleeper mechanism this week.</div>
+    </section>
+
+    <section class="mod" id="standings">
+      <div class="mod__hd"><h2>Standings</h2></div>
+      <div class="mod__bd">
+        <table class="stand">
+          <caption>Everybody starts here. Week 1, 2026.</caption>
+          <thead>
+            <tr><th scope="col">Team</th><th scope="col">W</th><th scope="col">L</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="owner">Daniel</span> <span class="team">BLITZKRIEG</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Andrew</span> <span class="team">The Embalmers</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Scott</span> <span class="team">Last in line</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">David</span> <span class="team">DDT</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Cameron</span> <span class="team">Deerstalker</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Matt</span> <span class="team">Saquon Deez Nuts</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Binh</span> <span class="team">Aloka</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Zack</span> <span class="team">The McDouble</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Walter</span> <span class="team">PracticeMakesPaper</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Mark</span> <span class="team">BBnbubbalove</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Jason</span> <span class="team">Jannik Sinner</span></td><td>0</td><td>0</td></tr>
+            <tr><td><span class="owner">Caiden</span> <span class="team">Art The Clown</span></td><td>0</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mod__ft"><a href="https://sleeper.com/leagues/1389739314136502272/league">Full standings &raquo;</a></div>
+    </section>
+
+    <section class="mod">
+      <div class="mod__hd"><h2>Around the League</h2></div>
+      <div class="mod__bd">
+        <ul class="news">
+          <li><b>New this year: half-PPR.</b><span>Standard scoring retired after 23 seasons. Every roster reads differently than the one you drafted.</span></li>
+          <li><b>Bowers out for Andrew.</b><span>Meniscus trim Tuesday. Mayer starts in Las Vegas.</span></li>
+          <li><b>Tua ruled out in Atlanta.</b><span>Right oblique. Cooper Rush starts, which reshapes the Bijan and Pitts picks.</span></li>
+          <li><b>Stribling carted off.</b><span>Ankle, ruled out. A donut from a starter in a game his team won by twenty.</span></li>
+          <li><b>Storms in Jacksonville and Kansas City.</b><span>88 degrees and a 34% storm chance at EverBank; south winds Monday night at Arrowhead.</span></li>
+        </ul>
+      </div>
+    </section>
+  </aside>
+</div>
+
+<footer class="page">
+  The Slippery Nipple League &middot; Established 2003 &middot; Year 23 &middot; Written in blood, hosted elsewhere.
+</footer>
+
+</body>
+</html>
