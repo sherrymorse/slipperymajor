@@ -76,7 +76,7 @@
   /* ---------- grid ---------- */
   .shell{
     width:var(--shell);margin:0 auto;padding:20px;
-    display:grid;grid-template-columns:232px minmax(0,1fr) 304px;gap:20px;align-items:start;
+    display:grid;grid-template-columns:222px minmax(0,1fr) 348px;gap:20px;align-items:start;
   }
 
   /* ---------- modules ---------- */
@@ -86,6 +86,7 @@
     padding:11px 14px;border-bottom:1px solid var(--rule);
     display:flex;justify-content:space-between;align-items:center;gap:10px;
   }
+  .rail--right .mod__hd{justify-content:center;text-align:center}
   .mod__hd h2{margin:0;font-family:var(--display);font-size:13.5px;font-weight:700;color:var(--ink);letter-spacing:-.005em}
   .mod__hd a{font-size:11.5px}
   .mod__bd{padding:12px 14px}
@@ -261,7 +262,7 @@
 
   /* ---------- responsive ---------- */
   @media (max-width:1180px){
-    .shell{grid-template-columns:minmax(0,1fr) 292px}
+    .shell{grid-template-columns:minmax(0,1fr) 330px}
     .rail--left{display:none}
   }
   @media (max-width:900px){
@@ -294,6 +295,61 @@
     figure.hero img{max-height:3.2in;width:auto;margin:0 auto}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+
+  /* ---------- playoff picture ---------- */
+  .seedline{font-size:13px;color:var(--body);line-height:1.5;margin:0 0 14px}
+  .pgroup{margin-bottom:14px}
+  .pgroup:last-child{margin-bottom:0}
+  .bkt-hd{
+    font-family:var(--display);font-size:9.5px;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--meta);margin:0 0 7px;
+  }
+  .pod{
+    border:1px solid var(--rule);border-radius:5px;overflow:hidden;
+    background:#fff;margin-bottom:8px;
+  }
+  .pod:last-child{margin-bottom:0}
+  .pod--bye{border-left:3px solid var(--red)}
+  .t{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:9px;align-items:center;padding:8px 10px}
+  .t + .t{border-top:1px solid var(--hair)}
+  .sd{
+    width:20px;height:20px;border-radius:4px;background:#eceef1;color:#5c6069;
+    font-family:var(--display);font-size:10.5px;font-weight:700;
+    display:grid;place-items:center;
+  }
+  .pod--bye .sd{background:var(--red);color:#fff}
+  .nm2{min-width:0}
+  .nm2 b{
+    display:block;font-family:var(--display);font-size:13.5px;font-weight:700;
+    color:var(--ink);line-height:1.25;white-space:nowrap;
+  }
+  .nm2 i{
+    display:block;font-style:normal;font-size:11px;color:var(--meta);line-height:1.3;
+    margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .pt{
+    text-align:right;font-family:var(--display);font-size:13px;font-weight:700;
+    color:var(--ink);white-space:nowrap;
+  }
+  .pt em{display:block;font-style:normal;font-size:10.5px;font-weight:500;color:var(--meta);margin-top:1px}
+  .vsrule{
+    display:flex;align-items:center;gap:8px;padding:0 10px;
+    font-family:var(--display);font-size:8.5px;font-weight:700;letter-spacing:.12em;
+    color:#b9bcc2;background:#fafbfc;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  }
+  .vsrule::before,.vsrule::after{content:"";flex:1;height:1px;background:var(--hair)}
+
+  .chase{list-style:none;margin:0;padding:0;counter-reset:ch 6}
+  .chase li{
+    counter-increment:ch;display:grid;grid-template-columns:20px minmax(0,1fr) auto;
+    gap:9px;align-items:center;padding:8px 2px;border-bottom:1px solid var(--hair);
+  }
+  .chase li:last-child{border-bottom:0}
+  .chase li::before{
+    content:counter(ch) ".";font-family:var(--display);font-size:11.5px;
+    font-weight:700;color:var(--meta);text-align:right;
+  }
 
   /* ---------- MMQB additions ---------- */
   .hed{text-align:center}
@@ -473,6 +529,52 @@
         </table>
       </div>
       <div class="mod__ft"><a href="https://sleeper.com/leagues/1389739314136502272/league">Full standings &raquo;</a></div>
+    </section>
+
+    <section class="mod" id="playoffs">
+      <div class="mod__hd"><h2>If the playoffs started today&hellip;</h2></div>
+      <div class="mod__bd">
+        <p class="seedline">The match ups would be as follows&hellip;</p>
+
+        <div class="pgroup">
+          <p class="bkt-hd">Round one matchups</p>
+          <div class="pod">
+            <div class="t"><span class="sd">3</span><span class="nm2"><b>David</b><i>DDT</i></span><span class="pt">149.30<em>1-0</em></span></div>
+            <div class="vsrule">VS</div>
+            <div class="t"><span class="sd">6</span><span class="nm2"><b>Daniel</b><i>BLITZKRIEG</i></span><span class="pt">103.86<em>1-0</em></span></div>
+          </div>
+          <div class="pod">
+            <div class="t"><span class="sd">4</span><span class="nm2"><b>Scott</b><i>Last in line</i></span><span class="pt">138.54<em>1-0</em></span></div>
+            <div class="vsrule">VS</div>
+            <div class="t"><span class="sd">5</span><span class="nm2"><b>Matt</b><i>Saquon Deez Nuts</i></span><span class="pt">126.12<em>1-0</em></span></div>
+          </div>
+        </div>
+
+        <div class="pgroup">
+          <p class="bkt-hd">First-round byes</p>
+          <div class="pod pod--bye">
+            <div class="t"><span class="sd">1</span><span class="nm2"><b>Walter</b><i>Team PracticeMakesPaper</i></span><span class="pt">150.80<em>1-0</em></span></div>
+            <div class="t"><span class="sd">2</span><span class="nm2"><b>Andrew</b><i>The Embalmers</i></span><span class="pt">150.66<em>1-0</em></span></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="mod__ft">Seeded by record, points scored as the tiebreaker.</div>
+    </section>
+
+    <section class="mod" id="chasing">
+      <div class="mod__hd"><h2>Breathing down their necks</h2></div>
+      <div class="mod__bd">
+        <ol class="chase">
+            <li><span class="nm2"><b>Zack</b><i>The McDouble</i></span><span class="pt">108.50<em>0-1</em></span></li>
+            <li><span class="nm2"><b>Mark</b><i>BBnbubbalove</i></span><span class="pt">104.30<em>0-1</em></span></li>
+            <li><span class="nm2"><b>Jason</b><i>Living Splendor</i></span><span class="pt">93.56<em>0-1</em></span></li>
+            <li><span class="nm2"><b>Binh</b><i>Aloka</i></span><span class="pt">91.46<em>0-1</em></span></li>
+            <li><span class="nm2"><b>Caiden</b><i>Art The Clown</i></span><span class="pt">89.76<em>0-1</em></span></li>
+            <li><span class="nm2"><b>Cameron</b><i>Deerstalker</i></span><span class="pt">84.32<em>0-1</em></span></li>
+        </ol>
+      </div>
+      <div class="mod__ft">Seeds 7 through 12. Zack outscored the 6 seed by 4.64 and is still on the outside.</div>
     </section>
 
     <section class="mod">
