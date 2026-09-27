@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slippery Nipple League (Major) 2026, Week Three: Separation Sunday</title>
+<meta name="description" content="Slippery Major 2026, Week Three League Manager's Note — Commissioner's Predictions. 9-3, .750 so far in 2026.">
+<meta property="og:title" content="Slippery Nipple League (Major) 2026, Week Three: Separation Sunday">
+<meta property="og:description" content="The Commissioner's Predictions. 9-3, .750 so far in 2026.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff;
+    --page:#eef0f2;
+    --rule:#e4e6e9;
+    --hair:#f1f2f4;
+    --ink:#15171a;
+    --body:#45474b;
+    --meta:#797c82;
+    --red:#c8102e;
+    --deep:#12141a;
+    --link:#0a5fa5;
+    --shell:min(1480px,100%);
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --display:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --lift:0 1px 2px rgba(18,20,26,.04),0 1px 10px rgba(18,20,26,.035);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--page);
+    color:var(--body);
+    font:400 15.5px/1.66 var(--sans);
+    -webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+  }
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  a:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:3px}
+
+  /* ---------- masthead ---------- */
+  .masthead{background:var(--deep);border-bottom:3px solid var(--red)}
+  .masthead__in{
+    width:var(--shell);margin:0 auto;padding:0 20px;
+    height:52px;display:flex;align-items:center;gap:24px;
+  }
+  .wordmark{
+    font-family:var(--display);font-weight:800;font-size:16px;
+    letter-spacing:.17em;color:#fff;text-transform:uppercase;
+    border-right:1px solid #2f323a;padding-right:22px;line-height:1;
+  }
+  .wordmark em{color:var(--red);font-style:normal}
+  .masthead nav{display:flex;gap:22px;font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+  .masthead nav a{color:#b9bcc3}
+  .masthead nav a:hover{color:#fff;text-decoration:none}
+  .masthead nav a[aria-current]{color:#fff;box-shadow:inset 0 -3px 0 var(--red);padding-bottom:16px}
+
+  /* ---------- league bar ---------- */
+  .leaguebar{background:#fff;border-bottom:1px solid var(--rule)}
+  .leaguebar__in{
+    width:var(--shell);margin:0 auto;padding:15px 20px;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;
+  }
+  .leaguebar h1{
+    margin:0;font-family:var(--display);font-size:22px;font-weight:700;
+    color:var(--ink);letter-spacing:-.018em;
+  }
+  .leaguebar p{margin:0;font-size:12.5px;color:var(--meta)}
+  .leaguebar .sep{color:#c5c6c8}
+
+  /* ---------- grid ---------- */
+  .shell{
+    width:var(--shell);margin:0 auto;padding:18px 20px;
+    display:grid;grid-template-columns:230px minmax(0,1fr) 300px;gap:18px;align-items:start;
+  }
+
+  /* ---------- modules ---------- */
+  .mod{background:var(--paper);border:1px solid var(--rule);border-radius:3px;margin-bottom:18px;box-shadow:var(--lift)}
+  .mod:last-child{margin-bottom:0}
+  .mod__hd{
+    padding:10px 13px;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+  }
+  .mod__hd h2{margin:0;font-family:var(--display);font-size:13.5px;font-weight:700;color:var(--ink);letter-spacing:-.005em}
+  .mod__hd a{font-size:11.5px}
+  .mod__bd{padding:11px 13px}
+  .mod__ft{padding:9px 13px;border-top:1px solid var(--rule);font-size:12px}
+
+  /* scoreboard rail */
+  .sb{list-style:none;margin:0;padding:0}
+  .sb li{padding:9px 0;border-bottom:1px dotted #dcdddf}
+  .sb li:last-child{border-bottom:0;padding-bottom:2px}
+  .sb li:first-child{padding-top:2px}
+  .sb__row{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;line-height:1.4}
+  .sb__row+.sb__row{margin-top:3px}
+  .sb__name{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sb__pts{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;flex:none}
+  .sb__pts--zero{color:#a9aaad;font-weight:400}
+  .sb__lead .sb__name{font-weight:700}
+
+  /* quick links */
+  .ql{list-style:none;margin:0;padding:0;font-size:13px}
+  .ql li{padding:7px 0;border-bottom:1px solid var(--hair)}
+  .ql li:last-child{border-bottom:0}
+
+  /* standings */
+  table.stand{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.stand caption{
+    caption-side:top;text-align:left;padding:0 0 7px;
+    font-size:11px;color:var(--meta);letter-spacing:.04em;
+  }
+  table.stand th{
+    text-align:right;font-size:10.5px;color:var(--meta);font-weight:600;
+    padding:0 0 6px;border-bottom:1px solid var(--rule);letter-spacing:.04em;
+  }
+  table.stand th:first-child{text-align:left}
+  table.stand td{padding:6px 0;border-bottom:1px solid var(--hair);text-align:right;font-variant-numeric:tabular-nums}
+  table.stand td:first-child{text-align:left;color:var(--ink)}
+  table.stand tr:last-child td{border-bottom:0}
+  .owner{font-weight:700}
+  .team{color:var(--meta);font-weight:400}
+
+  /* news rail */
+  .news{list-style:none;margin:0;padding:0;font-size:13px}
+  .news li{padding:10px 0;border-bottom:1px solid var(--hair);line-height:1.45}
+  .news li:last-child{border-bottom:0;padding-bottom:0}
+  .news b{color:var(--ink)}
+  .news span{display:block;color:var(--meta);font-size:11.5px;margin-top:2px}
+
+  /* picks rail */
+  .picks{list-style:none;margin:0;padding:0;font-size:13px}
+  .picks li{
+    display:flex;justify-content:space-between;gap:8px;
+    padding:7px 0;border-bottom:1px solid var(--hair);
+  }
+  .picks li:last-child{border-bottom:0}
+  .picks .w{font-weight:700;color:var(--ink)}
+  .picks .u{color:var(--meta)}
+  .flag{
+    display:inline-block;margin-left:6px;padding:1px 5px;border-radius:2px;
+    background:#fdeaed;color:var(--red);font-size:10px;font-weight:700;letter-spacing:.05em;
+  }
+
+  /* ---------- the note ---------- */
+  .note{background:var(--paper);border:1px solid var(--rule);border-radius:3px;box-shadow:var(--lift)}
+  .note__hd{
+    padding:10px 22px;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .note__hd span{font-size:13px;color:var(--ink);font-weight:700;font-family:var(--display)}
+  .note__hd a{font-size:11.5px}
+  .note__bd{padding:26px 46px 40px}
+
+  .note__bd h2.hed{
+    margin:0 0 18px;font-family:var(--display);
+    font-size:31px;line-height:1.2;font-weight:700;color:var(--ink);
+    letter-spacing:-.021em;
+  }
+  .byline{
+    margin:-10px 0 20px;padding-bottom:16px;border-bottom:1px solid var(--rule);
+    font-size:12px;color:var(--meta);
+  }
+
+  figure.hero{margin:0 0 24px}
+  figure.hero img{display:block;width:100%;height:auto;border:1px solid var(--rule);background:#f7f7f8}
+  figure.hero figcaption{margin-top:7px;font-size:11.5px;color:var(--meta);text-align:center}
+
+  .prose{max-width:66ch;margin:0 auto;text-align:center}
+  .prose p{margin:0 0 17px}
+  .prose p:last-child{margin-bottom:0}
+  .prose strong{color:#2f3032;font-weight:700}
+  .prose em{font-style:italic}
+
+  blockquote.saw{
+    margin:24px auto;padding:16px 20px;max-width:52ch;
+    border-left:3px solid var(--red);background:#fafafb;
+    text-align:left;font-size:15px;color:#3c3d3f;
+  }
+  blockquote.saw p{margin:0 0 8px}
+  blockquote.saw cite{display:block;font-style:normal;font-size:12px;color:var(--meta)}
+
+  .eq{
+    margin:26px 0;color:#c2c3c5;font-size:13px;text-align:center;
+    overflow:hidden;white-space:nowrap;user-select:none;letter-spacing:.06em;
+  }
+
+  /* predictions header */
+  .predhd{
+    margin:34px 0 6px;padding:16px 0;text-align:center;
+    border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
+  }
+  .predhd h3{
+    margin:0;font-family:var(--display);font-size:16px;font-weight:700;color:var(--ink);
+    letter-spacing:.1em;text-transform:uppercase;
+  }
+  .predhd p{margin:6px 0 0;font-size:13px;color:var(--meta)}
+
+  /* matchups */
+  .games{margin:28px 0 0}
+  .game{border-top:1px solid var(--rule);padding:22px 0 24px}
+  .game:first-child{border-top:0;padding-top:4px}
+
+  .game__hd{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 16px;margin-bottom:4px}
+  .game__hd h4{
+    margin:0;font-family:var(--display);font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.012em;
+  }
+  .game__hd h4 .rec{font-weight:400;color:var(--meta);font-size:15px}
+  .game__hd h4 .vs{color:#b9babc;font-weight:400;padding:0 3px}
+  .game__tag{
+    font-family:var(--display);
+    font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+    color:#fff;background:var(--ink);padding:3px 8px;border-radius:2px;flex:none;
+  }
+  .game__tag--upset{background:var(--red)}
+
+  .teams{
+    display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;
+    margin:12px 0 16px;padding:12px 14px;background:#fafafb;border:1px solid #eeeff0;border-radius:3px;
+    font-size:12.5px;
+  }
+  .side{min-width:0}
+  .side--r{text-align:right}
+  .side b{display:block;color:var(--ink);font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .side i{font-style:normal;color:var(--meta);display:block;margin-top:1px}
+  .live{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1;margin-top:5px}
+  .live--zero{color:#b3b4b6}
+  .odds{flex:none;text-align:center;color:var(--meta);font-size:10.5px;letter-spacing:.06em;padding:0 4px}
+  .odds b{display:block;color:#9a9b9e;font-size:12px;margin-bottom:5px;font-weight:700}
+  .bar{height:4px;border-radius:2px;background:#dfe0e2;overflow:hidden;margin-top:8px}
+  .bar i{display:block;height:100%;background:var(--ink)}
+  .bar--r i{margin-left:auto}
+
+  .game .copy{max-width:70ch;margin:0;text-align:left}
+  .game .copy p{margin:0 0 14px}
+  .game .copy p:last-child{margin-bottom:0}
+  .game .copy strong{color:var(--ink)}
+
+  .signoff{
+    margin:40px auto 0;max-width:66ch;text-align:center;
+    padding-top:22px;border-top:1px solid var(--rule);
+  }
+  .signoff p{margin:0 0 12px}
+  .signoff .ps{font-size:13.5px;color:var(--meta)}
+  .signoff .sig{font-weight:700;color:var(--ink);font-size:15px}
+
+  footer.page{
+    width:var(--shell);margin:0 auto;padding:22px 20px 40px;
+    font-size:11.5px;color:var(--meta);text-align:center;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1180px){
+    .shell{grid-template-columns:minmax(0,1fr) 290px}
+    .rail--left{display:none}
+  }
+  @media (max-width:900px){
+    .shell{grid-template-columns:minmax(0,1fr);padding:12px}
+    .rail--right{order:2}
+    .note{order:1}
+    .note__bd{padding:20px 18px 30px}
+    .note__bd h2.hed{font-size:25px}
+    .prose{max-width:none;text-align:left}
+    blockquote.saw{margin-left:0;margin-right:0}
+    .masthead nav{display:none}
+    .teams{grid-template-columns:1fr;gap:12px;text-align:left}
+    .side--r{text-align:left}
+    .odds{text-align:left;padding:0}
+    .bar--r i{margin-left:0}
+    .game__hd h4{font-size:17px}
+    .eq{font-size:11px}
+  }
+
+  @media print{
+    body{background:#fff;font-size:10.5pt}
+    .masthead,.leaguebar,.rail--left,.rail--right,footer.page{display:none!important}
+    .shell{display:block;width:auto;padding:0}
+    .note{border:0;box-shadow:none}
+    .note__hd{display:none}
+    .note__bd{padding:0}
+    .game{break-inside:avoid}
+    figure.hero img{max-height:3.2in;width:auto;margin:0 auto}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead__in">
+    <div class="wordmark">Slippery<em>&middot;</em>Major</div>
+    <nav>
+      <a href="#note" aria-current="page">LM Note</a>
+      <a href="#scoreboard">Scoreboard</a>
+      <a href="#standings">Standings</a>
+      <a href="https://sleeper.com/leagues/1389739314136502272/league">Sleeper</a>
+    </nav>
+  </div>
+</header>
+
+<div class="leaguebar">
+  <div class="leaguebar__in">
+    <h1>The Slippery Nipple League</h1>
+    <p>2026 Season <span class="sep">&middot;</span> Week 3 <span class="sep">&middot;</span> Sunday, September 27 <span class="sep">&middot;</span> Year 23</p>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- ======== LEFT RAIL ======== -->
+  <aside class="rail rail--left" id="scoreboard">
+    <section class="mod">
+      <div class="mod__hd"><h2>Scores</h2></div>
+      <div class="mod__bd">
+        <ul class="sb">
+          <li>
+            <div class="sb__row"><span class="sb__name">Last in line</span><span class="sb__pts sb__pts--zero">--</span></div>
+            <div class="sb__row"><span class="sb__name">BBnbubbalove</span><span class="sb__pts sb__pts--zero">--</span></div>
+          </li>
+          <li>
+            <div class="sb__row"><span class="sb__name">BLITZKRIEG</span><span class="sb__pts sb__pts--zero">--</span></div>
+            <div class="sb__row"><span class="sb__name">The McDouble</span><span class="sb__pts sb__pts--zero">--</span></div>
+          </li>
+          <li>
+            <div class="sb__row"><span class="sb__name">Saquon Deez Nuts</span><span class="sb__pts sb__pts--zero">--</span></div>
+            <div class="sb__row"><span class="sb__name">Art The Clown</span><span class="sb__pts sb__pts--zero">--</span></div>
+          </li>
+          <li>
+            <div class="sb__row"><span class="sb__name">Jannik Sinner</span><span class="sb__pts sb__pts--zero">--</span></div>
+            <div class="sb__row"><span class="sb__name">Deerstalker</span><span class="sb__pts sb__pts--zero">--</span></div>
+          </li>
+          <li>
+            <div class="sb__row"><span class="sb__name">DDT</span><span class="sb__pts sb__pts--zero">--</span></div>
+            <div class="sb__row"><span class="sb__name">Aloka</span><span class="sb__pts sb__pts--zero">--</span></div>
+          </li>
+          <li>
+            <div class="sb__row"><span class="sb__name">The Embalmers</span><span class="sb__pts sb__pts--zero">--</span></div>
+            <div class="sb__row"><span class="sb__name">PracticeMakesPaper</span><span class="sb__pts sb__pts--zero">--</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="mod__ft"><a href="https://sleeper.com/leagues/1389739314136502272/league">Full scoreboard &raquo;</a></div>
+    </section>
+
+    <section class="mod">
+      <div class="mod__hd"><h2>Quick Links</h2></div>
+      <div class="mod__bd">
+        <ul class="ql">
+          <li><a href="https://sleeper.com/leagues/1389739314136502272/league">League Home</a></li>
+          <li><a href="https://sleeper.com/leagues/1389739314136502272/league">Rules &amp; Scoring</a></li>
+          <li><a href="https://sleeper.com/leagues/1389739314136502272/league">Standings</a></li>
+          <li><a href="https://sleeper.com/leagues/1389739314136502272/league">Transactions</a></li>
+          <li><a href="slippery-major-2026-week01.html">Week One Note</a></li>
+          <li><a href="slippery-major-2026-week02.html">Week Two Note</a></li>
+        </ul>
+      </div>
+    </section>
+  </aside>
+
+  <!-- ======== THE NOTE ======== -->
+  <main class="note" id="note">
+    <div class="note__hd">
+      <span>League Manager's Note</span>
+      <a href="#note">Edit LM Note</a>
+    </div>
+
+    <div class="note__bd">
+      <h2 class="hed">Slippery Nipple League (Major) 2026, Week Three: Separation Sunday</h2>
+      <p class="byline">Posted by the Commissioner &middot; Sunday, September 27, 2026</p>
+
+      <figure class="hero">
+        <img src="week3.gif"
+             alt="Week Three opener."
+             loading="eager">
+      </figure>
+
+      <div class="prose">
+        <p>There is a point in every fantasy season when the standings stop being a crowded snapshot and start revealing the gap between teams. Some of us are glad to see this, others are not &ndash; and others are simply lying to themselves.</p>
+
+        <p>For the first few weeks, everyone is still close enough to preserve the illusion. I&rsquo;m not quite talking about Jesus burned into toast, or anything &ndash; but there is a certain beauty to the way things unfold such that we can thank the man above for the gifts he has bestowed upon us.</p>
+
+        <p>In the time before now, a bad team can call itself unlucky, a good team can call itself unproven, and the entire league can remain compressed into one tight little mass of possibility.</p>
+
+        <p><strong>Then comes Separation Sunday.</strong></p>
+
+        <p>This is the first Sunday when the space between teams becomes meaningful enough to change how the standings are read and the relative strength of each team is perceived. The distance starts to matter. What was once merely a cluster begins to take on a more suggestive shape.</p>
+
+        <p>Philosophers have always been fascinated by separation because distance reveals things proximity can hide. Once enough space opens between two positions, the eye naturally begins measuring it. Once the arrangement becomes pronounced enough, pretending not to notice it starts requiring more effort than simply acknowledging what is plainly there.</p>
+
+        <p>That is where we are now.</p>
+
+        <p>By Monday, some teams will have created room for themselves at the top. Others will remain compressed in the middle, still close enough that one good week can change the entire arrangement.</p>
+
+        <p>And a few may discover that what looked like a small opening in September has become considerably wider than anticipated. Nothing is settled yet. Positions change. People rise, people fall, and those currently beneath others may eventually find themselves on top.</p>
+
+        <p>But this is the first week when the hopium/copium starts to wear off, and what&rsquo;s left in it&rsquo;s wake is the need for action &ndash; and not excuses, to turn things around.<br>(or, keep them rolling if you&rsquo;re Daniel and David)</p>
+
+        <p><strong>Welcome to Separation Sunday.</strong></p>
+
+        <p>&hellip;on to the commish&rsquo;s weekly predictions:</p>
+      </div>
+
+      <div class="eq" aria-hidden="true">==================================================================</div>
+
+      <div class="predhd">
+        <h3>Commissioner's Predictions</h3>
+        <p>Week Three &middot; Season Record: 9-3 (.750)</p>
+      </div>
+
+      <div class="games">
+
+        <!-- 1 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Scott <span class="rec">(2-0)</span><span class="vs">vs.</span>Mark <span class="rec">(1-1)</span></h4>
+            <span class="game__tag">Scott</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>Last in line</b><i>Scott &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar"><i style="width:50%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>-- &middot; --</div>
+            <div class="side side--r">
+              <b>BBnbubbalove</b><i>Mark &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar bar--r"><i style="width:50%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>it&rsquo;s crazy how quickly things change. Mark and I have similar team builds (albeit in a different league, on my end) but a couple of week&rsquo;s ago if you&rsquo;d have asked me about Mark&rsquo;s team I would said they look unstoppable. Two weeks later, and some both direct and indirect injuries have taken a little bit off of the top of his team that was once overflowing with strength. And through it all, as he often does, Scott just keeps humming along. It&rsquo;s utter folly to chalk it up as being random though &ndash; and I&rsquo;ll go a step further. Scott actually has a more similar team to the one I mentioned above (my own), except that I&rsquo;m 0-2 in that league and he&rsquo;s 2-0 here. He possesses a lethal combination of dependable vets, extremely high ceiling production and young up and coming talent that makes it seem like his floor is 100 every week &ndash; and the sky is the limit.</p>
+            <p>Mark seems to have a roster in today that gives him a real shot at knocking off Scott, which is no small feat. Kincaid could conceivably end the year as a top 3 tight end and because he got him for free, if that is indeed the case, the setbacks he&rsquo;s taken the last couple of weeks might not be so bad in the end. But today isn&rsquo;t the end, and things in NY have to become more stable before Mark&rsquo;s team gets back where it was. It will happen, but..</p>
+            <p>..today it won&rsquo;t be enough &ndash; just yet. <strong>Scott takes it, and keeps rolling.. again&hellip;</strong></p>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Daniel <span class="rec">(2-0)</span><span class="vs">vs.</span>Zack <span class="rec">(0-2)</span></h4>
+            <span class="game__tag">Daniel</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>BLITZKRIEG</b><i>Daniel &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar"><i style="width:50%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>-- &middot; --</div>
+            <div class="side side--r">
+              <b>The McDouble</b><i>Zack &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar bar--r"><i style="width:50%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>man, this one&rsquo;s tough because I felt like Zack was going to rebound this week, but Marshawn Lloyd sure put a damper on what was shaping up to be one of the marquee match ups of the week.</p>
+            <p>Daniel is taking no prisoners and has put himself back in the debate, alongside Andrew, for Slippery Major GOAT. For now it looks like Andrew still has a little bit of an edge, but if Daniel keeps this thing rolling, and somehow wins his second Slippery Superbowl in a row &ndash; for the second time since he joined the league back in the late 00s &ndash; the debate would be hotter than ever.</p>
+            <p>Don&rsquo;t worry Zack, I feel your pain. You and I have both been in a number of Slippery Semi&rsquo;s and Slippery Finals and each of us has fallen short in ways that Daniel and Andrew cannot relate to. Speaking of &ndash; now I have to check &ndash; are Andrew and Daniel, who have ELEVEN Slippery Championships between the two of them, 11&ndash;0 in their total/respective Superbowl Games? I can&rsquo;t recall either one of them losing a SB, so perhaps they can chime in on the HOTLINE or Sleeper chat and let me know.</p>
+            <p>But today, <strong>it&rsquo;s another win for Daniel</strong> &ndash; with Zack having a gap a little too wide to close, in the wake of what GB did on TNF.</p>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Matt <span class="rec">(1-1)</span><span class="vs">vs.</span>Caiden <span class="rec">(0-2)</span></h4>
+            <span class="game__tag game__tag--upset">Caiden &middot; Upset</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>Saquon Deez Nuts</b><i>Matt &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar"><i style="width:38%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>38% &middot; 62%</div>
+            <div class="side side--r">
+              <b>Art The Clown</b><i>Caiden &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar bar--r"><i style="width:62%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>Young Cokeheads&hellip;</p>
+            <blockquote class="saw">
+              <p>I want to play a game. You entered today at 0-2, already learning what happens when confidence survives longer than results. Across from you sits Saquon Deez Nuts, armed with Hurts, Barkley and Jefferson. You, however, have something more dangerous: a lead&hellip; and the chance I gave you when his players bottomed out on TNF, while yours thrived and is grateful to be alive.</p>
+              <p>Golden has already given you 18.5. Now Bryce Young must survive Cleveland, Achane must produce, Rice and Coker must turn opportunity into points, and Aaron Jones must answer Jefferson. Build enough distance today, because Monday night belongs to Hurts and Barkley.</p>
+              <p>The projections say 62%. But projections have never saved anyone. By Monday night, you will show me whether you are grateful to be alive at 1-2&hellip; or whether you squandered this opportunity, and the trap door closes shut at 0-3. The clock begins at noon. Good luck.</p>
+            </blockquote>
+            <p>One last time: Caiden learns from his mistakes, and survives this test. <strong>Caiden upsets Matt, who has a fine team.</strong></p>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Jason <span class="rec">(1-1)</span><span class="vs">vs.</span>Cameron <span class="rec">(0-2)</span></h4>
+            <span class="game__tag">Jason</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>Jannik Sinner</b><i>Jason &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar"><i style="width:50%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>-- &middot; --</div>
+            <div class="side side--r">
+              <b>Deerstalker</b><i>Cameron &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar bar--r"><i style="width:50%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>there&rsquo;s a tendency to look at a 35 point lead and think thoughts that resemble something like comfort &ndash; but Cameron and I have had the type of games over the years that even 80-90 point deficits aren&rsquo;t safe.</p>
+            <p>Cameron has personally dealt me some of the worst fantasy losses of my career, and I think I can say with some confidence that I have done the same to him, in return. That&rsquo;s sort of the beauty of our rivalry. In spite of a couple of streaks here and there on both sides, it&rsquo;s pretty close to dead even in my book. Neither one of us ever beats the other more than a couple of times in a row &ndash; but the real story is the way each of us have won and lost against each other &ndash; it&rsquo;s truly the stuff of legends.</p>
+            <p>So do I think it will happen again? Will Cameron close a 35 point deficit that can only be dealt by a small handful of running backs in the league who have that type of ceiling? Well, I think he took a big step and played it smart by starting a WR who could deal double negative damage to the projections &ndash; should he score against the DST I&rsquo;m starting (Bills DST - QJ). Things like this are why Cameron always has a puncher&rsquo;s chance against such a catastrophic start.</p>
+            <p>.. and while I do think Cameron WILL make this highly uncomfortable for me, I think he will fall a couple of points short &ndash; but fortunately for him he will find the kind of scoring output that will continue for a number of weeks, now &ndash; en route to a winning streak. It will just have to wait until next week to begin! <strong>Commish takes it.</strong></p>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>David <span class="rec">(2-0)</span><span class="vs">vs.</span>Binh <span class="rec">(1-1)</span></h4>
+            <span class="game__tag">David</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>DDT</b><i>David &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar"><i style="width:50%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>-- &middot; --</div>
+            <div class="side side--r">
+              <b>Aloka</b><i>Binh &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar bar--r"><i style="width:50%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>David&rsquo;s start this season has been nothing short of remarkable, but he&rsquo;s going to be put to the test today against Binh &ndash; in my opinion. Binh has a couple of Chargers set to play this week that were supposed to be league winners and have a lot to prove to both everyone and themselves.</p>
+            <p>They are going to have to blow for blow with the Bills in what could be a high scoring affair, so it&rsquo;s hard not to like both of them this week &ndash; especially on a week where David is looking more like, David &ndash; and less like Goliath.</p>
+            <p>And what so what to make of all of it? Well, I&rsquo;m pretty sure this one is going to be very close and we will need to see how Devante Adams does in primetime in order to declare a winner in this one.</p>
+            <p>Fortunately for David &ndash; it looks like there&rsquo;s only one way that can go, and while I think he will be down 20+ headed into the Rams game vs. the Broncos on SNF &ndash; I think Adams has another vintage performance left in him and <strong>it will be enough for David to secure a very hard fought and CLOSE victory.</strong></p>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="game">
+          <div class="game__hd">
+            <h4>Andrew <span class="rec">(1-1)</span><span class="vs">vs.</span>Walter <span class="rec">(1-1)</span></h4>
+            <span class="game__tag">Walter</span>
+          </div>
+          <div class="teams">
+            <div class="side">
+              <b>The Embalmers</b><i>Andrew &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar"><i style="width:50%"></i></div>
+            </div>
+            <div class="odds"><b>VS</b>-- &middot; --</div>
+            <div class="side side--r">
+              <b>PracticeMakesPaper</b><i>Walter &middot; proj --</i>
+              <div class="live live--zero">--</div>
+              <div class="bar bar--r"><i style="width:50%"></i></div>
+            </div>
+          </div>
+          <div class="copy">
+            <p>Walter got decimated last week on a big stage &ndash; but that doesn&rsquo;t mean the stage is any smaller this week. Walter, full disclosure: Andrew always has very sneaky teams, year in and year out. He&rsquo;s won either five or six Superbowls in Slippery Major (I lost actual count) &ndash; and I think in all but one of those championships, his team was nothing special after the first couple of weeks. I&rsquo;ve seen this man start (1-3) and run the table all the way through the playoffs and into the SB, so looks can definitely be deceiving, depending on when you come across the Slippery GOAT.</p>
+            <p>Both of you have a weird combination of things working for you this week, as well as things working against you. In any case, all eyes will be on the Saints vs. Raiders to establish a favorite heading into SNF, where Andrew will close this one out with a solo performance by Kyren Williams.</p>
+            <p>So, will Walter have built up enough of a lead by then such that Kyren / Andrew can&rsquo;t close it? NO. But will his lead by enough to survive a very close call this time? I think so. <strong>Walter survives Kyren&rsquo;s encore, and wins by less than 6 points.</strong></p>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="signoff">
+        <p>Good luck to everyone in Week Three, and let&rsquo;s hope for <strong>NO MORE INJURIES THIS WEEK!</strong></p>
+        <p class="sig">-Commish</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ======== RIGHT RAIL ======== -->
+  <aside class="rail rail--right">
+    <section class="mod">
+      <div class="mod__hd"><h2>Commissioner's Picks</h2></div>
+      <div class="mod__bd">
+        <ul class="picks">
+          <li><span class="w">Scott</span><span class="u">over Mark</span></li>
+          <li><span class="w">Daniel</span><span class="u">over Zack</span></li>
+          <li><span class="w">Caiden <span class="flag">Upset</span></span><span class="u">over Matt</span></li>
+          <li><span class="w">Jason</span><span class="u">over Cameron</span></li>
+          <li><span class="w">David</span><span class="u">over Binh</span></li>
+          <li><span class="w">Walter</span><span class="u">over Andrew</span></li>
+        </ul>
+      </div>
+      <div class="mod__ft">Season to date: 9-3 (.750).</div>
+    </section>
+
+    <section class="mod" id="standings">
+      <div class="mod__hd"><h2>Standings</h2></div>
+      <div class="mod__bd">
+        <table class="stand">
+          <caption>After Week 2, 2026.</caption>
+          <thead>
+            <tr><th scope="col">Team</th><th scope="col">W</th><th scope="col">L</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="owner">Scott</span> <span class="team">Last in line</span></td><td>2</td><td>0</td></tr>
+            <tr><td><span class="owner">Daniel</span> <span class="team">BLITZKRIEG</span></td><td>2</td><td>0</td></tr>
+            <tr><td><span class="owner">David</span> <span class="team">DDT</span></td><td>2</td><td>0</td></tr>
+            <tr><td><span class="owner">Andrew</span> <span class="team">The Embalmers</span></td><td>1</td><td>1</td></tr>
+            <tr><td><span class="owner">Matt</span> <span class="team">Saquon Deez Nuts</span></td><td>1</td><td>1</td></tr>
+            <tr><td><span class="owner">Walter</span> <span class="team">PracticeMakesPaper</span></td><td>1</td><td>1</td></tr>
+            <tr><td><span class="owner">Jason</span> <span class="team">Jannik Sinner</span></td><td>1</td><td>1</td></tr>
+            <tr><td><span class="owner">Mark</span> <span class="team">BBnbubbalove</span></td><td>1</td><td>1</td></tr>
+            <tr><td><span class="owner">Binh</span> <span class="team">Aloka</span></td><td>1</td><td>1</td></tr>
+            <tr><td><span class="owner">Zack</span> <span class="team">The McDouble</span></td><td>0</td><td>2</td></tr>
+            <tr><td><span class="owner">Cameron</span> <span class="team">Deerstalker</span></td><td>0</td><td>2</td></tr>
+            <tr><td><span class="owner">Caiden</span> <span class="team">Art The Clown</span></td><td>0</td><td>2</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mod__ft"><a href="https://sleeper.com/leagues/1389739314136502272/league">Full standings &raquo;</a></div>
+    </section>
+
+    <section class="mod">
+      <div class="mod__hd"><h2>Around the League</h2></div>
+      <div class="mod__bd">
+        <ul class="news">
+          <li><b>Three teams still unbeaten.</b><span>Scott, Daniel and David all enter Separation Sunday at 2-0.</span></li>
+          <li><b>Green Bay dents Zack on Thursday.</b><span>Marshawn Lloyd leaves Zack with a gap a little too wide to close against Daniel.</span></li>
+          <li><b>Golden already banked 18.5.</b><span>Caiden opens with a TNF lead on Matt, but Monday night belongs to Hurts and Barkley.</span></li>
+          <li><b>Commish up 35 on Cameron.</b><span>In this rivalry, even 80-90 point deficits aren&rsquo;t safe.</span></li>
+          <li><b>Sunday night decides two games.</b><span>Davante Adams for David, Kyren Williams for Andrew.</span></li>
+        </ul>
+      </div>
+    </section>
+  </aside>
+</div>
+
+<footer class="page">
+  The Slippery Nipple League &middot; Established 2003 &middot; Year 23 &middot; Written in blood, hosted elsewhere.
+</footer>
+
+</body>
+</html>
