@@ -398,6 +398,13 @@
   .bigbkt .pt{font-size:16px}
   .bigbkt .pt em{font-size:12.5px}
   .bigbkt .vsrule{font-size:12px;margin:6px 0}
+  .bigbkt .pt.bigrec{font-size:19px;font-weight:800;color:var(--ink);letter-spacing:.02em}
+  .tid{margin:40px auto 6px;max-width:620px}
+  .tid__list{list-style:none;margin:18px 0 0;padding:0;counter-reset:td}
+  .tid__list li{position:relative;padding:14px 0 14px 46px;border-bottom:1px solid var(--hair);text-align:left;line-height:1.55}
+  .tid__list li:last-child{border-bottom:0}
+  .tid__list li::before{counter-increment:td;content:counter(td);position:absolute;left:0;top:14px;width:30px;height:30px;border-radius:3px;background:var(--ink);color:#fff;font:800 14px/30px var(--display);text-align:center}
+  .tid__list b{display:block;color:var(--ink);font-family:var(--display);font-size:16px;margin-bottom:3px}
   .bigbkt__ft{text-align:center;font-size:12px;color:var(--meta);margin-top:6px}
   @media (max-width:900px){
     .bigbkt .nm2 b{font-size:16px}
@@ -509,28 +516,45 @@
 
       <section class="bigbkt" id="playoffs">
         <div class="bigbkt__hd">
-          <h3>If the season ended today&hellip;</h3>
-          <p>The matchups would be as follows</p>
+          <h3>If the playoffs started today..</h3>
+          <p>the match ups would be as follows:</p>
         </div>
 
         <p class="bkt-hd">Round one matchups</p>
         <div class="pod">
-          <div class="t"><span class="sd">3</span><span class="nm2"><b>Andrew</b><i>The Embalmers</i></span><span class="pt">939.64<em>5-3</em></span></div>
+          <div class="t"><span class="sd">3</span><span class="nm2"><b>Andrew</b><i>The Embalmers</i></span><span class="pt bigrec">(5-3)</span></div>
           <div class="vsrule">VS</div>
-          <div class="t"><span class="sd">6</span><span class="nm2"><b>David</b><i>DDT</i></span><span class="pt">930.08<em>4-4</em></span></div>
+          <div class="t"><span class="sd">6</span><span class="nm2"><b>David</b><i>DDT</i></span><span class="pt bigrec">(4-4)</span></div>
         </div>
         <div class="pod">
-          <div class="t"><span class="sd">4</span><span class="nm2"><b>Binh</b><i>DTT Don&rsquo;t Trade Team</i></span><span class="pt">931.32<em>5-3</em></span></div>
+          <div class="t"><span class="sd">4</span><span class="nm2"><b>Binh</b><i>DTT Don&rsquo;t Trade Team</i></span><span class="pt bigrec">(5-3)</span></div>
           <div class="vsrule">VS</div>
-          <div class="t"><span class="sd">5</span><span class="nm2"><b>Jason</b><i>Jannik Sinner</i></span><span class="pt">863.32<em>5-3</em></span></div>
+          <div class="t"><span class="sd">5</span><span class="nm2"><b>Jason</b><i>Jannik Sinner</i></span><span class="pt bigrec">(5-3)</span></div>
         </div>
 
         <p class="bkt-hd">First-round byes</p>
         <div class="pod pod--bye">
-          <div class="t"><span class="sd">1</span><span class="nm2"><b>Walter</b><i>Team PracticeMakesPaper</i></span><span class="pt">1018.54<em>6-2</em></span></div>
-          <div class="t"><span class="sd">2</span><span class="nm2"><b>Daniel</b><i>BLITZKRIEG</i></span><span class="pt">911.02<em>6-2</em></span></div>
+          <div class="t"><span class="sd">1</span><span class="nm2"><b>Walter</b><i>Team PracticeMakesPaper</i></span><span class="pt bigrec">(6-2)</span></div>
+          <div class="t"><span class="sd">2</span><span class="nm2"><b>Daniel</b><i>BLITZKRIEG</i></span><span class="pt bigrec">(6-2)</span></div>
         </div>
         <p class="bigbkt__ft">Seeded by record, points scored as the tiebreaker.</p>
+      </section>
+
+      <section class="tid" id="tidbits">
+        <div class="bigbkt__hd">
+          <h3>Tidbits Worth Chewing On</h3>
+          <p>Eight weeks in, by the numbers</p>
+        </div>
+        <ol class="tid__list">
+          <li><b>Walter is the real deal &ndash; and the unluckiest 6-2 team you&rsquo;ll ever see.</b>His 73-15 all-play record (how he&rsquo;d fare playing all 11 teams every week) is the best in the league by 17 games. He&rsquo;s posted the week&rsquo;s high score four times in eight weeks &ndash; and he&rsquo;s also had more points scored against him (985.80) than anyone in the league.</li>
+          <li><b>Daniel&rsquo;s schedule has been made of pillows.</b>Only 717.32 points scored against him all season &ndash; the fewest in the league, and 268.48 fewer than Walter. His all-play record is 49-39, just 5th best. After a 6-0 start, he&rsquo;s now dropped two straight.</li>
+          <li><b>Caiden is living right.</b>He&rsquo;s 4-4 and in the 8th seed with 744.90 points &ndash; 11th in the league. His 20-68 all-play record is dead last. Only Daniel has had fewer points scored against him (733.40). Whatever he&rsquo;s doing to the fantasy gods, it&rsquo;s working.</li>
+          <li><b>Zack is the hottest team in the league not named Walter &ndash; and the road only gets harder.</b>Four straight wins and a 51-37 all-play record (4th best). But his remaining six opponents have 27 combined wins, tied with Matt for the toughest schedule left &ndash; including Walter, Binh and Daniel.</li>
+          <li><b>Binh has the softest road home.</b>2nd-best all-play record in the league (56-32), and his remaining opponents average just 104.5 points per game &ndash; the lowest of any team&rsquo;s remaining schedule.</li>
+          <li><b>Week 9 is a playoff preview, literally.</b>Andrew vs. David is the exact 3-vs-6 round-one matchup from the bracket above &ndash; and the commish draws 7th-seeded Zack. Other dates to circle: Daniel vs. Walter (1 vs. 2) in Week 11, Daniel vs. Binh in Week 12, David vs. Walter in Week 13, and Andrew vs. Walter and David vs. Binh in Week 14.</li>
+          <li><b>Scott&rsquo;s slide is real.</b>After a (2-0) start, he&rsquo;s dropped six straight &ndash; and posted the lowest score of the week in both Weeks 6 and 8. The good news: his remaining opponents have just 21 combined wins, tied with Andrew for the easiest left by record.</li>
+          <li><b>Cameron has been as unlucky as Daniel has been lucky.</b>His 953.64 points against are the second-most in the league, behind only Walter &ndash; which is how a team with a 29-59 all-play record went eight weeks before finding its first win.</li>
+        </ol>
       </section>
 
       <div class="signoff">
