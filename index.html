@@ -30,14 +30,14 @@
   --up:#25B26B; --down:#E5484D;
 }
 [data-tone="light"]{
-  --glow-base:#ffffff; --glow-amt:50%; --amb-amt:62%; --grain:.28;
+  --glow-base:#ffffff; --glow-amt:50%; --amb-amt:72%; --grain:.28;
   --hl:rgba(255,255,255,.8); --sh:70 50 30;
   --shadow-1:0 1px 2px rgb(var(--sh) / .05), 0 12px 28px -16px rgb(var(--sh) / .30);
   --shadow-2:0 2px 4px rgb(var(--sh) / .06), 0 26px 50px -24px rgb(var(--sh) / .42);
   --glass:color-mix(in oklab, var(--surface) 95%, transparent);
 }
 [data-tone="dark"]{
-  --glow-base:#05060b; --glow-amt:62%; --amb-amt:48%; --grain:.45;
+  --glow-base:#05060b; --glow-amt:62%; --amb-amt:60%; --grain:.45;
   --hl:rgba(255,255,255,.07); --sh:0 0 0;
   --shadow-1:0 1px 2px rgb(0 0 0 / .3), 0 14px 30px -16px rgb(0 0 0 / .65);
   --shadow-2:0 2px 4px rgb(0 0 0 / .35), 0 28px 56px -24px rgb(0 0 0 / .8);
@@ -98,13 +98,14 @@ body{
 }
 .ambient{
   --amb1:var(--t-amb1); --amb2:var(--t-amb2); --amb3:var(--t-amb3);
-  transition:--amb1 1.4s var(--ease), --amb2 1.4s var(--ease), --amb3 1.4s var(--ease);
   position:fixed;inset:-12%;z-index:0;pointer-events:none;
+  opacity:0;transition:opacity 1.3s var(--ease);will-change:opacity;
   background:
     radial-gradient(38% 46% at 12% 8%,  color-mix(in oklab, var(--amb1) var(--amb-amt), transparent), transparent 72%),
     radial-gradient(42% 50% at 92% 12%, color-mix(in oklab, var(--amb2) var(--amb-amt), transparent), transparent 72%),
     radial-gradient(50% 55% at 55% 102%, color-mix(in oklab, var(--amb3) var(--amb-amt), transparent), transparent 72%);
 }
+.ambient.on{opacity:1}
 button{font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 input,textarea{font-family:inherit}
 ::selection{background:color-mix(in oklab, var(--accent) 40%, transparent);color:var(--ink)}
@@ -299,7 +300,7 @@ input,textarea{font-family:inherit}
 }
 .rank-row.has-art{grid-template-columns:80px 62px 1fr auto}
 .rank-row:hover{box-shadow:var(--shadow-2)}
-.rank-row > :not(.row-bg):not(.row-scrim){position:relative;z-index:1}
+.rank-row > :not(.row-bg):not(.row-scrim):not(.bloom){position:relative;z-index:1}
 
 /* podium */
 .rank-row.is-top{min-height:164px;padding:16px 16px 16px 0;border-radius:var(--r-xl);
@@ -429,8 +430,6 @@ input,textarea{font-family:inherit}
 .rank-row.look-scene .delta.down,.rank-row.look-bold .delta.down{background:var(--down);color:#fff}
 @keyframes deltaFade{0%{opacity:0;transform:translateY(5px) scale(.9)}10%{opacity:1;transform:none}78%{opacity:1}100%{opacity:0}}
 
-.rank-row.flash{animation:flash 1.4s var(--ease)}
-@keyframes flash{0%,45%{box-shadow:0 0 0 3px var(--accent), var(--shadow-2)}100%{box-shadow:inset 0 1px 0 var(--hl), var(--shadow-1)}}
 .rank-list.finding .rank-row:not(.find-hit){opacity:.2;filter:saturate(.4)}
 .rank-list.finding .rank-row.find-hit{box-shadow:0 0 0 2px var(--accent), var(--shadow-2)}
 
@@ -756,6 +755,131 @@ body.drag-active .add-wrap,body.drag-active .list-toolbar{opacity:.15;pointer-ev
 .compact .crown{display:none}
 .compact .rank-it{margin-top:4px}
 
+/* ============================================================
+   v6 — immersion layer
+   ============================================================ */
+/* no double-tap-zoom delay or swallowed taps on any control */
+button,.rank-num,.deck-card,.q-pick{touch-action:manipulation}
+
+/* color bloom: when artwork lands or an entry gets ranked, its colors flood out from the poster */
+.bloom{
+  position:absolute;z-index:0;pointer-events:none;left:110px;top:50%;width:560px;height:560px;margin:-280px 0 0 -280px;border-radius:50%;
+  background:radial-gradient(circle, color-mix(in oklab, var(--p1) 75%, transparent) 0%, color-mix(in oklab, var(--p2) 40%, transparent) 38%, transparent 68%);
+  animation:bloom 1.5s cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes bloom{from{transform:scale(.08);opacity:.95}to{transform:scale(2.4);opacity:0}}
+.rank-row.flash{animation:flash 1.4s var(--ease)}
+@keyframes flash{0%,45%{box-shadow:0 0 0 3px color-mix(in oklab, var(--p1) 70%, var(--accent)), 0 24px 60px -20px color-mix(in oklab, var(--p1) 80%, transparent)}100%{box-shadow:var(--shadow-1)}}
+
+/* unranked entries wait in muted color; ranking them brings the color in */
+.rank-row.unranked{--glow-amt:26%}
+.rank-row.unranked .row-art img{filter:saturate(.55)}
+
+/* home cards glow with their #1 */
+.list-card{background:radial-gradient(90% 70% at 100% 0%, color-mix(in oklab, var(--lc, transparent) 24%, transparent), transparent 70%), var(--surface)}
+
+/* ⋯ sheet takes the entry's colors */
+.modal.sheet{background:radial-gradient(110% 55% at 0% 0%, color-mix(in oklab, var(--c1, transparent) 32%, transparent), transparent 62%), var(--surface)}
+
+/* head-to-head: the room lights up in both contenders' colors */
+@property --v1 { syntax: '<color>'; inherits: false; initial-value: transparent; }
+@property --v2 { syntax: '<color>'; inherits: false; initial-value: transparent; }
+.modal-veil.duel-veil{
+  background:
+    radial-gradient(60% 85% at 16% 50%, color-mix(in oklab, var(--v1) 62%, transparent), transparent 72%),
+    radial-gradient(60% 85% at 84% 50%, color-mix(in oklab, var(--v2) 62%, transparent), transparent 72%),
+    color-mix(in oklab, var(--bg) 45%, rgba(0,0,0,.5));
+  transition:--v1 .6s var(--ease), --v2 .6s var(--ease);
+}
+
+/* swipe deck: each card glows in its own poster's colors, and so does the space behind it */
+@property --dc1 { syntax: '<color>'; inherits: false; initial-value: transparent; }
+@property --dc2 { syntax: '<color>'; inherits: false; initial-value: transparent; }
+.deck{transition:--dc1 .9s var(--ease), --dc2 .9s var(--ease)}
+.deck::before{
+  content:"";position:absolute;inset:-30px 0 -10px;z-index:0;pointer-events:none;
+  background:radial-gradient(50% 70% at 30% 50%, color-mix(in oklab, var(--dc1) 55%, transparent), transparent 70%),
+             radial-gradient(45% 60% at 75% 45%, color-mix(in oklab, var(--dc2) 34%, transparent), transparent 70%);
+}
+.deck-card.lit{
+  background:
+    radial-gradient(70% 150% at 0% 50%, color-mix(in oklab, var(--c1) var(--glow-amt), var(--glow-base)), transparent 70%),
+    radial-gradient(60% 130% at 100% 0%, color-mix(in oklab, var(--c2) var(--glow-amt), var(--glow-base)), transparent 72%),
+    color-mix(in oklab, var(--c1) 12%, var(--surface));
+}
+.deck-card.lit .deck-art{box-shadow:0 22px 40px -16px color-mix(in oklab, var(--c1) 85%, #000)}
+.deck-card.lit .deck-why{color:var(--ink);background:color-mix(in oklab, var(--c1) 30%, transparent)}
+.disc-flash{font-size:12.5px;font-weight:700;color:var(--up);display:inline-flex;align-items:center;gap:6px;
+  animation:dflash 2.4s var(--ease) forwards}
+.disc-flash svg{width:14px;height:14px}
+@keyframes dflash{0%{opacity:0;transform:translateY(4px)}12%{opacity:1;transform:none}75%{opacity:1}100%{opacity:0}}
+
+/* compact notices at the top — never on top of anything you're tapping */
+.toast{
+  top:calc(14px + env(safe-area-inset-top));bottom:auto;
+  transform:translateX(-50%) translateY(-12px) scale(.96);
+  padding:8px 10px 8px 16px;font-size:12.5px;gap:10px;
+}
+.toast:not(.has-act){padding-right:16px}
+.toast.show.has-act{pointer-events:none}
+.toast-act{pointer-events:auto;padding:5px 11px;font-size:12px}
+
+/* ============================================================
+   Quick matchup — a surprise head-to-head that re-sorts the list
+   ============================================================ */
+@property --qa { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --qb { syntax: '<color>'; inherits: true; initial-value: transparent; }
+.quick{
+  position:fixed;left:50%;bottom:calc(140px + env(safe-area-inset-bottom));z-index:70;
+  width:min(580px, calc(100vw - 24px));padding:14px 14px 12px;border-radius:28px;
+  transform:translate(-50%, 30px) scale(.96);opacity:0;pointer-events:none;
+  background:
+    radial-gradient(70% 150% at 0% 55%, color-mix(in oklab, var(--qa) var(--glow-amt), var(--glow-base)), transparent 66%),
+    radial-gradient(70% 150% at 100% 55%, color-mix(in oklab, var(--qb) var(--glow-amt), var(--glow-base)), transparent 66%),
+    var(--surface);
+  box-shadow:0 30px 70px -24px rgb(0 0 0 / .55), 0 0 0 1px var(--line);
+  transition:transform .5s var(--spring), opacity .3s var(--ease), --qa .6s var(--ease), --qb .6s var(--ease);
+}
+.quick.open{transform:translate(-50%,0) scale(1);opacity:1;pointer-events:auto}
+.q-head{display:flex;align-items:center;gap:10px;margin:0 4px 10px}
+.q-kicker{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 10px;border-radius:999px;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+.q-kicker svg{width:11px;height:11px}
+.q-sub{font-size:13px;font-weight:600;color:var(--ink-dim)}
+.q-x{margin-left:auto;width:36px;height:36px;border-radius:12px;border:none;background:color-mix(in oklab, var(--ink) 7%, transparent);color:var(--ink-dim);
+  display:inline-flex;align-items:center;justify-content:center}
+.q-x svg{width:14px;height:14px}
+.q-stage{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:stretch}
+.q-vs{align-self:center;font-family:var(--font-display);font-variation-settings:var(--soft);font-style:italic;font-size:22px;color:var(--ink-dim)}
+.q-pick{
+  display:flex;align-items:center;gap:12px;padding:8px;border:none;border-radius:20px;text-align:left;min-height:96px;
+  background:color-mix(in oklab, var(--surface) 70%, transparent);color:var(--ink);
+  box-shadow:0 10px 24px -14px rgb(0 0 0 / .45);
+  transition:transform .35s var(--spring), box-shadow .3s, opacity .3s;
+}
+.q-pick:active{transform:scale(.96)}
+.q-pick .q-art{flex:none;width:58px;height:84px;border-radius:12px;overflow:hidden;
+  background:linear-gradient(160deg, var(--c1, var(--surface-2)), color-mix(in oklab, var(--c1, var(--surface-2)) 50%, #000));
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-num);font-weight:800;font-size:26px;color:rgba(255,255,255,.85);
+  box-shadow:0 12px 22px -10px color-mix(in oklab, var(--c1, #000) 80%, #000)}
+.q-pick .q-art img{width:100%;height:100%;object-fit:cover;display:block}
+.q-pick .q-txt{min-width:0}
+.q-pick .q-rank{font-family:var(--font-num);font-weight:800;font-size:12px;letter-spacing:-.01em;color:var(--ink-dim)}
+.q-pick .q-name{font-weight:700;font-size:15px;line-height:1.2;margin-top:2px;overflow-wrap:anywhere}
+.q-pick.win{transform:scale(1.04);box-shadow:0 0 0 3px color-mix(in oklab, var(--c1, var(--accent)) 75%, var(--accent)), 0 20px 40px -16px color-mix(in oklab, var(--c1, var(--accent)) 80%, transparent)}
+.q-pick.lose{opacity:.3;transform:scale(.95)}
+.q-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 4px 0}
+.q-skip{border:none;background:transparent;color:var(--ink-dim);font-size:12.5px;font-weight:650;padding:8px 4px;min-height:36px}
+.q-prog{font-size:12px;font-weight:650;color:var(--ink-dim)}
+.q-result{grid-column:1 / -1;text-align:center;font-weight:700;font-size:14px;padding:22px 8px}
+
+@media (max-width:620px){
+  .quick{bottom:calc(122px + env(safe-area-inset-bottom));padding:12px 10px 10px;border-radius:24px}
+  .q-pick{flex-direction:column;align-items:flex-start;gap:8px;min-height:0}
+  .q-pick .q-art{width:100%;height:auto;aspect-ratio:16/10}
+  .q-sub{display:none}
+}
+
 @media (max-width:620px){
   .app{padding:20px 14px 40px}
   .topbar{margin-bottom:26px}
@@ -838,6 +962,7 @@ body.drag-active .add-wrap,body.drag-active .list-toolbar{opacity:.15;pointer-ev
 </style>
 </head>
 <body>
+<div class="ambient on" aria-hidden="true"></div>
 <div class="ambient" aria-hidden="true"></div>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" role="status"></div>
@@ -846,9 +971,14 @@ body.drag-active .add-wrap,body.drag-active .list-toolbar{opacity:.15;pointer-ev
 <script>
 "use strict";
 /* ============================================================
-   ALL·TIMERS v5
+   ALL·TIMERS v6
    Single-file, dependency-free. Same storage format and server API
-   as v1–v4 — drop it in place of the old index.html.
+   as v1–v5 — drop it in place of the old index.html.
+
+   v6: the page's light follows whatever you're looking at, ranking
+   or matching up; entries bloom in their own colors; surprise quick
+   matchups re-sort the list; deck buttons fixed for iPad taps;
+   small notices at the top instead of big banners.
 
    v5: smooth scrolling on tablets (no full-page blending, blur or
    animated layers), borderless rows, crisp numerals, touch-first
@@ -1920,16 +2050,68 @@ function setChrome(themeId, title) {
   if (meta) meta.content = th.bg;
 }
 /* the page's ambient light takes its color from your top three */
+/* Ambient light: a base (your top three) that anything you focus on —
+   the row you scroll past, a matchup, a held row — can take over. */
+const Ambient = (() => {
+  /* Two pre-painted light layers crossfade on opacity (compositor-only),
+     so a color change never repaints the page while you scroll. */
+  let base = [], focus = null, t = 0, shown = "";
+  function paint() {
+    const layers = document.querySelectorAll(".ambient");
+    if (layers.length < 2) return;
+    const cols = focus || base;
+    const key = cols.join(",");
+    if (key === shown) return;
+    shown = key;
+    const cur = layers[0].classList.contains("on") ? layers[0] : layers[1];
+    const next = cur === layers[0] ? layers[1] : layers[0];
+    ["--amb1", "--amb2", "--amb3"].forEach((v, i) => {
+      const c = cols[i] || cols[0];
+      if (c) next.style.setProperty(v, c); else next.style.removeProperty(v);
+    });
+    requestAnimationFrame(() => { next.classList.add("on"); cur.classList.remove("on"); });
+  }
+  const later = () => { clearTimeout(t); t = setTimeout(paint, 40); };
+  return {
+    setBase(cols) { base = cols || []; if (!focus) later(); },
+    focus(cols) { focus = cols && cols.length ? cols : null; later(); },
+    release() { focus = null; later(); },
+    get focused() { return !!focus; },
+  };
+})();
+const colsOf = it => !it || !it.c1 ? [] :
+  [it.c1, (it.palette && it.palette[1]) || it.c2 || it.c1, (it.palette && it.palette[2]) || it.c2 || it.c1];
 function setAmbient(list) {
-  const amb = document.querySelector(".ambient");
-  if (!amb) return;
-  const b = amb.style;
   const tops = list ? list.items.filter(it => !it.unranked && it.c1).slice(0, 3) : [];
-  ["--amb1", "--amb2", "--amb3"].forEach((v, i) => {
-    const it = tops[i] || tops[0];
-    if (it) b.setProperty(v, (i === 1 && it.palette && it.palette[1]) ? it.palette[1] : it.c1);
-    else b.removeProperty(v);
-  });
+  Ambient.setBase(tops.map((it, i) => (i === 1 && it.palette && it.palette[1]) ? it.palette[1] : it.c1));
+}
+/* the row crossing the middle of the screen lends the page its light */
+let bandIO = null, bandT = 0;
+function watchBand(list, ol) {
+  if (!("IntersectionObserver" in window)) return;
+  if (bandIO) bandIO.disconnect();
+  bandIO = new IntersectionObserver(ents => {
+    for (const e of ents) {
+      if (!e.isIntersecting) continue;
+      const id = e.target.dataset.id;
+      clearTimeout(bandT);
+      bandT = setTimeout(() => {
+        if (document.querySelector(".modal-veil, .quick.open") || document.body.classList.contains("drag-active")) return;
+        if (window.scrollY < 240) { Ambient.release(); return; }
+        const L = getList(list.id);
+        const it = L && L.items.find(x => x.id === id);
+        if (it && it.c1) Ambient.focus(colsOf(it));
+      }, 380);
+    }
+  }, { rootMargin: "-47% 0px -47% 0px" });
+  ol.querySelectorAll(".rank-row").forEach(r => bandIO.observe(r));
+}
+function addBloom(row) {
+  if (!row || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+  const b = el("div", "bloom");
+  b.setAttribute("aria-hidden", "true");
+  row.insertBefore(b, row.firstChild);
+  setTimeout(() => b.remove(), 1600);
 }
 
 /* ------------------------------ modal helper --------------- */
@@ -1966,6 +2148,9 @@ function makeModal(extraClass, onKey) {
    ============================================================ */
 function renderHome() {
   enrichGen++;
+  Quick.stop();
+  Ambient.release();
+  if (bandIO) bandIO.disconnect();
   View.listId = null; View.findQ = "";
   setChrome("studio");
   setAmbient(null);
@@ -1997,6 +2182,8 @@ function renderHome() {
     card.tabIndex = 0;
     card.dataset.theme = th.id;
     card.dataset.tone = th.tone;
+    const lead = list.items.find(it => !it.unranked && it.c1);
+    if (lead) card.style.setProperty("--lc", lead.c1);
     card.style.animation = "rise .7s var(--spring) backwards";
     card.style.animationDelay = (li * 60) + "ms";
     card.setAttribute("aria-label", "Open list: " + (list.title || "Untitled"));
@@ -2396,6 +2583,13 @@ function renderList(id, opts) {
       persist();
       if (state.settings.sound) Sound.drop();
     }, state.settings.sound !== false);
+    item(ICONS.bolt, "Quick matchup now", () => Quick.now());
+    item(ICONS.bolt, "Surprise matchups", () => {
+      state.settings.quick = state.settings.quick === false;
+      persist();
+      if (state.settings.quick) Quick.start(list); else Quick.stop();
+      toast(state.settings.quick ? "Surprise matchups on" : "Surprise matchups off");
+    }, state.settings.quick !== false);
     item(ICONS.spark, "Find missing artwork", () => enrichAll(list, null));
     item(ICONS.copy, "Copy as text", async () => {
       const ok = await copyText(listAsText(list));
@@ -2425,6 +2619,8 @@ function renderList(id, opts) {
   app.appendChild(pf);
 
   autoEnrich(list);
+  Ambient.release();
+  Quick.start(list);
 }
 
 function listAsText(list) {
@@ -2487,8 +2683,17 @@ function buildDiscover(list, ol) {
     paintTog();
     if (!list.discoverHidden) boot();
   });
-  head.append(h3, count, tog);
+  const flashSlot = el("span");
+  head.append(h3, count, flashSlot, tog);
   sec.appendChild(head);
+  const flashNote = text => {
+    flashSlot.innerHTML = "";
+    const f = el("span", "disc-flash");
+    f.innerHTML = ICONS.check + "<span></span>";
+    f.lastChild.textContent = text;
+    flashSlot.appendChild(f);
+    setTimeout(() => { if (f.parentNode) f.remove(); }, 2500);
+  };
 
   const body = el("div", "disc-body");
   body.appendChild(el("p", "disc-sub", "Picked from the creators and stars of your top shows. Swipe right if you've seen it — it goes on your Unranked shelf to place later. Swipe left if you haven't."));
@@ -2526,6 +2731,15 @@ function buildDiscover(list, ol) {
     if (c.reasons.length > 1) info.appendChild(el("div", "deck-more", "Also: " + c.reasons.slice(1, 3).join(" · ")));
     card.append(art, info, el("div", "stamp yes", "Seen it"), el("div", "stamp no", "Nope"));
     bindSwipe(card);
+    // light the card with its own poster's colors
+    if (s.img || s.imgHi) Media.probe(s.img || s.imgHi, s.name).then(p => {
+      if (!p || !p.c1) return;
+      card._pal = p;
+      card.style.setProperty("--c1", p.c1);
+      card.style.setProperty("--c2", p.c2 || p.c1);
+      card.classList.add("lit");
+      if (card.dataset.depth === "0") deckGlow(p);
+    });
     return card;
   }
 
@@ -2545,6 +2759,7 @@ function buildDiscover(list, ol) {
       }
       n.dataset.depth = depth;
       n.style.zIndex = String(10 - depth);
+      if (depth === 0 && n._pal) deckGlow(n._pal);
       if (!n.classList.contains("grabbing")) n.style.transform = "";
     });
     let empty = deck.querySelector(".deck-empty");
@@ -2561,6 +2776,11 @@ function buildDiscover(list, ol) {
     }
     [noBtn, skipBtn, yesBtn].forEach(b => { b.disabled = !top.length; });
     skipBtn.disabled = queue.length < 2;
+  }
+
+  function deckGlow(p) {
+    deck.style.setProperty("--dc1", p.c1);
+    deck.style.setProperty("--dc2", p.c2 || p.c1);
   }
 
   function bindSwipe(card) {
@@ -2629,7 +2849,11 @@ function buildDiscover(list, ol) {
       persist(list);
     }
     vibrate(8);
-    setTimeout(() => { busy = false; render(); }, 180);
+    setTimeout(() => {
+      busy = false;
+      render();
+      if (queued) { const k = queued; queued = null; decide(k); }
+    }, 180);
   }
 
   function seen(s) {
@@ -2641,12 +2865,30 @@ function buildDiscover(list, ol) {
     drawRows(list, ol);
     Sound.pop();
     applyMedia(list, item, { id: s.id, name: s.name, img: s.img, imgHi: s.imgHi, note: s.note, source: "TVMaze" });
-    toast("“" + s.name + "” is on your Unranked shelf", { action: { label: "Rank it now", fn: () => openDuel(list, item.id) } });
+    flashNote(s.name + " → Unranked");
   }
 
-  noBtn.addEventListener("click", () => decide("no"));
-  yesBtn.addEventListener("click", () => decide("yes"));
-  skipBtn.addEventListener("click", () => decide("skip"));
+  /* answer on pointerup so a fast second tap is never lost to Safari's
+     double-tap handling, and queue a tap that lands mid-animation */
+  let queued = null;
+  const tapBtn = (btn, kind) => {
+    let downAt = 0;
+    btn.addEventListener("pointerdown", () => { downAt = Date.now(); });
+    btn.addEventListener("pointerup", e => {
+      if (btn.disabled || Date.now() - downAt > 800) return;
+      e.preventDefault();
+      btn._handled = Date.now();
+      fire(kind);
+    });
+    btn.addEventListener("click", () => {
+      if (btn._handled && Date.now() - btn._handled < 600) return; // already handled on pointerup
+      fire(kind);
+    });
+  };
+  const fire = kind => { if (busy) { queued = kind; return; } decide(kind); };
+  tapBtn(noBtn, "no");
+  tapBtn(yesBtn, "yes");
+  tapBtn(skipBtn, "skip");
   sec.addEventListener("keydown", e => {
     if (e.target.closest("input")) return;
     if (e.key === "ArrowRight") { e.preventDefault(); decide("yes"); }
@@ -2930,7 +3172,7 @@ async function applyMedia(list, ref, media, opts) {
   const hasArt = !!(item.img || item.bg);
   if (!item.look || (item.look === "scene" && !item.bg && !item.img)) item.look = hasArt ? "glow" : "tint";
   persist(live);
-  refreshRow(live, item);
+  refreshRow(live, item, { bloom: hasArt });
   return hasArt;
 }
 
@@ -2953,11 +3195,11 @@ async function applyArt(list, ref, art, kind) {
   }
   delete item.tried;
   persist(L);
-  refreshRow(L, item);
+  refreshRow(L, item, { bloom: true });
   toast(kind === "poster" ? "Poster updated" : "Backdrop set — row switched to Scene");
 }
 
-function refreshRow(list, item) {
+function refreshRow(list, item, opts) {
   const ol = document.getElementById("rankList");
   if (!ol || ol.dataset.listId !== list.id) return;
   if (document.body.classList.contains("drag-active")) return;
@@ -2967,7 +3209,8 @@ function refreshRow(list, item) {
   const fresh = buildRow(list, item, list.items.indexOf(item), ol);
   row.replaceWith(fresh);
   observeBgs(fresh);
-  anim(fresh, [{ opacity: .4 }, { opacity: 1 }], { duration: 400, easing: "ease-out" });
+  if (opts && opts.bloom && item.c1) addBloom(fresh);
+  else anim(fresh, [{ opacity: .4 }, { opacity: 1 }], { duration: 400, easing: "ease-out" });
   if (list.items.indexOf(item) < 3) setAmbient(list);
 }
 
@@ -3102,6 +3345,7 @@ function drawRows(list, ol, opts) {
   ol.appendChild(frag);
   if (View.findQ) ol.classList.toggle("finding", list.items.some(it => itemMatches(it, View.findQ)));
   observeBgs(ol);
+  watchBand(list, ol);
 }
 
 const normLook = l => l === "backdrop" ? "scene" : l;
@@ -3207,6 +3451,7 @@ function openRowSheet(listRef, itemId, ol) {
   const zoneStart = unr ? rc : 0, zoneEnd = unr ? list.items.length - 1 : rc - 1;
   const m = makeModal("sheet");
   const md = m.modal;
+  if (item.c1) md.style.setProperty("--c1", item.c1);
   const head = el("div", "sheet-head");
   if (item.img) { const im = el("img"); im.src = item.img; im.alt = ""; head.appendChild(im); }
   const ht = el("div");
@@ -3348,7 +3593,7 @@ function relocate(list, id, toIdx, makeUnranked, ol, opts) {
     drawRows(list, ol);
   });
   const to = list.items.indexOf(item);
-  if (was && !will) badge(ol, id, "new", "★ #" + (to + 1));
+  if (was && !will) { badge(ol, id, "new", "★ #" + (to + 1)); addBloom(rowEl(ol, id)); }
   else if (!was && will) badge(ol, id, "down", "unranked");
   else if (!will) badge(ol, id, to < from ? "up" : "down", (to < from ? "▲ " : "▼ ") + Math.abs(from - to));
   announce(item.title + (will ? " moved to Unranked" : " is now number " + (to + 1)));
@@ -3691,6 +3936,210 @@ function makeSorter(list, li, ol, startClientY) {
 }
 
 /* ============================================================
+   QUICK MATCHUPS — a surprise head-to-head every so often.
+   Two shows from your list, one tap. Pick the lower-ranked one and
+   it jumps above the other; pick an Unranked one and a few quick
+   taps slot it into the ranking. Toggle in Options.
+   ============================================================ */
+const Quick = (() => {
+  let timer = 0, lastAct = Date.now(), panel = null, listId = null, keyH = null;
+  const asked = new Set();
+  ["pointerdown", "keydown", "scroll", "touchstart", "wheel"].forEach(ev =>
+    window.addEventListener(ev, () => { lastAct = Date.now(); }, { passive: true, capture: true }));
+  const enabled = () => state.settings.quick !== false;
+  const ACT_IDLE = 5000;
+
+  function schedule(ms) { clearTimeout(timer); timer = setTimeout(tryShow, ms); }
+  function start(list) {
+    listId = list.id;
+    close(true);
+    if (enabled()) schedule(40000 + Math.random() * 30000);
+  }
+  function stop() { clearTimeout(timer); close(true); listId = null; }
+  function busyNow() {
+    const ae = document.activeElement;
+    return !!(document.querySelector(".modal-veil, .sugg-panel, .row-edit, .rank-jump, .row-style, .opt-menu") ||
+      document.body.classList.contains("drag-active") ||
+      (ae && (ae.isContentEditable || /^(INPUT|TEXTAREA)$/.test(ae.tagName))) ||
+      document.visibilityState !== "visible");
+  }
+  function tryShow() {
+    if (!listId || View.listId !== listId || !enabled()) return;
+    if (busyNow() || Date.now() - lastAct < ACT_IDLE) { schedule(7000); return; }
+    if (!open(false)) schedule(150000);
+  }
+
+  /* what to ask: an Unranked entry to place, or two nearby ranked ones */
+  function pickTask(L) {
+    const rc = rankedCount(L);
+    const unr = L.items.filter(it => it.unranked);
+    if (unr.length && rc >= 1 && (rc < 2 || Math.random() < .55)) {
+      return { mode: "place", item: unr[Math.floor(Math.random() * unr.length)] };
+    }
+    if (rc < 2) return null;
+    for (let tries = 0; tries < 12; tries++) {
+      const i = Math.floor(Math.random() * (rc - 1));
+      const gap = 1 + Math.floor(Math.random() * Math.min(4, rc - 1 - i));
+      const a = L.items[i], b = L.items[i + gap];
+      const key = [a.id, b.id].sort().join("|");
+      if (asked.has(key) && tries < 11) continue;
+      asked.add(key);
+      return { mode: "pair", a, b };
+    }
+    return null;
+  }
+
+  function tile(item, rankText) {
+    const b = el("button", "q-pick");
+    b.type = "button";
+    const c1 = item.c1 || Media.hashColors(item.title).c1;
+    b.style.setProperty("--c1", c1);
+    const art = el("div", "q-art");
+    const src = item.img || item.imgHi;
+    if (src) {
+      const im = el("img"); im.src = src; im.alt = ""; im.draggable = false;
+      im.addEventListener("error", () => { im.remove(); art.textContent = (item.title[0] || "?").toUpperCase(); }, { once: true });
+      art.appendChild(im);
+    } else art.textContent = (item.title[0] || "?").toUpperCase();
+    const txt = el("div", "q-txt");
+    txt.append(el("div", "q-rank", rankText), el("div", "q-name", item.title));
+    b.append(art, txt);
+    b.setAttribute("aria-label", "Pick " + item.title);
+    return b;
+  }
+
+  function open(force) {
+    const L = listId && getList(listId);
+    const ol = document.getElementById("rankList");
+    if (!L || !ol) return false;
+    const task = pickTask(L);
+    if (!task) { if (force) toast("Add a couple more shows first"); return false; }
+    close(true);
+    panel = el("div", "quick");
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-label", "Quick matchup");
+    const head = el("div", "q-head");
+    const kick = el("span", "q-kicker");
+    kick.innerHTML = ICONS.bolt + "<span>Quick matchup</span>";
+    const sub = el("span", "q-sub", "Tap the better one");
+    const x = el("button", "q-x");
+    x.innerHTML = ICONS.x;
+    x.setAttribute("aria-label", "Not now");
+    x.addEventListener("click", () => { close(); schedule(300000); });
+    head.append(kick, sub, x);
+    const stage = el("div", "q-stage");
+    const foot = el("div", "q-foot");
+    const skip = el("button", "q-skip", "Too close to call");
+    const prog = el("span", "q-prog");
+    foot.append(skip, prog);
+    panel.append(head, stage, foot);
+    document.body.appendChild(panel);
+    requestAnimationFrame(() => requestAnimationFrame(() => panel && panel.classList.add("open")));
+    Sound.pop();
+
+    let busy = false, pickFn = null;
+    const show = (left, right, lt, rt, onPick) => {
+      stage.innerHTML = "";
+      const A = tile(left, lt), B = tile(right, rt);
+      stage.append(A, el("span", "q-vs", "vs"), B);
+      panel.style.setProperty("--qa", left.c1 || Media.hashColors(left.title).c1);
+      panel.style.setProperty("--qb", right.c1 || Media.hashColors(right.title).c1);
+      Ambient.focus([left.c1, right.c1, left.c2 || right.c2].filter(Boolean));
+      pickFn = leftWon => {
+        if (busy) return;
+        busy = true;
+        (leftWon ? A : B).classList.add("win");
+        (leftWon ? B : A).classList.add("lose");
+        Sound.tick(8);
+        vibrate(8);
+        setTimeout(() => { busy = false; onPick(leftWon); }, 420);
+      };
+      A.addEventListener("click", () => pickFn(true));
+      B.addEventListener("click", () => pickFn(false));
+    };
+    const done = (msg, delay) => {
+      pickFn = null;
+      stage.innerHTML = "";
+      stage.appendChild(el("div", "q-result", msg));
+      skip.style.visibility = "hidden";
+      setTimeout(() => close(), delay || 1300);
+      schedule(100000 + Math.random() * 80000);
+    };
+    keyH = e => {
+      if (!pickFn || document.querySelector(".modal-veil")) return;
+      const t = e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA)$/.test(t.tagName))) return;
+      if (e.key === "ArrowLeft" || e.key === "1") { e.preventDefault(); pickFn(true); }
+      else if (e.key === "ArrowRight" || e.key === "2") { e.preventDefault(); pickFn(false); }
+      else if (e.key === "Escape") { e.preventDefault(); close(); schedule(300000); }
+    };
+    document.addEventListener("keydown", keyH);
+
+    if (task.mode === "pair") {
+      const { a, b } = task;
+      const ia = L.items.indexOf(a), ib = L.items.indexOf(b);
+      sub.textContent = "Which do you rank higher?";
+      skip.addEventListener("click", () => done("Fair — they stay where they are", 900));
+      show(a, b, "#" + (ia + 1), "#" + (ib + 1), aWon => {
+        const LL = getList(L.id), olNow = document.getElementById("rankList");
+        if (!LL || !olNow) return close();
+        const ca = LL.items.findIndex(x => x.id === a.id), cb = LL.items.findIndex(x => x.id === b.id);
+        if (ca < 0 || cb < 0) return close();
+        if (aWon) { done("Agreed — " + a.title + " stays ahead"); return; }
+        // the lower one won: it moves directly above the other
+        relocate(LL, b.id, ca, false, olNow, { quietToast: true });
+        const row = rowEl(olNow, b.id);
+        if (row) { addBloom(row); flashRow(row); }
+        done(b.title + " moves up to #" + (ca + 1));
+      });
+    } else {
+      /* place an Unranked entry: binary insertion, a tap at a time */
+      const me = task.item;
+      const others = L.items.filter(x => !x.unranked && x.id !== me.id);
+      let lo = 0, hi = others.length, round = 0;
+      const total = Math.ceil(Math.log2(others.length + 1));
+      skip.textContent = "Not now";
+      skip.addEventListener("click", () => { close(); schedule(300000); });
+      const step = () => {
+        if (lo >= hi) {
+          const LL = getList(L.id), olNow = document.getElementById("rankList");
+          if (!LL || !olNow) return close();
+          relocate(LL, me.id, lo, false, olNow, { quietToast: true });
+          const row = rowEl(olNow, me.id);
+          if (row) { addBloom(row); flashRow(row); if (row.scrollIntoView) row.scrollIntoView({ block: "center", behavior: "smooth" }); }
+          Sound.win();
+          done(me.title + " is ranked #" + (lo + 1), 1600);
+          return;
+        }
+        round++;
+        const mid = (lo + hi) >> 1;
+        const opp = others[mid];
+        sub.textContent = "Placing a show you've seen";
+        prog.textContent = round + " of ~" + total;
+        show(me, opp, "Unranked", "#" + (mid + 1), meWon => {
+          if (meWon) hi = mid; else lo = mid + 1;
+          step();
+        });
+      };
+      step();
+    }
+    return true;
+  }
+
+  function close(instant) {
+    if (keyH) { document.removeEventListener("keydown", keyH); keyH = null; }
+    if (!panel) return;
+    const p = panel;
+    panel = null;
+    Ambient.release();
+    if (instant) { p.remove(); return; }
+    p.classList.remove("open");
+    setTimeout(() => p.remove(), 450);
+  }
+  return { start, stop, now: () => open(true), close };
+})();
+
+/* ============================================================
    HEAD-TO-HEAD — binary insertion against the ranked entries
    ============================================================ */
 function duelCard(item, tag) {
@@ -3732,7 +4181,8 @@ function openDuel(listRef, itemId, opts) {
     if (e.key === "ArrowLeft" || e.key === "1") { e.preventDefault(); pick(true); }
     else if (e.key === "ArrowRight" || e.key === "2") { e.preventDefault(); pick(false); }
   });
-  m.onClose = () => { if (opts.onDone) opts.onDone(); if (finished && opts.onFinish) setTimeout(opts.onFinish, 350); };
+  m.veil.classList.add("duel-veil");
+  m.onClose = () => { Ambient.release(); if (opts.onDone) opts.onDone(); if (finished && opts.onFinish) setTimeout(opts.onFinish, 350); };
   const md = m.modal;
   md.appendChild(el("div", "eyebrow", "Head-to-head"));
   const h2 = el("h2", null, "Which one's better?");
@@ -3767,6 +4217,10 @@ function openDuel(listRef, itemId, opts) {
     cardA.addEventListener("click", () => pick(true));
     cardB.addEventListener("click", () => pick(false));
     stage.append(cardA, el("div", "duel-vs", "vs"), cardB);
+    const ca = me.c1 || Media.hashColors(me.title).c1, cb = opp.c1 || Media.hashColors(opp.title).c1;
+    m.veil.style.setProperty("--v1", ca);
+    m.veil.style.setProperty("--v2", cb);
+    Ambient.focus([ca, cb, me.c2 || opp.c2 || ca]);
     anim(stage, [{ opacity: 0, transform: "translateY(10px) scale(.99)" }, { opacity: 1, transform: "none" }], { duration: 320, easing: "cubic-bezier(.2,1.2,.35,1)" });
   }
   function pick(meBetter) {
@@ -3776,6 +4230,8 @@ function openDuel(listRef, itemId, opts) {
     if (meBetter) hi = mid; else lo = mid + 1;
     (meBetter ? cardA : cardB).classList.add("win");
     (meBetter ? cardB : cardA).classList.add("lose");
+    const wc = (meBetter ? cardA : cardB).style.getPropertyValue("--c1");
+    if (wc) { m.veil.style.setProperty("--v1", wc); m.veil.style.setProperty("--v2", wc); }
     Sound.tick(round + 4);
     setTimeout(() => { busy = false; render(); }, 300);
   }
@@ -3797,6 +4253,7 @@ function openDuel(listRef, itemId, opts) {
       return;
     }
     relocate(live, itemId, to, false, ol, { scroll: true });
+    addBloom(rowEl(ol, itemId));
     if (!opts.chain) toast("Settled at #" + (to + 1) + " after " + plural(round, "matchup"));
   }
   render();
