@@ -918,6 +918,16 @@ button,.rank-num,.deck-card,.q-pick{touch-action:manipulation}
 .auth-later{display:block;margin:12px auto 0;border:none;background:transparent;color:var(--ink-dim);font-size:13px;font-weight:600;padding:8px}
 .auth-later:hover{color:var(--ink)}
 
+.auth-badge .mark.ok{background:linear-gradient(140deg,var(--up),color-mix(in oklab, var(--up) 60%, var(--accent-2)))}
+.auth-badge .mark svg{width:26px;height:26px}
+.cred{border-radius:18px;padding:6px 16px;margin:4px 0 12px;background:color-mix(in oklab, var(--ink) 5%, transparent)}
+.cred-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:11px 0}
+.cred-row + .cred-row{border-top:1px solid var(--line)}
+.cred-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim)}
+.cred-val{font-family:var(--font-mono);font-size:16px;font-weight:600;color:var(--ink);overflow-wrap:anywhere;text-align:right;-webkit-user-select:all;user-select:all}
+.cred-btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.cred-btns .btn{flex:1;justify-content:center;min-height:46px}
+.cred-tip{font-size:12.5px;color:var(--ink-dim);text-align:center;line-height:1.5;margin:12px 4px 0}
 .acct-btn{padding:5px 14px 5px 5px}
 .avatar{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none;
   font-family:var(--font-num);font-weight:800;font-size:13px;color:var(--accent-ink);
@@ -1173,6 +1183,15 @@ const API = {
   },
   register(u, p) { return this._auth("register", u, p); },
   login(u, p) { return this._auth("login", u, p); },
+  async changePassword(newPass) {
+    if (this.mode !== "supabase") throw new Error("Not available on this server");
+    try { await this.rpc("at_change_password", { p_token: this.token, p_password: newPass }); }
+    catch (e) {
+      if (e.status === 404 || /set up yet/.test(e.message)) throw new Error("Run the small 'change password' SQL in Supabase first");
+      if (e.expired) { this.clearSession(); throw new Error("Your session ended — sign in again"); }
+      throw e;
+    }
+  },
   async logout() {
     if (this.mode === "supabase") { try { await this.rpc("at_logout", { p_token: this.token }); } catch { } }
     else { try { await fetch("/api/logout", { method: "POST", headers: this.hdr() }); } catch { } }
@@ -2454,6 +2473,9 @@ function openAuthModal(mode, opts) {
   const md = m.modal;
   const form = el("form");
   form.setAttribute("autocomplete", "on");
+  form.method = "post";
+  form.action = "#";
+  form.id = "at-auth-form";
   form.noValidate = true;
   md.appendChild(form);
 
@@ -2567,10 +2589,11 @@ function openAuthModal(mode, opts) {
     go.disabled = true;
     const label = go.textContent;
     go.textContent = mode === "register" ? "Creating…" : "Signing in…";
+    showPass(false);   // password managers only capture a real password field
+    u.value = name;    // and the exact username that was used
     try {
       const guest = state;
       if (mode === "register") await API.register(name, pass); else await API.login(name, pass);
-      showPass(false); // lets the browser's password manager see a normal password field
       localStorage.setItem("alltimers.welcomed", "1");
       let remote = null;
       try { remote = await API.load(); } catch { }
@@ -2593,10 +2616,16 @@ function openAuthModal(mode, opts) {
       Store.save(state, cacheKey());
       History.clear();
       setSync("saved");
-      m.onClose = () => { };
-      m.close();
-      toast((mode === "register" ? "You're in, " : "Welcome back, ") + API.user);
-      jumpIn();
+      const asked = await askBrowserToSave(name, pass);
+      if (mode === "register") {
+        // new account: always show the login once, with a way to keep it
+        showLoginCard(m, { title: "You're in!", name, pass, asked, onDone: jumpIn });
+      } else {
+        m.onClose = () => { };
+        m.close();
+        toast("Welcome back, " + API.user);
+        jumpIn();
+      }
     } catch (e2) {
       err.textContent = e2.message || "Something went wrong";
       go.disabled = false;
@@ -2605,6 +2634,125 @@ function openAuthModal(mode, opts) {
   });
 
   setMode(mode);
+}
+
+/* Ask the browser's password manager to keep this login. Chrome, Edge and
+   Android show their "Save password?" prompt from this call; Safari has no
+   such API (it watches the form instead), so this quietly returns false. */
+async function askBrowserToSave(id, password) {
+  try {
+    if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) {
+      // never let a slow or missing browser prompt hold up signing in
+      await Promise.race([
+        navigator.credentials.store(new PasswordCredential({ id, password, name: id })),
+        new Promise(r => setTimeout(r, 1500)),
+      ]);
+      return true;
+    }
+  } catch { }
+  return false;
+}
+
+/* The "save your login" card — shown after every sign-up and password change */
+function showLoginCard(m, o) {
+  const md = m.modal;
+  md.innerHTML = "";
+  md.classList.add("auth");
+  const wrap = el("div", "login-card");
+  const badge = el("div", "auth-badge");
+  badge.innerHTML = '<span class="mark ok">' + ICONS.check + "</span>";
+  const h2 = el("h2", null, o.title);
+  const hint = el("p", "hint", "Save this login so you can get back in from any device. There's no email reset, so keep it somewhere safe.");
+  const card = el("div", "cred");
+  const rowU = el("div", "cred-row");
+  rowU.append(el("span", "cred-lbl", "Username"), el("span", "cred-val", o.name));
+  const rowP = el("div", "cred-row");
+  const pv = el("span", "cred-val", o.pass);
+  rowP.append(el("span", "cred-lbl", "Password"), pv);
+  card.append(rowU, rowP);
+  const btns = el("div", "cred-btns");
+  const copy = el("button", "btn");
+  copy.type = "button";
+  copy.innerHTML = ICONS.copy + "<span>Copy login</span>";
+  copy.addEventListener("click", async () => {
+    const ok = await copyText("ALL·TIMERS — " + location.href.split("#")[0] + "\nUsername: " + o.name + "\nPassword: " + o.pass);
+    copy.innerHTML = ICONS.check + "<span>" + (ok ? "Copied" : "Copy failed — write it down") + "</span>";
+  });
+  btns.appendChild(copy);
+  if (window.PasswordCredential) {
+    const save = el("button", "btn");
+    save.type = "button";
+    save.innerHTML = ICONS.save + "<span>Save to browser</span>";
+    save.addEventListener("click", async () => {
+      const ok = await askBrowserToSave(o.name, o.pass);
+      save.innerHTML = ICONS.check + "<span>" + (ok ? "Sent to your browser" : "Browser declined") + "</span>";
+    });
+    btns.appendChild(save);
+  }
+  const tip = el("p", "cred-tip", window.PasswordCredential
+    ? (o.asked ? "Your browser should be asking to save it now — tap Save." : "Tap Save to browser, or copy it somewhere safe.")
+    : "On iPhone or iPad: tap Copy login, then paste it into the Passwords app or Notes. Next time, tap the password box and Safari can fill it for you.");
+  const go = el("button", "btn btn-accent auth-go", "Start ranking");
+  go.type = "button";
+  let done = false;
+  const finish = () => { if (done) return; done = true; if (o.onDone) o.onDone(); };
+  go.addEventListener("click", () => { m.onClose = finish; m.close(); });
+  m.onClose = finish;
+  wrap.append(badge, h2, hint, card, btns, tip, go);
+  md.appendChild(wrap);
+  anim(wrap, [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 350, easing: "cubic-bezier(.2,1.2,.35,1)" });
+  go.focus();
+}
+
+/* Signed in but don't know the password (or want a memorable one): set a new one */
+function openChangePassword() {
+  const m = makeModal("auth");
+  const md = m.modal;
+  const form = el("form");
+  form.method = "post"; form.action = "#";
+  const badge = el("div", "auth-badge");
+  badge.innerHTML = '<span class="mark">' + ICONS.hash + "</span>";
+  form.append(badge, el("h2", null, "New password"),
+    el("p", "hint", "You're signed in as " + API.user + ", so you can set a new password here — no old one needed."));
+  const hiddenU = el("input");
+  hiddenU.type = "text"; hiddenU.name = "username"; hiddenU.autocomplete = "username";
+  hiddenU.value = API.user; hiddenU.readOnly = true; hiddenU.className = "sr-only"; hiddenU.tabIndex = -1;
+  form.appendChild(hiddenU);
+  form.appendChild(el("label", "field-lbl", "New password"));
+  const row = el("div", "auth-row");
+  const p = el("input");
+  p.type = "password"; p.name = "new-password"; p.id = "at-new-password"; p.autocomplete = "new-password"; p.placeholder = "6+ characters";
+  const eye = el("button", "iconbtn auth-gen");
+  eye.type = "button"; eye.innerHTML = ICONS.eye; eye.setAttribute("aria-label", "Show password");
+  const dice = el("button", "iconbtn auth-gen");
+  dice.type = "button"; dice.innerHTML = ICONS.dice; dice.setAttribute("aria-label", "Random password");
+  row.append(p, eye, dice);
+  form.appendChild(row);
+  const err = el("div", "auth-err");
+  const go = el("button", "btn btn-accent auth-go", "Save new password");
+  go.type = "submit";
+  form.append(err, go);
+  md.appendChild(form);
+  const show = on => { p.type = on ? "text" : "password"; eye.innerHTML = on ? ICONS.eyeOff : ICONS.eye; };
+  eye.addEventListener("click", () => show(p.type === "password"));
+  dice.addEventListener("click", () => { p.value = genPassword(); show(true); });
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    err.textContent = "";
+    const pass = p.value;
+    if (pass.length < 6) { err.textContent = "Password needs at least 6 characters"; return; }
+    go.disabled = true; go.textContent = "Saving…";
+    show(false);
+    try {
+      await API.changePassword(pass);
+      const asked = await askBrowserToSave(API.user, pass);
+      showLoginCard(m, { title: "Password changed", name: API.user, pass, asked, onDone: () => { } });
+    } catch (e2) {
+      err.textContent = e2.message || "Something went wrong";
+      go.disabled = false; go.textContent = "Save new password";
+    }
+  });
+  setTimeout(() => p.focus(), 50);
 }
 
 /* right after signing up/in: straight to ranking */
@@ -2647,6 +2795,7 @@ function buildAccountChip() {
       menu.appendChild(b);
     };
     item(ICONS.copy, "Copy my username", async () => { toast((await copyText(API.user)) ? "Username copied" : "Couldn't reach the clipboard"); });
+    if (API.mode === "supabase") item(ICONS.hash, "Change password", openChangePassword);
     item(ICONS.back, "Sign out", signOut, "danger");
     wrap.appendChild(menu);
     setTimeout(() => document.addEventListener("pointerdown", outside, true), 0);
