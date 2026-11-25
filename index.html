@@ -880,6 +880,60 @@ button,.rank-num,.deck-card,.q-pick{touch-action:manipulation}
   .q-sub{display:none}
 }
 
+/* ============================================================
+   v7 — accounts
+   ============================================================ */
+.modal.auth{width:min(460px,100%);padding:30px 28px 24px;
+  background:radial-gradient(120% 60% at 50% 0%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 60%), var(--surface)}
+.auth-badge{display:flex;justify-content:center;margin-bottom:10px}
+.auth-badge .mark{width:52px;height:52px;border-radius:17px;display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--font-num);font-weight:800;font-size:28px;color:var(--accent-ink);
+  background:linear-gradient(140deg,var(--accent),var(--accent-2));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 16px 30px -12px color-mix(in oklab, var(--accent) 85%, transparent)}
+.modal.auth h2{text-align:center}
+.modal.auth .hint{text-align:center;margin-bottom:16px}
+.auth-tabs{display:flex;width:100%;margin:0 0 16px}
+.auth-tabs .seg-btn{flex:1;justify-content:center;padding:10px 8px;font-size:13.5px}
+.auth-magic{display:flex;align-items:center;gap:12px;width:100%;border:none;border-radius:18px;padding:13px 16px;margin-bottom:4px;text-align:left;
+  color:var(--ink);background:color-mix(in oklab, var(--accent) 12%, transparent);
+  transition:transform .3s var(--spring), background .2s}
+.auth-magic:hover{background:color-mix(in oklab, var(--accent) 18%, transparent)}
+.auth-magic:active{transform:scale(.98)}
+.auth-magic svg{width:20px;height:20px;color:var(--accent);flex:none}
+.auth-magic span{display:flex;flex-direction:column}
+.auth-magic b{font-size:14.5px}
+.auth-magic small{font-size:12px;color:var(--ink-dim);margin-top:2px}
+.auth-magic[hidden]{display:none}
+.auth-row{display:flex;gap:6px;align-items:center}
+.auth-row input{flex:1;min-width:0}
+.auth-gen{flex:none;width:46px!important;height:46px!important;border-radius:14px!important;background:color-mix(in oklab, var(--ink) 6%, transparent)}
+.auth-gen[hidden]{display:none}
+.auth-gen svg{width:18px;height:18px}
+.modal.auth .field-lbl{margin-top:16px}
+.auth-keep{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding:10px 12px;border-radius:14px;
+  font-size:12.5px;color:var(--ink-dim);background:color-mix(in oklab, var(--up) 10%, transparent)}
+.auth-keep[hidden]{display:none}
+.auth-keep .btn{padding:7px 12px;font-size:12.5px;flex:none}
+.auth-go{width:100%;justify-content:center;margin-top:16px;min-height:52px;font-size:15.5px}
+.auth-later{display:block;margin:12px auto 0;border:none;background:transparent;color:var(--ink-dim);font-size:13px;font-weight:600;padding:8px}
+.auth-later:hover{color:var(--ink)}
+
+.acct-btn{padding:5px 14px 5px 5px}
+.avatar{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none;
+  font-family:var(--font-num);font-weight:800;font-size:13px;color:var(--accent-ink);
+  background:linear-gradient(140deg,var(--accent),var(--accent-2))}
+.avatar.big{width:40px;height:40px;font-size:17px}
+.acct-head{display:flex;align-items:center;gap:12px;padding:10px 12px 12px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.acct-who{font-weight:700;font-size:15px;margin-top:2px}
+.opt-item.danger,.opt-item.danger .oi{color:var(--down)}
+.save-cta{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-ink)}
+.save-cta:hover{background:linear-gradient(135deg,var(--accent),var(--accent-2));filter:brightness(1.05)}
+@media (max-width:620px){
+  .acct-name{display:none}
+  .acct-btn{padding:5px}
+  .modal.auth{padding:24px 20px 20px}
+}
+
 @media (max-width:620px){
   .app{padding:20px 14px 40px}
   .topbar{margin-bottom:26px}
@@ -971,10 +1025,14 @@ button,.rank-num,.deck-card,.q-pick{touch-action:manipulation}
 <script>
 "use strict";
 /* ============================================================
-   ALL·TIMERS v6
-   Single-file, dependency-free. Same storage format and server API
-   as v1–v5 — drop it in place of the old index.html.
+   ALL·TIMERS v7
+   Single-file, dependency-free. Same storage format as v1–v6.
 
+   v7: accounts that work from GitHub Pages (free Supabase backend —
+   fill in ACCOUNTS below), one-tap registration with generated
+   name/password, and this device remembers who you are.
+
+   v6:
    v6: the page's light follows whatever you're looking at, ranking
    or matching up; entries bloom in their own colors; surprise quick
    matchups re-sort the list; deck buttons fixed for iPad taps;
@@ -1021,11 +1079,25 @@ const Store = (() => {
   return { load, save, blank, KEY };
 })();
 
+/* ============================================================
+   ACCOUNTS — paste your two Supabase values here (see the setup
+   steps). Leave them empty and the app runs exactly as before:
+   accounts through server.py on your LAN, or local-only.
+   ============================================================ */
+const ACCOUNTS = {
+  url: "https://wajlvzccktbszouhukqo.supabase.co",   // Project URL
+  key: "sb_publishable_xQpVi2owsjpuwgau_obrtQ_6q7m0imp",   // Publishable key — safe to put in a web page
+};
+
 /* ------------------------------ api ------------------------------
-   Talks to server.py when the app is served by it. When the file is
-   opened statically (no /api), accounts simply don't appear and
-   everything stays local — same file, both modes. */
+   One interface, two backends:
+   · Supabase (when ACCOUNTS is filled in) — works from GitHub Pages
+     or anywhere. The page can only call five database functions
+     (register / login / load / save / logout); the tables themselves
+     are locked, and passwords are bcrypt-hashed inside the database.
+   · server.py (when this page is served by it) — the original LAN mode. */
 const API = {
+  mode: (ACCOUNTS.url && ACCOUNTS.key) ? "supabase" : "server",
   available: false,
   token: localStorage.getItem("alltimers.token") || "",
   user: localStorage.getItem("alltimers.user") || "",
@@ -1044,13 +1116,52 @@ const API = {
     localStorage.removeItem("alltimers.token");
     localStorage.removeItem("alltimers.user");
   },
+
+  /* ---- Supabase: Postgres functions over the REST API ---- */
+  rpcUrl(fn) { return ACCOUNTS.url.replace(/\/+$/, "") + "/rest/v1/rpc/" + fn; },
+  async rpc(fn, args) {
+    let r;
+    try {
+      r = await fetch(this.rpcUrl(fn), {
+        method: "POST",
+        // publishable keys go in the apikey header only (they aren't JWTs)
+        headers: { "apikey": ACCOUNTS.key, "Content-Type": "application/json" },
+        body: JSON.stringify(args || {}),
+      });
+    } catch {
+      const e = new Error("Can't reach the account server right now — check your connection");
+      e.offline = true;
+      throw e;
+    }
+    let d = null;
+    try { d = await r.json(); } catch { }
+    if (!r.ok) {
+      const raw = (d && (d.message || d.error || d.hint)) || "";
+      const e = new Error(
+        r.status >= 500 ? "The account server is asleep or busy — try again in a minute" :
+        /could not find the function|PGRST202/i.test(raw + (d && d.code)) ? "Accounts aren't set up yet (run the setup SQL)" :
+        raw || "Something went wrong");
+      e.status = r.status;
+      e.expired = /session expired/i.test(raw);
+      throw e;
+    }
+    return d;
+  },
+
   async ping() {
+    if (this.mode === "supabase") { this.available = true; return true; }
     try { const r = await fetch("/api/ping"); this.available = !!(r && r.ok); }
     catch { this.available = false; }
     return this.available;
   },
-  async _auth(path, u, p) {
-    const r = await fetch(path, {
+  async _auth(kind, u, p) {
+    if (this.mode === "supabase") {
+      const d = await this.rpc(kind === "register" ? "at_register" : "at_login", { p_username: u, p_password: p });
+      if (!d || !d.token) throw new Error("Something went wrong");
+      this.setSession(d.token, d.username);
+      return d;
+    }
+    const r = await fetch("/api/" + kind, {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: u, password: p }),
     });
@@ -1060,22 +1171,40 @@ const API = {
     this.setSession(d.token, d.username);
     return d;
   },
-  register(u, p) { return this._auth("/api/register", u, p); },
-  login(u, p) { return this._auth("/api/login", u, p); },
+  register(u, p) { return this._auth("register", u, p); },
+  login(u, p) { return this._auth("login", u, p); },
   async logout() {
-    try { await fetch("/api/logout", { method: "POST", headers: this.hdr() }); } catch { }
+    if (this.mode === "supabase") { try { await this.rpc("at_logout", { p_token: this.token }); } catch { } }
+    else { try { await fetch("/api/logout", { method: "POST", headers: this.hdr() }); } catch { } }
     this.clearSession();
   },
   async load() {
+    if (this.mode === "supabase") {
+      try { return await this.rpc("at_load", { p_token: this.token }); }
+      catch (e) { if (e.expired) { this.clearSession(); return null; } throw e; }
+    }
     const r = await fetch("/api/data", { headers: this.hdr() });
     if (r.status === 401) { this.clearSession(); return null; }
     if (!r.ok) throw new Error("load failed");
     return r.json();
   },
   async save(data) {
+    if (this.mode === "supabase") {
+      try { await this.rpc("at_save", { p_token: this.token, p_data: data }); return; }
+      catch (e) { if (e.expired) { this.clearSession(); throw new Error("session expired"); } throw e; }
+    }
     const r = await fetch("/api/data", { method: "PUT", headers: this.hdr(), body: JSON.stringify(data) });
     if (r.status === 401) { this.clearSession(); throw new Error("session expired"); }
     if (!r.ok) throw new Error("save failed");
+  },
+  /* last-chance save as the page closes */
+  saveOnExit(data) {
+    const body = this.mode === "supabase" ? JSON.stringify({ p_token: this.token, p_data: data }) : JSON.stringify(data);
+    const keepalive = body.length < 60000;
+    try {
+      if (this.mode === "supabase") fetch(this.rpcUrl("at_save"), { method: "POST", headers: { "apikey": ACCOUNTS.key, "Content-Type": "application/json" }, body, keepalive });
+      else fetch("/api/data", { method: "PUT", headers: this.hdr(), body, keepalive });
+    } catch { }
   },
 };
 const cacheKey = () => API.user ? Store.KEY + ":" + API.user : Store.KEY;
@@ -1922,10 +2051,7 @@ function schedulePush() {
   pushTimer = setTimeout(doPush, waited > 4000 ? 0 : 900);
 }
 window.addEventListener("beforeunload", () => {
-  if (pushDirty && API.token && API.available) {
-    const body = JSON.stringify(state);
-    try { fetch("/api/data", { method: "PUT", headers: API.hdr(), body, keepalive: body.length < 60000 }); } catch { }
-  }
+  if (pushDirty && API.token && API.available) API.saveOnExit(state);
 });
 let pulling = false;
 async function pullRemote() {
@@ -2025,6 +2151,9 @@ const ICONS = {
   x:     '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>',
   check: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg>',
   sliders:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 4.5h6M11.5 4.5h2M2.5 11.5h2M7.5 11.5h6"/><circle cx="10" cy="4.5" r="1.6"/><circle cx="6" cy="11.5" r="1.6"/></svg>',
+  dice:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="2.5" y="2.5" width="11" height="11" rx="2.6"/><circle cx="5.6" cy="5.6" r=".9" fill="currentColor" stroke="none"/><circle cx="10.4" cy="5.6" r=".9" fill="currentColor" stroke="none"/><circle cx="8" cy="8" r=".9" fill="currentColor" stroke="none"/><circle cx="5.6" cy="10.4" r=".9" fill="currentColor" stroke="none"/><circle cx="10.4" cy="10.4" r=".9" fill="currentColor" stroke="none"/></svg>',
+  eye:   '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8 12.1 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/></svg>',
+  eyeOff:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 2.5l11 11M6.6 4c.5-.2.9-.2 1.4-.2 4.1 0 6.5 4.2 6.5 4.2s-.6 1.1-1.7 2.3M4.3 5.3C2.6 6.5 1.5 8 1.5 8s2.4 4.5 6.5 4.5c1.1 0 2.1-.3 3-.8M6.6 6.7a2 2 0 002.7 2.7"/></svg>',
   chev:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>',
 };
 
@@ -2159,7 +2288,7 @@ function renderHome() {
   app.appendChild(buildTopbar(true));
 
   const hero = el("div", "home-hero");
-  hero.appendChild(el("div", "eyebrow", "Your library"));
+  hero.appendChild(el("div", "eyebrow", API.user ? API.user + "'s library" : "Your library"));
   const h1 = el("h1");
   h1.innerHTML = 'Rank the things<br>you <em>love.</em>';
   hero.appendChild(h1);
@@ -2260,25 +2389,16 @@ function buildTopbar(isHome) {
       const s = el("span", "sync");
       paintSync(s);
       actions.appendChild(s);
-      const chip = el("button", "btn btn-ghost");
-      chip.innerHTML = ICONS.user + "<span>" + escapeHTML(API.user) + "</span>";
-      chip.title = "Signed in — click to sign out";
-      chip.addEventListener("click", async () => {
-        if (!confirm("Sign out of " + API.user + "? Your rankings stay saved on the server.")) return;
-        clearTimeout(pushTimer);
-        try { if (pushDirty) { pushDirty = false; await API.save(state); } } catch { }
-        await API.logout();
-        state = migrate(Store.load(cacheKey()) || seededState());
-        History.clear();
-        route();
-        toast("Signed out");
-      });
-      actions.appendChild(chip);
+      actions.appendChild(buildAccountChip());
     } else {
-      const si = el("button", "btn");
-      si.innerHTML = ICONS.user + "<span>Sign in</span>";
-      si.addEventListener("click", openAuthModal);
-      actions.appendChild(si);
+      const si = el("button", "btn btn-ghost");
+      si.textContent = "Sign in";
+      si.addEventListener("click", () => openAuthModal("login"));
+      const save = el("button", "btn save-cta");
+      save.innerHTML = ICONS.user + "<span>Save my lists</span>";
+      save.title = "Make a free account — just a name and password";
+      save.addEventListener("click", () => openAuthModal("register"));
+      actions.append(si, save);
     }
   }
   if (isHome) {
@@ -2295,62 +2415,255 @@ function buildTopbar(isHome) {
 }
 
 /* ============================================================
-   AUTH MODAL
+   ACCOUNTS UI — quick register / sign in
    ============================================================ */
-function openAuthModal() {
-  let mode = "login";
-  const m = makeModal("");
-  const modal = m.modal;
-  const h2 = el("h2", null, "Sign in");
-  modal.appendChild(h2);
-  modal.appendChild(el("p", "hint", "Accounts live on your ALL·TIMERS server — just a username and password, no email. Signing in for the first time brings your current lists with you."));
-  modal.appendChild(el("label", "field-lbl", "Username"));
+const NAME_A = ["velvet", "neon", "golden", "cosmic", "midnight", "lucky", "wild", "silver", "crimson", "sunny",
+  "stormy", "electric", "mellow", "rogue", "brave", "clever", "fuzzy", "jazzy", "lunar", "rapid", "cozy", "bold",
+  "frosty", "mighty", "sly", "groovy", "noble", "zesty", "hazy", "royal"];
+const NAME_B = ["otter", "falcon", "pixel", "comet", "fox", "panda", "tiger", "raven", "walrus", "koala", "lynx",
+  "yeti", "badger", "heron", "moose", "gecko", "owl", "bison", "orca", "llama", "mantis", "cobra", "puffin",
+  "jaguar", "beagle", "narwhal", "lemur", "hornet", "marlin", "ferret"];
+const PASS_W = ["mango", "river", "lamp", "cactus", "rocket", "maple", "violet", "anchor", "biscuit", "cobalt",
+  "denim", "ember", "fable", "garnet", "harbor", "igloo", "jungle", "kettle", "lagoon", "meadow", "nectar", "orbit",
+  "pepper", "quartz", "radish", "saddle", "tundra", "umber", "velcro", "waffle", "yonder", "zipper", "blossom",
+  "canyon", "dynamo", "falafel", "glacier", "hammock", "island", "jigsaw", "kayak", "lantern", "marble", "nugget",
+  "oyster", "pretzel", "quiver", "ribbon", "sprocket", "trolley", "unicorn", "vortex", "walnut", "yogurt", "zephyr",
+  "bramble", "citrus", "domino", "eclipse", "fiddle", "gumbo", "hopscotch", "jukebox", "kazoo"];
+const rnd = n => { const a = new Uint32Array(1); (window.crypto || window.msCrypto).getRandomValues(a); return a[0] % n; };
+const genUsername = () => NAME_A[rnd(NAME_A.length)] + "-" + NAME_B[rnd(NAME_B.length)] + "-" + (10 + rnd(90));
+const genPassword = () => {
+  const w = []; while (w.length < 3) { const x = PASS_W[rnd(PASS_W.length)]; if (!w.includes(x)) w.push(x); }
+  return w.join("-") + "-" + (100 + rnd(900));
+};
+const USER_RE = /^[a-z0-9_.-]{3,24}$/;
+
+/* what's on this device before anyone signs in: the untouched starter
+   list doesn't count as "your lists" */
+function isUntouchedSeed(s) {
+  if (!s || !s.lists || s.lists.length !== 1) return !s || !s.lists || !s.lists.length;
+  const l = s.lists[0];
+  const seed = ["the wire", "the sopranos", "breaking bad", "mad men", "twin peaks"];
+  return l.template === "tv-shows" && l.items.length === 5 && l.items.every((it, i) => normTitle(it.title) === seed[i]);
+}
+
+/* mode: "register" | "login";  opts.welcome: first-visit invitation */
+function openAuthModal(mode, opts) {
+  mode = mode === "login" ? "login" : "register";
+  opts = opts || {};
+  const m = makeModal("auth");
+  const md = m.modal;
+  const form = el("form");
+  form.setAttribute("autocomplete", "on");
+  form.noValidate = true;
+  md.appendChild(form);
+
+  const badge = el("div", "auth-badge");
+  badge.innerHTML = '<span class="mark">1</span>';
+  const h2 = el("h2");
+  const hint = el("p", "hint");
+  const tabs = el("div", "seg auth-tabs");
+  const tReg = el("button", "seg-btn", "New here");
+  const tLog = el("button", "seg-btn", "I have an account");
+  tReg.type = tLog.type = "button";
+  tabs.append(tReg, tLog);
+
+  const magic = el("button", "auth-magic");
+  magic.type = "button";
+  magic.innerHTML = ICONS.bolt + "<span><b>Make one for me</b><small>Random name + password, one tap</small></span>";
+
+  const uWrap = el("div", "auth-field");
+  uWrap.appendChild(el("label", "field-lbl", "Username"));
+  const uRow = el("div", "auth-row");
   const u = el("input");
-  u.type = "text"; u.maxLength = 24; u.autocomplete = "username"; u.spellcheck = false; u.autocapitalize = "none";
-  modal.appendChild(u);
-  modal.appendChild(el("label", "field-lbl", "Password"));
+  u.type = "text"; u.name = "username"; u.id = "at-username"; u.maxLength = 24;
+  u.autocomplete = "username"; u.spellcheck = false; u.autocapitalize = "none";
+  u.placeholder = "pick a name";
+  const uGen = el("button", "iconbtn auth-gen");
+  uGen.type = "button"; uGen.innerHTML = ICONS.dice; uGen.title = "Random username"; uGen.setAttribute("aria-label", "Random username");
+  uRow.append(u, uGen);
+  uWrap.appendChild(uRow);
+
+  const pWrap = el("div", "auth-field");
+  pWrap.appendChild(el("label", "field-lbl", "Password"));
+  const pRow = el("div", "auth-row");
   const p = el("input");
-  p.type = "password"; p.maxLength = 200; p.autocomplete = "current-password";
-  modal.appendChild(p);
+  p.type = "password"; p.name = "password"; p.id = "at-password"; p.maxLength = 200;
+  p.placeholder = "6+ characters";
+  const pEye = el("button", "iconbtn auth-gen");
+  pEye.type = "button"; pEye.innerHTML = ICONS.eye; pEye.title = "Show password"; pEye.setAttribute("aria-label", "Show password");
+  const pGen = el("button", "iconbtn auth-gen");
+  pGen.type = "button"; pGen.innerHTML = ICONS.dice; pGen.title = "Random password"; pGen.setAttribute("aria-label", "Random password");
+  pRow.append(p, pEye, pGen);
+  pWrap.appendChild(pRow);
+
+  const keep = el("div", "auth-keep");
+  const keepTxt = el("span", null, "Jot these down — or let your browser save them.");
+  const copyBtn = el("button", "btn btn-ghost");
+  copyBtn.type = "button";
+  copyBtn.innerHTML = ICONS.copy + "<span>Copy login</span>";
+  keep.append(keepTxt, copyBtn);
+
   const err = el("div", "auth-err");
-  modal.appendChild(err);
-  const actions = el("div", "modal-actions");
-  const swap = el("button", "btn btn-ghost", "Create account");
-  const go = el("button", "btn btn-accent", "Sign in");
-  actions.append(swap, go);
-  modal.appendChild(actions);
-  function setMode(md) {
-    mode = md;
-    h2.textContent = md === "login" ? "Sign in" : "Create account";
-    go.textContent = h2.textContent;
-    swap.textContent = md === "login" ? "Create account" : "Have an account? Sign in";
-    p.autocomplete = md === "login" ? "current-password" : "new-password";
+  err.setAttribute("role", "alert");
+  const go = el("button", "btn btn-accent auth-go");
+  go.type = "submit";
+  const later = el("button", "auth-later", "Just look around for now");
+  later.type = "button";
+
+  form.append(badge, h2, hint, tabs, magic, uWrap, pWrap, keep, err, go);
+  if (opts.welcome) form.appendChild(later);
+
+  function setMode(md2) {
+    mode = md2;
+    const reg = mode === "register";
+    tReg.classList.toggle("active", reg);
+    tLog.classList.toggle("active", !reg);
+    h2.textContent = reg ? (opts.welcome ? "Save your rankings" : "Make an account") : "Welcome back";
+    hint.textContent = reg
+      ? "Just a name and a password — no email. Your lists save to your account and this device remembers you next time."
+      : "Sign in and your lists come right back.";
+    magic.hidden = !reg;
+    uGen.hidden = !reg;
+    pGen.hidden = !reg;
+    keep.hidden = !reg || !p.value;
+    p.autocomplete = reg ? "new-password" : "current-password";
+    go.textContent = reg ? "Create account & start ranking" : "Sign in";
     err.textContent = "";
+    setTimeout(() => (u.value ? p : u).focus(), 30);
   }
-  swap.addEventListener("click", () => setMode(mode === "login" ? "register" : "login"));
-  async function submit() {
+  tReg.addEventListener("click", () => setMode("register"));
+  tLog.addEventListener("click", () => setMode("login"));
+
+  const showPass = on => {
+    p.type = on ? "text" : "password";
+    pEye.innerHTML = on ? ICONS.eyeOff : ICONS.eye;
+    pEye.title = on ? "Hide password" : "Show password";
+  };
+  pEye.addEventListener("click", () => showPass(p.type === "password"));
+  const fill = (inp, v) => { inp.value = v; anim(inp, [{ backgroundColor: "color-mix(in oklab, var(--accent) 25%, var(--surface))" }, { backgroundColor: "var(--surface)" }], { duration: 700 }); };
+  uGen.addEventListener("click", () => { fill(u, genUsername()); err.textContent = ""; });
+  pGen.addEventListener("click", () => { fill(p, genPassword()); showPass(true); keep.hidden = false; err.textContent = ""; });
+  magic.addEventListener("click", () => {
+    fill(u, genUsername()); fill(p, genPassword()); showPass(true); keep.hidden = false; err.textContent = "";
+    Sound.pop();
+    go.focus();
+  });
+  p.addEventListener("input", () => { if (mode === "register") keep.hidden = !p.value; });
+  copyBtn.addEventListener("click", async () => {
+    const ok = await copyText("ALL·TIMERS login\nUsername: " + u.value.trim().toLowerCase() + "\nPassword: " + p.value);
+    toast(ok ? "Login copied" : "Couldn't reach the clipboard — write it down");
+  });
+  later.addEventListener("click", () => { localStorage.setItem("alltimers.welcomed", "1"); m.close(); });
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
     err.textContent = "";
+    const name = u.value.trim().toLowerCase();
+    const pass = p.value;
+    if (mode === "register") {
+      if (!USER_RE.test(name)) { err.textContent = "Username: 3–24 letters, numbers, dots, dashes or underscores"; u.focus(); return; }
+      if (pass.length < 6) { err.textContent = "Password needs at least 6 characters"; p.focus(); return; }
+    } else if (!name || !pass) { err.textContent = "Enter your username and password"; return; }
     go.disabled = true;
+    const label = go.textContent;
+    go.textContent = mode === "register" ? "Creating…" : "Signing in…";
     try {
-      const guestState = state;
-      if (mode === "login") await API.login(u.value.trim(), p.value);
-      else await API.register(u.value.trim(), p.value);
+      const guest = state;
+      if (mode === "register") await API.register(name, pass); else await API.login(name, pass);
+      showPass(false); // lets the browser's password manager see a normal password field
+      localStorage.setItem("alltimers.welcomed", "1");
       let remote = null;
       try { remote = await API.load(); } catch { }
-      if (remote && Array.isArray(remote.lists) && remote.lists.length) state = migrate(remote);
-      else { state = guestState; try { await API.save(state); } catch { } }
+      const remoteHas = remote && Array.isArray(remote.lists) && remote.lists.length;
+      const guestHas = !isUntouchedSeed(guest);
+      if (remoteHas) {
+        state = migrate(remote);
+        if (guestHas) {
+          // lists made before signing in come along instead of being left behind
+          const have = new Set(state.lists.map(l => l.id));
+          for (const l of guest.lists) if (!have.has(l.id)) state.lists.push(l);
+          try { await API.save(state); } catch { }
+        }
+      } else {
+        state = migrate(guest.lists.length ? guest : seededState());
+        try { await API.save(state); } catch { }
+      }
+      // the guest shelf on this device is now in the account — reset it
+      Store.save(seededState(), Store.KEY);
       Store.save(state, cacheKey());
       History.clear();
+      setSync("saved");
+      m.onClose = () => { };
       m.close();
-      route();
-      toast("Welcome, " + API.user);
-    } catch (e) { err.textContent = e.message || "Something went wrong"; }
-    go.disabled = false;
+      toast((mode === "register" ? "You're in, " : "Welcome back, ") + API.user);
+      jumpIn();
+    } catch (e2) {
+      err.textContent = e2.message || "Something went wrong";
+      go.disabled = false;
+      go.textContent = label;
+    }
+  });
+
+  setMode(mode);
+}
+
+/* right after signing up/in: straight to ranking */
+function jumpIn() {
+  if (!state.lists.length) { location.hash = "#/"; route(); openNewListModal(); return; }
+  if (state.lists.length === 1) {
+    const target = "#/list/" + state.lists[0].id;
+    if (location.hash !== target) location.hash = target; else route();
+    setTimeout(() => { const a = document.querySelector(".add-title-input"); if (a && !matchMedia("(hover:none)").matches) a.focus(); }, 500);
+    return;
   }
-  go.addEventListener("click", submit);
-  u.addEventListener("keydown", e => { if (e.key === "Enter") p.focus(); });
-  p.addEventListener("keydown", e => { if (e.key === "Enter") submit(); });
-  u.focus();
+  route();
+}
+
+/* account button: avatar + name; menu with sign out */
+function buildAccountChip() {
+  const wrap = el("div", "opt-wrap acct");
+  const btn = el("button", "btn btn-ghost acct-btn");
+  const initial = (API.user[0] || "?").toUpperCase();
+  btn.innerHTML = '<span class="avatar">' + escapeHTML(initial) + "</span><span class=\"acct-name\">" + escapeHTML(API.user) + "</span>";
+  btn.setAttribute("aria-haspopup", "menu");
+  wrap.appendChild(btn);
+  let menu = null;
+  const outside = e => { if (menu && !wrap.contains(e.target)) close(); };
+  function close() { if (menu) { menu.remove(); menu = null; document.removeEventListener("pointerdown", outside, true); } }
+  btn.addEventListener("click", () => {
+    if (menu) return close();
+    menu = el("div", "opt-menu");
+    menu.setAttribute("role", "menu");
+    const head = el("div", "acct-head");
+    head.innerHTML = '<span class="avatar big">' + escapeHTML(initial) + "</span>";
+    const t = el("div");
+    t.append(el("div", "eyebrow", "Signed in as"), el("div", "acct-who", API.user));
+    head.appendChild(t);
+    menu.appendChild(head);
+    const item = (icon, label, fn, cls) => {
+      const b = el("button", "opt-item" + (cls ? " " + cls : ""));
+      b.innerHTML = '<span class="oi">' + icon + "</span><span>" + label + "</span>";
+      b.addEventListener("click", () => { close(); fn(); });
+      menu.appendChild(b);
+    };
+    item(ICONS.copy, "Copy my username", async () => { toast((await copyText(API.user)) ? "Username copied" : "Couldn't reach the clipboard"); });
+    item(ICONS.back, "Sign out", signOut, "danger");
+    wrap.appendChild(menu);
+    setTimeout(() => document.addEventListener("pointerdown", outside, true), 0);
+  });
+  return wrap;
+}
+async function signOut() {
+  if (!confirm("Sign out of " + API.user + "? Your lists stay saved to your account.")) return;
+  clearTimeout(pushTimer);
+  try { if (pushDirty) { pushDirty = false; await API.save(state); } } catch { }
+  const who = API.user;
+  await API.logout();
+  state = migrate(Store.load(cacheKey()) || seededState());
+  History.clear();
+  location.hash = "#/";
+  route();
+  toast("Signed out of " + who);
 }
 
 /* ============================================================
@@ -4479,15 +4792,30 @@ route();
 (async () => {
   if (!(await API.ping())) return;
   route({ keepScroll: true, quiet: true });
-  if (!API.token) return;
+  if (!API.token) {
+    // first visit with accounts on: a friendly invitation (once)
+    if (!localStorage.getItem("alltimers.welcomed")) setTimeout(() => {
+      if (!API.user && !document.querySelector(".modal-veil")) openAuthModal("register", { welcome: true });
+    }, 700);
+    return;
+  }
+  // a saved session: this device already knows who you are
   try {
     const remote = await API.load();
-    if (!API.token) { route({ keepScroll: true, quiet: true }); return; }
+    if (!API.token) {
+      route({ keepScroll: true, quiet: true });
+      toast("Your session ended — sign in again", { action: { label: "Sign in", fn: () => openAuthModal("login") } });
+      return;
+    }
     if (remote && Array.isArray(remote.lists)) {
       if (remote.lists.length === 0 && state.lists.length > 0) await API.save(state);
       else { state = migrate(remote); Store.save(state, cacheKey()); History.clear(); }
       setSync("saved");
       route({ keepScroll: true, quiet: true });
+      if (!sessionStorage.getItem("alltimers.greeted")) {
+        sessionStorage.setItem("alltimers.greeted", "1");
+        toast("Welcome back, " + API.user);
+      }
     }
   } catch { setSync("offline"); }
 })();
