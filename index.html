@@ -1,0 +1,4039 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="studio" data-tone="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#F2EFEA">
+<title>ALL·TIMERS — rank the things you love</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237C7CF5'/%3E%3Cstop offset='1' stop-color='%23E78AD8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='38' font-weight='700' text-anchor='middle' fill='white'%3E1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,0..100,0..1;1,9..144,300..800,0..100,0..1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Geist:wght@400..900&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ALL·TIMERS v4 — tokens
+   ============================================================ */
+@property --amb1 { syntax: '<color>'; inherits: false; initial-value: #c9d6ff; }
+@property --amb2 { syntax: '<color>'; inherits: false; initial-value: #ffd6e5; }
+@property --amb3 { syntax: '<color>'; inherits: false; initial-value: #fff1c9; }
+
+:root{
+  --font-display:"Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body:"Instrument Sans", "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --font-mono:"Spline Sans Mono", ui-monospace, "SF Mono", Consolas, monospace;
+  --font-num:"Geist", "Inter Tight", "SF Pro Display", -apple-system, system-ui, sans-serif;
+  --soft:"SOFT" 100, "WONK" 0;
+  --r-xl:30px; --r-lg:22px; --r-md:16px; --r-sm:11px;
+  --ease:cubic-bezier(.22,.9,.3,1);
+  --spring:cubic-bezier(.2,1.25,.35,1);
+  --speed:.25s;
+  --up:#25B26B; --down:#E5484D;
+}
+[data-tone="light"]{
+  --glow-base:#ffffff; --glow-amt:50%; --amb-amt:62%; --grain:.28;
+  --hl:rgba(255,255,255,.8); --sh:70 50 30;
+  --shadow-1:0 1px 2px rgb(var(--sh) / .05), 0 12px 28px -16px rgb(var(--sh) / .30);
+  --shadow-2:0 2px 4px rgb(var(--sh) / .06), 0 26px 50px -24px rgb(var(--sh) / .42);
+  --glass:color-mix(in oklab, var(--surface) 95%, transparent);
+}
+[data-tone="dark"]{
+  --glow-base:#05060b; --glow-amt:62%; --amb-amt:48%; --grain:.45;
+  --hl:rgba(255,255,255,.07); --sh:0 0 0;
+  --shadow-1:0 1px 2px rgb(0 0 0 / .3), 0 14px 30px -16px rgb(0 0 0 / .65);
+  --shadow-2:0 2px 4px rgb(0 0 0 / .35), 0 28px 56px -24px rgb(0 0 0 / .8);
+  --glass:color-mix(in oklab, var(--surface) 95%, transparent);
+}
+
+/* ---- Themes (ids kept from v1–v3 so saved lists keep their look) ---- */
+[data-theme="studio"]{      /* Porcelain */
+  --bg:#F2EFEA; --surface:#FFFDFA; --surface-2:#F5F1EB;
+  --line:rgba(60,40,20,.09); --ink:#1E1B18; --ink-dim:#7C736B;
+  --accent:#6464EE; --accent-2:#D07BE6; --accent-ink:#FFFFFF; --rank:#D8D0C6;
+  --t-amb1:#C9D4FF; --t-amb2:#FFD3E4; --t-amb3:#FFEFC4;
+}
+[data-theme="marquee"]{     /* Velvet */
+  --bg:#150F0B; --surface:#211812; --surface-2:#2A1F17;
+  --line:rgba(255,225,190,.08); --ink:#F8ECDE; --ink-dim:#AC987F;
+  --accent:#F3BA68; --accent-2:#F0866A; --accent-ink:#2A170A; --rank:#4A3A2C;
+  --t-amb1:#6B3A1E; --t-amb2:#5E2235; --t-amb3:#4A3A12;
+}
+[data-theme="broadcast"]{   /* Midnight */
+  --bg:#0B0F22; --surface:#141934; --surface-2:#1A2042;
+  --line:rgba(190,205,255,.09); --ink:#EAEFFF; --ink-dim:#929BC6;
+  --accent:#7DE8D4; --accent-2:#8FA8FF; --accent-ink:#06231D; --rank:#2D3564;
+  --t-amb1:#22307A; --t-amb2:#0E5560; --t-amb3:#43257A;
+}
+[data-theme="stadium"]{     /* Matcha */
+  --bg:#EDF1E7; --surface:#FBFDF7; --surface-2:#F0F4EA;
+  --line:rgba(40,60,30,.10); --ink:#1B2618; --ink-dim:#6D7A66;
+  --accent:#3E9160; --accent-2:#B6C84A; --accent-ink:#FFFFFF; --rank:#CCD7C2;
+  --t-amb1:#CDEBC0; --t-amb2:#F2EEB8; --t-amb3:#C3E5DE;
+}
+[data-theme="neon"]{        /* Berry */
+  --bg:#160A1B; --surface:#221127; --surface-2:#2B1631;
+  --line:rgba(255,200,240,.09); --ink:#FCEBF7; --ink-dim:#B793B2;
+  --accent:#FF7DB8; --accent-2:#B38DFF; --accent-ink:#2A0A1C; --rank:#4A2650;
+  --t-amb1:#6A1D55; --t-amb2:#33207A; --t-amb3:#7A2843;
+}
+[data-theme="ledger"]{      /* Oat */
+  --bg:#F3EDE1; --surface:#FFFBF3; --surface-2:#F5EEE1;
+  --line:rgba(70,50,20,.10); --ink:#2A2519; --ink-dim:#867B67;
+  --accent:#BC6A3E; --accent-2:#DDA645; --accent-ink:#FFFFFF; --rank:#DCD0BA;
+  --t-amb1:#F7D6BF; --t-amb2:#F0E2B2; --t-amb3:#E2D4EF;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  transition:background-color .5s var(--ease), color .5s var(--ease);
+}
+.ambient{
+  --amb1:var(--t-amb1); --amb2:var(--t-amb2); --amb3:var(--t-amb3);
+  transition:--amb1 1.4s var(--ease), --amb2 1.4s var(--ease), --amb3 1.4s var(--ease);
+  position:fixed;inset:-12%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(38% 46% at 12% 8%,  color-mix(in oklab, var(--amb1) var(--amb-amt), transparent), transparent 72%),
+    radial-gradient(42% 50% at 92% 12%, color-mix(in oklab, var(--amb2) var(--amb-amt), transparent), transparent 72%),
+    radial-gradient(50% 55% at 55% 102%, color-mix(in oklab, var(--amb3) var(--amb-amt), transparent), transparent 72%);
+}
+button{font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+input,textarea{font-family:inherit}
+::selection{background:color-mix(in oklab, var(--accent) 40%, transparent);color:var(--ink)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;padding:0;margin:-1px}
+.display{font-family:var(--font-display);font-variation-settings:var(--soft)}
+
+.app{position:relative;z-index:1;max-width:940px;margin:0 auto;padding:30px 24px 70px}
+
+/* ---- Top bar ---- */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:38px}
+.wordmark{
+  font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:640;font-size:23px;
+  letter-spacing:-.01em;text-decoration:none;color:var(--ink);display:inline-flex;align-items:center;gap:10px;
+}
+.wordmark .mark{
+  width:30px;height:30px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg,var(--accent),var(--accent-2));color:var(--accent-ink);
+  font-size:17px;font-weight:700;box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 8px 18px -8px color-mix(in oklab, var(--accent) 80%, transparent);
+}
+.wordmark .dot{color:var(--accent)}
+.topbar-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+
+.sync{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--ink-dim);padding:0 6px}
+.sync i{width:7px;height:7px;border-radius:50%;background:var(--up);flex:none;box-shadow:0 0 0 3px color-mix(in oklab, var(--up) 22%, transparent)}
+.sync.saving i{background:var(--accent);box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent);animation:pulse 1s ease-in-out infinite}
+.sync.offline i{background:var(--down);box-shadow:0 0 0 3px color-mix(in oklab, var(--down) 22%, transparent)}
+@keyframes pulse{50%{opacity:.3}}
+
+/* ---- Buttons ---- */
+.btn{
+  border:none;background:color-mix(in oklab, var(--ink) 7%, transparent);color:var(--ink);
+  border-radius:999px;padding:9px 17px;font-size:13.5px;font-weight:600;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:transform .3s var(--spring), background var(--speed), box-shadow var(--speed);
+}
+.btn:hover{transform:translateY(-1px);background:color-mix(in oklab, var(--ink) 11%, transparent)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn:disabled{opacity:.55;cursor:default;transform:none}
+.btn-accent{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));border-color:transparent;color:var(--accent-ink);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 10px 22px -10px color-mix(in oklab, var(--accent) 85%, transparent);
+}
+.btn-accent:hover{border-color:transparent;filter:saturate(1.1) brightness(1.04)}
+.btn-ghost{background:transparent;box-shadow:none}
+.btn-ghost:hover{background:color-mix(in oklab, var(--ink) 7%, transparent)}
+.btn svg{width:15px;height:15px;flex:none}
+:focus-visible{outline:2.5px solid color-mix(in oklab, var(--accent) 70%, transparent);outline-offset:3px;border-radius:12px}
+
+.iconbtn{
+  width:34px;height:34px;border-radius:12px;border:1px solid transparent;
+  background:transparent;color:var(--ink-dim);
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background var(--speed), color var(--speed), border-color var(--speed), transform .3s var(--spring);
+}
+.iconbtn:hover{background:color-mix(in oklab, var(--ink) 7%, transparent);color:var(--ink)}
+.iconbtn:active{transform:scale(.92)}
+.iconbtn svg{width:16px;height:16px}
+.iconbtn.danger:hover{color:var(--down)}
+.iconbtn:disabled{opacity:.3;cursor:default}
+
+.seg{display:inline-flex;padding:3px;border-radius:999px;background:color-mix(in oklab, var(--ink) 6%, transparent);gap:2px}
+.seg-btn{
+  border:none;background:transparent;color:inherit;font-size:12px;font-weight:650;
+  padding:6px 12px;border-radius:999px;opacity:.7;display:inline-flex;align-items:center;gap:5px;
+  transition:background var(--speed), opacity var(--speed), box-shadow var(--speed);
+}
+.seg-btn svg{width:12px;height:12px}
+.seg-btn:hover{opacity:1}
+.seg-btn.active{opacity:1;background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgb(var(--sh) / .12), 0 4px 10px -4px rgb(var(--sh) / .2)}
+.seg-btn:disabled{opacity:.25;cursor:default}
+
+/* ============================================================
+   Home
+   ============================================================ */
+.eyebrow{font-size:11.5px;font-weight:650;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
+.home-hero{margin:6px 0 34px}
+.home-hero h1{
+  font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:520;
+  font-size:clamp(50px,10vw,104px);line-height:.92;margin:12px 0 18px;letter-spacing:-.035em;
+}
+.home-hero h1 em{
+  font-style:italic;font-weight:480;
+  background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;
+  padding-right:.08em;
+}
+.home-hero p{max-width:54ch;color:var(--ink-dim);font-size:16.5px;line-height:1.6;margin:0}
+.home-stats{display:flex;gap:26px;flex-wrap:wrap;margin-top:22px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim)}
+.home-stats b{font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:560;font-size:30px;letter-spacing:-.02em;color:var(--ink);margin-right:8px;vertical-align:-4px;text-transform:none}
+
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(262px,1fr));gap:18px}
+.list-card{
+  position:relative;border:none;border-radius:var(--r-xl);
+  background:var(--surface);color:var(--ink);cursor:pointer;
+  padding:20px 20px 18px;text-align:left;width:100%;overflow:hidden;
+  box-shadow:var(--shadow-1);
+  transition:transform .4s var(--spring), box-shadow .3s var(--ease);
+}
+.list-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-2)}
+.card-art{display:grid;height:118px;margin:-20px -20px 16px;overflow:hidden;position:relative;background:var(--surface-2)}
+.card-art img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block;transition:transform .8s var(--ease)}
+.list-card:hover .card-art img{transform:scale(1.06)}
+.card-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,var(--surface) 97%)}
+.card-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.list-card h3{
+  font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:560;font-size:25px;line-height:1.05;
+  margin:0 0 14px;letter-spacing:-.02em;
+}
+.card-preview{display:grid;gap:7px}
+.card-preview .pv{display:flex;gap:10px;align-items:baseline;font-size:13px;color:var(--ink-dim);white-space:nowrap;overflow:hidden}
+.card-preview .pv span{overflow:hidden;text-overflow:ellipsis}
+.card-preview .pv b{font-family:var(--font-num);font-weight:750;color:var(--ink-dim);font-size:15px;min-width:14px;flex:none}
+.card-preview .pv:first-child b{background:linear-gradient(140deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.card-preview .pv:first-child span{color:var(--ink);font-weight:650}
+.card-meta{
+  margin-top:16px;padding-top:12px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;font-size:11.5px;font-weight:600;color:var(--ink-dim);
+}
+.card-count{color:var(--ink)}
+.card-del{position:absolute;top:12px;right:12px;opacity:0;z-index:2;background:var(--surface);box-shadow:var(--shadow-1)}
+.list-card:hover .card-del,.card-del:focus-visible{opacity:1}
+
+.new-card{
+  border:1.5px dashed color-mix(in oklab, var(--ink) 16%, transparent);border-radius:var(--r-xl);background:transparent;
+  min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;color:var(--ink-dim);font-weight:650;font-size:14px;
+  transition:border-color var(--speed), color var(--speed), background var(--speed), transform .4s var(--spring);
+}
+.new-card:hover{border-color:var(--accent);color:var(--accent);background:var(--glass);transform:translateY(-3px)}
+.new-card .plus{
+  width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;
+  background:linear-gradient(140deg,var(--accent),var(--accent-2));color:var(--accent-ink);
+  box-shadow:0 10px 22px -10px color-mix(in oklab, var(--accent) 80%, transparent);
+}
+
+/* ============================================================
+   List view
+   ============================================================ */
+.list-head{margin:8px 0 22px}
+.list-head .eyebrow{display:flex;align-items:center;gap:12px}
+.list-head .eyebrow::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--line),transparent)}
+.list-title{
+  font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:560;
+  font-size:clamp(42px,7.6vw,80px);line-height:.98;letter-spacing:-.035em;
+  margin:14px 0 10px;outline:none;border-radius:10px;
+}
+.list-title:focus{box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 40%, transparent)}
+.list-sub{color:var(--ink-dim);font-size:16px;line-height:1.55;max-width:62ch;outline:none;border-radius:8px;min-height:1.5em}
+.list-sub:empty::before{content:attr(data-placeholder);color:var(--ink-dim);opacity:.55}
+.list-sub:focus{box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 40%, transparent)}
+
+.list-toolbar{
+  position:sticky;top:12px;z-index:25;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  margin:22px 0 26px;padding:8px 8px 8px 16px;border-radius:999px;
+  background:var(--glass);box-shadow:var(--shadow-1);
+}
+.toolbar-right{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.swatches{display:flex;gap:8px;align-items:center}
+.swatch{
+  width:24px;height:24px;border-radius:50%;border:none;padding:0;position:relative;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.5), 0 2px 6px -2px rgb(var(--sh) / .4);
+  transition:transform .35s var(--spring);
+}
+.swatch:hover{transform:scale(1.18)}
+.swatch.active{box-shadow:0 0 0 2px var(--surface), 0 0 0 4px var(--ink)}
+.find{
+  display:flex;align-items:center;gap:7px;height:36px;padding:0 12px;border-radius:999px;color:var(--ink-dim);
+  background:color-mix(in oklab, var(--ink) 5%, transparent);transition:background var(--speed), box-shadow var(--speed);
+}
+.find:focus-within{background:var(--surface);box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 30%, transparent)}
+.find svg{width:14px;height:14px;flex:none}
+.find input{border:none;background:transparent;color:var(--ink);width:120px;font-size:13.5px;outline:none;padding:0}
+.find input::-webkit-search-cancel-button{display:none}
+.find-count{font-size:11px;font-weight:650;white-space:nowrap}
+.tb-sep{width:1px;height:20px;background:var(--line);margin:0 4px}
+.enrich-btn{padding:8px 14px}
+
+/* ---- Ranked rows ---- */
+.rank-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.rank-row{
+  --p1:var(--rank); --p2:var(--rank); --p3:var(--rank);
+  position:relative;isolation:isolate;
+  display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:12px;
+  background:var(--surface);
+  border:none;border-radius:var(--r-lg);
+  padding:12px 12px 12px 0;min-height:94px;
+  box-shadow:var(--shadow-1);
+  overflow:hidden;
+  scroll-margin:110px 0 200px;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+  transition:box-shadow .35s var(--ease), opacity .3s;
+}
+.rank-row.has-art{grid-template-columns:80px 62px 1fr auto}
+.rank-row:hover{box-shadow:var(--shadow-2)}
+.rank-row > :not(.row-bg):not(.row-scrim){position:relative;z-index:1}
+
+/* podium */
+.rank-row.is-top{min-height:164px;padding:16px 16px 16px 0;border-radius:var(--r-xl);
+  box-shadow:var(--shadow-2), 0 34px 70px -40px color-mix(in oklab, var(--p1) 90%, transparent);}
+.rank-row.is-top,.rank-row.is-top.has-art{grid-template-columns:116px 1fr auto}
+.rank-row.is-top.has-art{grid-template-columns:116px 102px 1fr auto}
+.rank-row.is-podium.has-art{grid-template-columns:86px 68px 1fr auto}
+.rank-row.is-podium{grid-template-columns:86px 1fr auto;min-height:110px}
+
+/* ---- looks ---- */
+.rank-row.look-tint{
+  background:
+    radial-gradient(90% 160% at 0% 50%, color-mix(in oklab, color-mix(in oklab, var(--p1) var(--glow-amt), var(--glow-base)) 55%, transparent), transparent 70%),
+    var(--surface);
+}
+.rank-row.look-glow{
+  background:
+    radial-gradient(70% 150% at 4% 0%,   color-mix(in oklab, var(--p1) var(--glow-amt), var(--glow-base)), transparent 70%),
+    radial-gradient(60% 140% at 100% 0%, color-mix(in oklab, var(--p2) var(--glow-amt), var(--glow-base)), transparent 72%),
+    radial-gradient(70% 160% at 55% 135%, color-mix(in oklab, var(--p3) var(--glow-amt), var(--glow-base)), transparent 70%),
+    color-mix(in oklab, var(--p1) 14%, var(--surface));
+}
+.rank-row.look-scene{color:#fff}
+.row-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center 30%;
+  background-color:color-mix(in oklab, var(--p1) 45%, #05060a);transition:opacity .6s var(--ease)}
+.row-scrim{position:absolute;inset:0;z-index:0;
+  background:linear-gradient(92deg,
+    color-mix(in oklab, var(--p1) 50%, rgba(4,5,9,.96)) 0%,
+    color-mix(in oklab, var(--p1) 28%, rgba(4,5,9,.80)) 36%,
+    rgba(4,5,9,.28) 100%);}
+.rank-row.look-scene .row-note{color:rgba(255,255,255,.78)}
+.rank-row.look-scene .iconbtn{color:rgba(255,255,255,.82)}
+.rank-row.look-scene .iconbtn:hover{background:rgba(255,255,255,.16);color:#fff}
+.rank-row.look-scene .row-title{text-shadow:0 1px 14px rgba(0,0,0,.45)}
+.rank-row.look-bold{
+  color:var(--row-ink,#fff);
+  background:linear-gradient(180deg, rgba(255,255,255,.16), transparent 55%), linear-gradient(118deg, var(--p1) 0%, var(--p2) 85%);
+}
+.rank-row.look-bold .row-note{color:inherit;opacity:.8}
+.rank-row.look-bold .iconbtn{color:inherit;opacity:.85}
+.rank-row.look-bold .iconbtn:hover{background:rgba(127,127,127,.22);opacity:1}
+
+/* ---- numerals ---- */
+.rank-num{
+  font-family:var(--font-num);font-weight:700;font-feature-settings:"tnum" 1;
+  font-size:44px;line-height:1;letter-spacing:-.06em;
+  color:color-mix(in oklab, var(--p1) 50%, var(--ink-dim));
+  text-align:center;user-select:none;-webkit-user-select:none;font-variant-numeric:lining-nums tabular-nums;
+  cursor:pointer;align-self:stretch;display:flex;align-items:center;justify-content:center;
+  border-radius:14px;transition:color .3s;
+}
+.rank-row.is-podium .rank-num{font-size:52px;font-weight:750}
+.rank-row.is-top .rank-num{
+  font-size:92px;font-weight:800;letter-spacing:-.07em;padding-right:.06em;
+  background:linear-gradient(165deg,var(--accent) 10%,var(--accent-2) 90%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 8px 18px color-mix(in oklab, var(--accent) 35%, transparent));
+}
+.rank-row.look-scene .rank-num,.rank-row.look-bold .rank-num{color:rgba(255,255,255,.62)}
+.rank-row.look-bold .rank-num{color:color-mix(in oklab, var(--row-ink,#fff) 62%, transparent)}
+.rank-row.look-scene.is-top .rank-num,.rank-row.look-bold.is-top .rank-num{background:linear-gradient(165deg,#fff,rgba(255,255,255,.7));-webkit-background-clip:text;background-clip:text;color:transparent}
+.rank-jump{
+  width:72%;max-width:70px;min-width:0;
+  background:var(--surface);color:var(--ink);border:none;border-radius:14px;
+  box-shadow:0 0 0 2px var(--accent), 0 10px 24px -10px rgb(var(--sh) / .5);
+  font-family:var(--font-num);font-weight:750;font-size:28px;letter-spacing:-.04em;text-align:center;padding:6px 0;outline:none;-webkit-user-select:text;user-select:text;
+}
+
+.row-art{
+  width:62px;height:88px;border-radius:13px;overflow:hidden;flex:none;
+  background:color-mix(in oklab, var(--p1) 35%, var(--surface-2));
+  box-shadow:0 14px 26px -12px color-mix(in oklab, var(--p1) 75%, rgb(var(--sh))), 0 2px 5px rgb(var(--sh) / .18);
+}
+.row-art img{width:100%;height:100%;object-fit:cover;display:block}
+.rank-row.is-podium .row-art{width:68px;height:97px;border-radius:15px}
+.rank-row.is-top .row-art{width:102px;height:146px;border-radius:19px;
+  box-shadow:0 26px 44px -18px color-mix(in oklab, var(--p1) 85%, rgb(var(--sh))), 0 3px 8px rgb(var(--sh) / .22)}
+
+.row-body{min-width:0;padding-right:6px}
+.row-title{font-weight:650;font-size:17.5px;line-height:1.25;letter-spacing:-.01em;overflow-wrap:anywhere}
+.row-note{color:var(--ink-dim);font-size:13.5px;line-height:1.45;margin-top:4px;overflow-wrap:anywhere}
+.rank-row.is-podium .row-title{font-size:19.5px}
+.rank-row.is-top .row-title{font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:580;font-size:32px;line-height:1.05;letter-spacing:-.025em}
+.rank-row.is-top .row-note{font-size:14.5px;margin-top:8px}
+.crown{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:10.5px;font-weight:750;letter-spacing:.16em;text-transform:uppercase;
+  padding:4px 10px;border-radius:999px;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+
+.row-ctl{display:flex;align-items:center;gap:2px;opacity:0;transition:opacity var(--speed)}
+.rank-row:hover .row-ctl,.rank-row:focus-within .row-ctl{opacity:1}
+.row-ctl .iconbtn{width:38px;height:38px;border-radius:13px}
+.drag-handle{cursor:grab}
+.drag-handle:active{cursor:grabbing}
+@media (hover:none){
+  .row-ctl{opacity:1}
+  .row-ctl .drag-handle{display:none}
+  .row-ctl .more-btn{width:44px;height:44px;background:color-mix(in oklab, currentColor 9%, transparent)}
+}
+
+/* unranked */
+.unranked-head{list-style:none;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:26px 2px 4px}
+.unranked-head h4{font-family:var(--font-display);font-variation-settings:var(--soft);font-style:italic;font-weight:500;font-size:28px;letter-spacing:-.02em;margin:0}
+.unranked-head .u-sub{color:var(--ink-dim);font-size:13.5px}
+.unranked-head .btn{margin-left:auto}
+.rank-row.unranked{min-height:80px}
+.rank-row.unranked .rank-num{font-size:30px;font-weight:500;color:color-mix(in oklab, var(--ink-dim) 60%, transparent)}
+.rank-it{
+  margin-top:8px;display:inline-flex;align-items:center;gap:6px;border:none;border-radius:999px;
+  padding:5px 11px;font-size:11.5px;font-weight:700;color:var(--accent-ink);
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 6px 14px -8px color-mix(in oklab, var(--accent) 80%, transparent);
+  transition:transform .3s var(--spring);
+}
+.rank-it:hover{transform:translateY(-1px) scale(1.03)}
+.rank-it svg{width:12px;height:12px}
+
+/* rank-change badge */
+.delta{
+  display:inline-flex;align-items:center;margin-left:10px;vertical-align:3px;
+  font-family:var(--font-body);font-size:11px;font-weight:750;letter-spacing:.02em;
+  padding:3px 9px;border-radius:999px;white-space:nowrap;
+  animation:deltaFade 3s var(--ease) forwards;
+}
+.delta.up{background:color-mix(in oklab, var(--up) 20%, transparent);color:var(--up)}
+.delta.down{background:color-mix(in oklab, var(--down) 18%, transparent);color:var(--down)}
+.delta.new{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-ink)}
+.rank-row.look-scene .delta.up,.rank-row.look-bold .delta.up{background:var(--up);color:#04210F}
+.rank-row.look-scene .delta.down,.rank-row.look-bold .delta.down{background:var(--down);color:#fff}
+@keyframes deltaFade{0%{opacity:0;transform:translateY(5px) scale(.9)}10%{opacity:1;transform:none}78%{opacity:1}100%{opacity:0}}
+
+.rank-row.flash{animation:flash 1.4s var(--ease)}
+@keyframes flash{0%,45%{box-shadow:0 0 0 3px var(--accent), var(--shadow-2)}100%{box-shadow:inset 0 1px 0 var(--hl), var(--shadow-1)}}
+.rank-list.finding .rank-row:not(.find-hit){opacity:.2;filter:saturate(.4)}
+.rank-list.finding .rank-row.find-hit{box-shadow:0 0 0 2px var(--accent), var(--shadow-2)}
+
+/* first paint: rows float up in sequence */
+.rank-list.intro .rank-row{animation:rise .7s var(--spring) backwards;animation-delay:calc(var(--i, 0) * 45ms)}
+@keyframes rise{from{opacity:0;transform:translateY(16px) scale(.985)}}
+
+.milestone{
+  list-style:none;display:flex;align-items:center;gap:14px;margin:8px 4px;
+  font-family:var(--font-display);font-variation-settings:var(--soft);font-style:italic;font-weight:500;font-size:16px;
+  color:var(--ink-dim);user-select:none;
+}
+.milestone::before,.milestone::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,color-mix(in oklab, var(--ink) 18%, transparent))}
+.milestone::after{background:linear-gradient(90deg,color-mix(in oklab, var(--ink) 18%, transparent),transparent)}
+
+/* per-row style strip / action strip */
+.row-style,.row-actions{
+  grid-column:1 / -1;display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+  padding:12px 14px 4px;margin-top:6px;border-top:1px solid color-mix(in oklab, currentColor 14%, transparent);
+}
+.row-style .grp{display:flex;align-items:center;gap:8px}
+.row-style .lbl{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.65}
+.rank-row.look-scene .seg,.rank-row.look-bold .seg{background:rgba(0,0,0,.25)}
+.cdots{display:flex;gap:7px;align-items:center}
+.cdot{width:22px;height:22px;border-radius:50%;padding:0;border:2px solid rgba(255,255,255,.9);box-shadow:0 2px 6px rgb(0 0 0 / .25);transition:transform .3s var(--spring)}
+.cdot:hover{transform:scale(1.2)}
+.cdot.active{box-shadow:0 0 0 2px currentColor, 0 2px 6px rgb(0 0 0 / .25)}
+.row-actions{gap:8px;padding:12px 12px 4px}
+.row-actions .btn{padding:8px 13px;font-size:12.5px;color:inherit;background:color-mix(in oklab, currentColor 8%, transparent);box-shadow:none}
+.row-actions .btn svg{width:14px;height:14px}
+.row-actions .act-danger{color:var(--down)}
+.rank-row.look-scene .row-actions .act-danger,.rank-row.look-bold .row-actions .act-danger{color:#FF9A9C}
+
+/* sorting: press-and-hold lifts a row in place; the rest glide on transforms */
+.rank-row.pressing{transform:scale(.975);transition:transform .3s var(--ease), box-shadow .3s}
+.rank-list.sorting > *{transition:transform .34s cubic-bezier(.2,.9,.25,1), opacity .25s}
+.rank-list.sorting > .milestone{opacity:0}
+.rank-list.sorting > .rank-row.lifted{
+  z-index:40;transition:box-shadow .25s var(--ease);cursor:grabbing;
+  box-shadow:0 34px 70px -22px rgb(0 0 0 / .5), 0 0 0 2px color-mix(in oklab, var(--accent) 55%, transparent);
+}
+.rank-list.sorting > .rank-row.lifted.dropping{transition:transform .3s cubic-bezier(.2,1.05,.3,1), box-shadow .3s}
+body.drag-active{cursor:grabbing;-webkit-user-select:none;user-select:none}
+body.drag-active .add-wrap,body.drag-active .list-toolbar{opacity:.15;pointer-events:none}
+
+/* inline edit */
+.row-edit{display:grid;gap:8px;padding:2px 8px 2px 0}
+.row-edit input{-webkit-user-select:text;user-select:text;
+  width:100%;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:var(--surface);color:var(--ink);padding:10px 12px;font-size:15px;
+}
+.row-edit input:focus{outline:none;box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 35%, transparent)}
+.row-edit .edit-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ============================================================
+   Discover — "Have you seen…?" swipe deck
+   ============================================================ */
+.discover{margin:46px 0 6px;position:relative}
+.disc-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.disc-head h3{font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:540;font-size:32px;letter-spacing:-.025em;margin:0;line-height:1}
+.disc-head h3 em{font-style:italic;background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em}
+.disc-count{font-size:12px;font-weight:700;color:var(--ink-dim);padding:5px 11px;border-radius:999px;background:color-mix(in oklab, var(--ink) 6%, transparent)}
+.disc-count:empty{display:none}
+.disc-tog{margin-left:auto}
+.discover.collapsed .disc-body{display:none}
+.disc-sub{color:var(--ink-dim);font-size:14px;line-height:1.5;margin:8px 0 18px;max-width:62ch}
+.deck{position:relative;height:296px;max-width:640px;margin:0 auto}
+.deck-card{
+  position:absolute;left:0;right:0;top:0;height:268px;display:flex;gap:22px;align-items:center;
+  padding:16px 22px 16px 16px;border-radius:30px;overflow:hidden;
+  background:var(--surface);box-shadow:var(--shadow-2);
+  touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;cursor:grab;
+  transform-origin:50% 100%;
+  transition:transform .5s cubic-bezier(.2,1.05,.3,1), opacity .4s ease;
+}
+.deck-card[data-depth="1"]{transform:translate3d(0,14px,0) scale(.95);opacity:.75;pointer-events:none}
+.deck-card[data-depth="2"]{transform:translate3d(0,28px,0) scale(.9);opacity:.4;pointer-events:none}
+.deck .deck-card.enter{transform:translate3d(0,46px,0) scale(.85);opacity:0}
+.deck-card.grabbing{transition:none;cursor:grabbing}
+.deck-card.leaving{transition:transform .42s cubic-bezier(.35,.6,.4,1), opacity .42s ease;pointer-events:none}
+.deck-art{flex:0 0 auto;height:100%;aspect-ratio:2/3;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,var(--surface-2),color-mix(in oklab, var(--accent) 18%, var(--surface-2)));box-shadow:0 18px 34px -16px rgb(0 0 0 / .5)}
+.deck-art img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.deck-info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.deck-why{align-self:flex-start;font-size:12px;font-weight:700;line-height:1.35;padding:6px 12px;border-radius:14px;
+  color:var(--accent);background:color-mix(in oklab, var(--accent) 14%, transparent)}
+.deck-name{font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:580;font-size:34px;line-height:1.02;letter-spacing:-.03em}
+.deck-meta{color:var(--ink-dim);font-size:14px}
+.deck-more{color:var(--ink-dim);font-size:12.5px;line-height:1.4}
+.stamp{position:absolute;top:20px;right:20px;padding:6px 14px;border-radius:12px;font-weight:850;font-size:17px;letter-spacing:.1em;text-transform:uppercase;
+  border:3px solid currentColor;background:color-mix(in oklab, var(--surface) 80%, transparent);pointer-events:none}
+.stamp.yes{color:var(--up);opacity:var(--yes,0);transform:rotate(10deg)}
+.stamp.no{color:var(--down);opacity:var(--no,0);transform:rotate(-10deg)}
+.deck-empty{position:absolute;left:0;right:0;top:0;height:268px;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;
+  border-radius:30px;color:var(--ink-dim);font-size:15px;background:color-mix(in oklab, var(--surface) 60%, transparent)}
+.deck.loading .deck-empty{
+  background:linear-gradient(100deg, color-mix(in oklab, var(--surface) 55%, transparent) 30%, var(--surface) 50%, color-mix(in oklab, var(--surface) 55%, transparent) 70%);
+  background-size:300% 100%;animation:shimmer 1.4s linear infinite}
+@keyframes shimmer{from{background-position:100% 0}to{background-position:0 0}}
+.deck-actions{display:flex;justify-content:center;align-items:center;gap:12px;margin:4px 0 6px}
+.deck-btn{display:inline-flex;align-items:center;gap:9px;border:none;border-radius:999px;padding:0 24px;min-height:54px;
+  font-size:15px;font-weight:700;background:var(--surface);color:var(--ink);box-shadow:var(--shadow-1);
+  transition:transform .3s var(--spring), opacity .2s}
+.deck-btn svg{width:19px;height:19px}
+.deck-btn:active{transform:scale(.93)}
+.deck-btn:disabled{opacity:.35}
+.deck-btn.no svg{color:var(--down)}
+.deck-btn.yes{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-ink);box-shadow:0 14px 28px -14px color-mix(in oklab, var(--accent) 85%, transparent)}
+.deck-btn.skip{background:transparent;box-shadow:none;color:var(--ink-dim);padding:0 14px}
+
+/* row action sheet */
+.modal.sheet{width:min(460px,100%);padding:22px}
+.sheet-head{display:flex;gap:14px;align-items:center;margin:0 4px 16px}
+.sheet-head img{width:52px;height:74px;object-fit:cover;border-radius:12px;box-shadow:var(--shadow-1);flex:none}
+.sheet-title{font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:580;font-size:25px;letter-spacing:-.02em;line-height:1.08;margin-top:3px}
+.sheet-note{color:var(--ink-dim);font-size:13px;margin-top:3px}
+.sheet-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sheet-btn{display:flex;align-items:center;gap:12px;border:none;border-radius:18px;padding:12px;min-height:62px;text-align:left;
+  background:color-mix(in oklab, var(--ink) 5%, transparent);color:var(--ink);transition:background .2s, transform .3s var(--spring)}
+.sheet-btn:hover{background:color-mix(in oklab, var(--ink) 9%, transparent)}
+.sheet-btn:active{transform:scale(.96)}
+.sheet-btn .si{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none;background:var(--surface);color:var(--accent);box-shadow:var(--shadow-1)}
+.sheet-btn .si svg{width:17px;height:17px}
+.sheet-btn .st{display:flex;flex-direction:column;min-width:0}
+.sheet-btn .st b{font-size:14px;font-weight:700}
+.sheet-btn .st small{font-size:11.5px;color:var(--ink-dim);margin-top:2px;line-height:1.3}
+.sheet-btn.wide{grid-column:1 / -1}
+.sheet-btn.danger .si,.sheet-btn.danger b{color:var(--down)}
+
+/* options menu */
+.opt-wrap{position:relative}
+.opt-btn svg{width:15px;height:15px}
+.opt-menu{position:absolute;right:0;top:calc(100% + 10px);z-index:60;min-width:250px;padding:6px;border-radius:20px;
+  background:var(--surface);box-shadow:var(--shadow-2), 0 0 0 1px var(--line);animation:panel .28s var(--spring)}
+.opt-item{display:flex;align-items:center;gap:12px;width:100%;border:none;background:transparent;color:var(--ink);
+  padding:12px;border-radius:14px;font-size:14.5px;font-weight:600;text-align:left;min-height:48px}
+.opt-item:hover{background:color-mix(in oklab, var(--ink) 6%, transparent)}
+.opt-item .oi{display:inline-flex;color:var(--ink-dim)}
+.opt-item .oi svg{width:17px;height:17px}
+.tgl{margin-left:auto;width:38px;height:23px;border-radius:999px;flex:none;position:relative;background:color-mix(in oklab, var(--ink) 16%, transparent);transition:background .25s}
+.tgl::after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgb(0 0 0 / .3);transition:transform .3s var(--spring)}
+.tgl.on{background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+.tgl.on::after{transform:translateX(15px)}
+
+/* ============================================================
+   Add bar (sticky glass) + suggestions
+   ============================================================ */
+.add-wrap{position:sticky;bottom:max(16px, env(safe-area-inset-bottom));z-index:30;margin-top:26px;transition:opacity .25s var(--ease)}
+.add-bar{
+  display:grid;grid-template-columns:1fr auto;gap:8px 10px;
+  background:var(--glass);
+  border:none;border-radius:26px;padding:10px 10px 10px 12px;
+  box-shadow:0 24px 50px -22px rgb(var(--sh) / .55), var(--shadow-1);
+  transition:box-shadow .3s var(--ease);
+}
+.add-bar:focus-within{box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 30%, transparent), 0 24px 50px -22px rgb(var(--sh) / .55)}
+.add-fields{display:grid;gap:2px;min-width:0}
+.add-bar input{border:none;background:transparent;color:var(--ink);font-size:16.5px;padding:9px 10px;border-radius:14px;width:100%;min-width:0}
+.add-bar input:focus{outline:none;background:color-mix(in oklab, var(--surface) 70%, transparent)}
+.add-bar input.add-note-input{font-size:14px;color:var(--ink-dim);padding:6px 10px}
+.add-bar:not(:focus-within) .add-note-input:placeholder-shown{display:none}
+.add-bar > .btn{align-self:start;padding:11px 20px;font-size:14px}
+.add-foot{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:0 4px 2px}
+.add-mode{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:650;color:var(--ink-dim)}
+.add-hint{font-size:11.5px;color:var(--ink-dim)}
+.add-hint kbd{font-family:var(--font-mono);font-size:10px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;margin:0 1px;color:var(--ink);background:var(--surface)}
+
+.sugg-panel{
+  position:absolute;left:0;right:0;bottom:calc(100% + 10px);z-index:40;
+  background:var(--surface);
+  border:none;border-radius:24px;padding:6px;
+  box-shadow:0 -20px 50px -20px rgb(var(--sh) / .5), var(--shadow-2);
+  max-height:min(420px, 56vh);overflow-y:auto;animation:panel .28s var(--spring);
+}
+@keyframes panel{from{opacity:0;transform:translateY(8px) scale(.985)}}
+.sugg{
+  display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;
+  width:100%;text-align:left;padding:8px 10px;border:none;background:transparent;color:var(--ink);border-radius:16px;
+  transition:background .15s;
+}
+.sugg:hover,.sugg.sel{background:color-mix(in oklab, var(--accent) 10%, transparent)}
+.sugg .s-art{width:44px;height:62px;border-radius:9px;overflow:hidden;background:var(--surface-2);display:flex;align-items:center;justify-content:center;color:var(--ink-dim);box-shadow:0 6px 14px -8px rgb(var(--sh) / .6)}
+.sugg .s-art img{width:100%;height:100%;object-fit:cover;display:block}
+.sugg .s-art svg{width:18px;height:18px;opacity:.6}
+.sugg .s-name{font-weight:650;font-size:14.5px;line-height:1.25}
+.sugg .s-sub{color:var(--ink-dim);font-size:12px;margin-top:2px;line-height:1.35}
+.sugg .s-src{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:3px 8px;white-space:nowrap}
+.sugg .s-src.s-have{color:var(--accent);border-color:color-mix(in oklab, var(--accent) 50%, transparent)}
+.sugg-status{padding:10px 12px;font-size:12.5px;color:var(--ink-dim);display:flex;align-items:center;gap:8px}
+.sugg-status .spin{width:12px;height:12px;border-radius:50%;border:2px solid color-mix(in oklab, var(--accent) 30%, transparent);border-top-color:var(--accent);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.empty-state{
+  text-align:center;padding:64px 20px;border:none;
+  border-radius:var(--r-xl);color:var(--ink-dim);list-style:none;background:color-mix(in oklab, var(--surface) 60%, transparent);
+}
+.empty-state .big{font-family:var(--font-display);font-variation-settings:var(--soft);font-style:italic;font-weight:500;font-size:38px;color:var(--ink);letter-spacing:-.02em;margin-bottom:8px}
+
+/* ============================================================
+   Modal
+   ============================================================ */
+.modal-veil{
+  position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:color-mix(in oklab, var(--bg) 40%, rgba(0,0,0,.45));
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  animation:veil .25s var(--ease);
+}
+@keyframes veil{from{opacity:0}}
+.modal{
+  width:min(640px,100%);max-height:90vh;overflow:auto;
+  background:color-mix(in oklab, var(--surface) 94%, transparent);color:var(--ink);
+  border:none;border-radius:32px;padding:30px;
+  box-shadow:0 40px 100px -30px rgb(0 0 0 / .55);
+  animation:pop .45s var(--spring);
+}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.97)}}
+.modal h2{font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:560;font-size:36px;letter-spacing:-.03em;margin:4px 0 6px;line-height:1.02}
+.modal .hint{color:var(--ink-dim);font-size:14px;margin:0 0 18px;line-height:1.55}
+.field-lbl{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);display:block;margin:20px 0 8px}
+.modal input[type="text"],.modal input[type="password"]{
+  width:100%;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);padding:12px 14px;font-size:16px;
+  box-shadow:inset 0 1px 2px rgb(var(--sh) / .06);
+}
+.modal input[type="text"]:focus,.modal input[type="password"]:focus{outline:none;box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 32%, transparent)}
+.tpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.tpl{
+  border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);
+  padding:12px 13px;text-align:left;font-size:13.5px;font-weight:650;
+  transition:border-color var(--speed), box-shadow var(--speed), transform .3s var(--spring);
+}
+.tpl small{display:block;font-weight:500;color:var(--ink-dim);font-size:11.5px;margin-top:3px}
+.tpl:hover{transform:translateY(-2px)}
+.tpl.active{border-color:transparent;box-shadow:0 0 0 2px var(--accent), 0 10px 22px -12px color-mix(in oklab, var(--accent) 70%, transparent)}
+.modal-actions{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:26px;flex-wrap:wrap}
+.auth-err{color:var(--down);font-size:13px;font-weight:650;margin-top:12px;min-height:1.2em}
+
+/* head-to-head */
+.modal.duel{width:min(800px,100%)}
+.duel-meter{height:5px;border-radius:5px;background:color-mix(in oklab, var(--ink) 7%, transparent);overflow:hidden;margin:6px 0 0}
+.duel-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:5px;transition:width .5s var(--spring)}
+.duel-stage{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:stretch;margin-top:22px}
+.duel-card{
+  position:relative;border:none;border-radius:26px;overflow:hidden;
+  background:linear-gradient(170deg, color-mix(in oklab, var(--c1) 22%, var(--surface)), var(--surface) 70%);
+  color:var(--ink);padding:0;text-align:left;display:flex;flex-direction:column;
+  box-shadow:var(--shadow-1), 0 30px 60px -32px color-mix(in oklab, var(--c1) 85%, transparent);
+  transition:transform .45s var(--spring), box-shadow .3s, opacity .3s, filter .3s;
+}
+.duel-card:hover{transform:translateY(-6px) rotate(-.5deg)}
+.duel-card + .duel-vs + .duel-card:hover{transform:translateY(-6px) rotate(.5deg)}
+.duel-card.win{transform:scale(1.04);box-shadow:0 0 0 3px var(--accent), 0 36px 70px -30px color-mix(in oklab, var(--c1) 90%, transparent)}
+.duel-card.lose{opacity:.28;transform:scale(.94);filter:saturate(.3)}
+.duel-art{width:100%;aspect-ratio:2/3;max-height:350px;background:linear-gradient(160deg,var(--c1),var(--c2));display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-variation-settings:var(--soft);font-size:96px;font-weight:600;color:rgba(255,255,255,.9)}
+.duel-art img{width:100%;height:100%;object-fit:cover;display:block}
+.duel-info{padding:14px 16px 17px}
+.duel-tag{font-size:10.5px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.duel-name{font-family:var(--font-display);font-variation-settings:var(--soft);font-weight:580;font-size:22px;letter-spacing:-.02em;line-height:1.1;margin-top:5px}
+.duel-note{color:var(--ink-dim);font-size:12.5px;margin-top:5px;line-height:1.4}
+.duel-vs{align-self:center;font-family:var(--font-display);font-variation-settings:var(--soft);font-style:italic;font-weight:500;font-size:34px;color:var(--ink-dim)}
+.duel-keys{margin-right:auto;font-size:12px;color:var(--ink-dim)}
+
+/* artwork picker */
+.modal.picker{width:min(860px,100%)}
+.pick-sec{margin-top:18px}
+.pick-sec h5{margin:0 0 10px;font-size:11px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
+.pick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:12px}
+.pick-grid.wide{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.pick{
+  border:none;border-radius:18px;overflow:hidden;background:var(--surface);
+  padding:0;text-align:left;color:var(--ink);display:flex;flex-direction:column;
+  transition:transform .4s var(--spring), box-shadow .3s;box-shadow:var(--shadow-1);
+}
+.pick:hover{transform:translateY(-3px);box-shadow:var(--shadow-2)}
+.pick:disabled{opacity:.5;transform:none;cursor:default}
+.pick.current{box-shadow:0 0 0 2.5px var(--accent), var(--shadow-1)}
+.p-art{aspect-ratio:2/3;background:var(--surface-2);display:flex;align-items:center;justify-content:center;color:var(--ink-dim)}
+.pick-grid.wide .p-art{aspect-ratio:16/9}
+.p-art img{width:100%;height:100%;object-fit:cover;display:block}
+.p-art svg{width:22px;height:22px;opacity:.5}
+.p-info{padding:9px 10px 11px}
+.p-name{font-weight:650;font-size:13px;line-height:1.25}
+.p-sub{color:var(--ink-dim);font-size:11px;margin-top:3px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.p-src{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);margin-top:6px}
+.p-tag{position:absolute;top:8px;left:8px;font-size:9.5px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-ink)}
+.pick .p-art{position:relative}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(10px) scale(.96);
+  background:var(--ink);color:var(--bg);
+  padding:11px 12px 11px 20px;border-radius:999px;font-size:13.5px;font-weight:650;z-index:200;opacity:0;pointer-events:none;
+  display:flex;align-items:center;gap:14px;max-width:calc(100vw - 28px);
+  box-shadow:0 20px 40px -14px rgb(0 0 0 / .45);
+  transition:opacity .3s var(--ease), transform .45s var(--spring);
+}
+.toast:not(.has-act){padding-right:20px}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+.toast.show.has-act{pointer-events:auto}
+.toast-act{border:none;border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:800;background:color-mix(in oklab, var(--bg) 22%, transparent);color:inherit;white-space:nowrap}
+.toast-act:hover{background:color-mix(in oklab, var(--bg) 34%, transparent)}
+
+.backlink{display:inline-flex;align-items:center;gap:6px;color:var(--ink-dim);text-decoration:none;font-size:13.5px;font-weight:650;margin-bottom:6px;border-radius:8px;padding:2px 4px}
+.backlink:hover{color:var(--ink)}
+.backlink svg{width:14px;height:14px}
+
+/* density: compact */
+.rank-list.compact{gap:7px}
+.compact .rank-row{min-height:60px;padding:6px 10px 6px 0;grid-template-columns:58px 1fr auto;border-radius:16px}
+.compact .rank-row.has-art{grid-template-columns:58px 40px 1fr auto}
+.compact .row-art{width:40px;height:56px;border-radius:9px}
+.compact .rank-num{font-size:30px}
+.compact .row-title{font-size:15px}
+.compact .row-note{font-size:12px;margin-top:1px}
+.compact .rank-row.is-top,.compact .rank-row.is-podium{min-height:80px;border-radius:20px;padding:8px 10px 8px 0}
+.compact .rank-row.is-top,.compact .rank-row.is-podium{grid-template-columns:70px 1fr auto}
+.compact .rank-row.is-top.has-art,.compact .rank-row.is-podium.has-art{grid-template-columns:70px 50px 1fr auto}
+.compact .rank-row.is-top .rank-num{font-size:50px}
+.compact .rank-row.is-podium .rank-num{font-size:38px}
+.compact .rank-row.is-top .row-art,.compact .rank-row.is-podium .row-art{width:50px;height:70px;border-radius:11px}
+.compact .rank-row.is-top .row-title{font-size:22px}
+.compact .rank-row.is-podium .row-title{font-size:16.5px}
+.compact .crown{display:none}
+.compact .rank-it{margin-top:4px}
+
+@media (max-width:620px){
+  .app{padding:20px 14px 40px}
+  .topbar{margin-bottom:26px}
+  .rank-list{gap:10px}
+  .rank-row{grid-template-columns:58px 1fr auto;min-height:82px;border-radius:20px}
+  .rank-row.has-art{grid-template-columns:58px 50px 1fr auto;gap:10px}
+  .row-art{width:50px;height:71px;border-radius:11px}
+  .rank-num{font-size:34px}
+  .rank-row.is-podium,.rank-row.is-podium.has-art{grid-template-columns:62px 54px 1fr auto}
+  .rank-row.is-podium:not(.has-art){grid-template-columns:62px 1fr auto}
+  .rank-row.is-podium .row-art{width:54px;height:77px}
+  .rank-row.is-podium .rank-num{font-size:42px}
+  .rank-row.is-podium .row-title{font-size:17.5px}
+  .rank-row.is-top{min-height:132px;border-radius:26px}
+  .rank-row.is-top,.rank-row.is-top:not(.has-art){grid-template-columns:72px 1fr auto}
+  .rank-row.is-top.has-art{grid-template-columns:72px 76px 1fr auto}
+  .rank-row.is-top .row-art{width:76px;height:108px;border-radius:15px}
+  .rank-row.is-top .rank-num{font-size:64px}
+  .rank-row.is-top .row-title{font-size:24px}
+  .row-ctl{opacity:1;gap:0}
+  .row-ctl .drag-handle{display:none}
+  .list-toolbar{border-radius:24px;padding:8px;top:8px}
+  .swatches{order:2;width:100%;justify-content:center;padding:4px 0 2px}
+  .toolbar-right{width:100%;justify-content:space-between}
+  .find{flex:1}
+  .find input{width:100%;font-size:16px}
+  .tb-sep{display:none}
+  .enrich-btn span{display:none}
+  .enrich-btn{padding:8px 10px}
+  .duel-stage{gap:8px}
+  .duel-vs{font-size:22px}
+  .duel-art{font-size:60px}
+  .duel-name{font-size:16px}
+  .duel-info{padding:10px 11px 12px}
+  .duel-keys{display:none}
+  .modal{padding:22px;border-radius:28px}
+  .modal h2{font-size:30px}
+  .sync span{display:none}
+  .deck{height:236px}
+  .deck-card,.deck-empty{height:210px}
+  .deck-card{gap:14px;padding:12px 14px 12px 12px;border-radius:26px}
+  .deck-name{font-size:24px}
+  .deck-why{font-size:11px;padding:5px 9px}
+  .deck-more{display:none}
+  .deck-btn{min-height:50px;padding:0 16px;font-size:14px}
+  .sheet-actions{grid-template-columns:1fr}
+  .modal-veil:has(.sheet){align-items:flex-end;padding:0}
+  .modal.sheet{border-radius:28px 28px 0 0;padding-bottom:calc(22px + env(safe-area-inset-bottom));max-height:86vh}
+  .opt-btn span{display:none}
+  .unranked-head .btn{margin-left:0}
+  .add-hint{display:none}
+}
+@media (hover:none){
+  .rank-row:hover{box-shadow:var(--shadow-1)}
+  .list-card:hover,.new-card:hover{transform:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}
+}
+
+/* ============================================================
+   Print
+   ============================================================ */
+@media print{
+  @page{margin:14mm}
+  body{background:#fff!important;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .ambient,.grain,.topbar,.list-toolbar,.row-ctl,.add-wrap,.backlink,.toast,.card-del,.row-style,.row-actions,.delta,.discover,.rank-it,.unranked-head .btn{display:none!important}
+  .app{max-width:none;padding:0}
+  .list-title{font-size:36pt}
+  .rank-list{gap:3mm}
+  .rank-list.finding .rank-row{opacity:1!important;filter:none!important}
+  .rank-row{box-shadow:none!important;break-inside:avoid;content-visibility:visible;min-height:0!important;padding:6px 10px 6px 0!important;animation:none!important}
+  .rank-num{font-size:22pt!important}
+  .rank-row.is-top .rank-num{font-size:36pt!important}
+  .row-art{box-shadow:none!important}
+  .print-footer{margin-top:8mm;padding-top:3mm;border-top:1px solid #ccc;font-size:8.5pt;color:#666;display:flex!important;justify-content:space-between}
+}
+.print-footer{display:none}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<div class="app" id="app"></div>
+<div class="toast" id="toast" role="status"></div>
+<div class="sr-only" id="live" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============================================================
+   ALL·TIMERS v5
+   Single-file, dependency-free. Same storage format and server API
+   as v1–v4 — drop it in place of the old index.html.
+
+   v5: smooth scrolling on tablets (no full-page blending, blur or
+   animated layers), borderless rows, crisp numerals, touch-first
+   reordering (press-and-hold lifts a row in place), one clear ⋯
+   menu per row, an Options menu, and a swipeable "Have you seen…?"
+   card deck.
+
+   v4:
+
+   New in v4:
+   · Search finds shows from the first few letters (Wikipedia prefix
+     search resolved to TVMaze) and fills in as each source answers
+   · "Have you seen…?" — suggestions drawn from the creators and lead
+     actors of your top shows; Yes adds it to an Unranked shelf
+   · Unranked shelf for anything seen-but-not-placed; any entry can
+     go there, and "Rank it" places it by head-to-head matchups
+   · Official artwork gallery (all posters/backdrops for a show) and
+     a new Glow look built from the poster's own colors
+   · Full visual redesign: soft serif, ambient color that follows
+     your #1, glass toolbars, podium rows, spring motion, grain
+   ============================================================ */
+
+/* ------------------------------ store ---------------------- */
+const Store = (() => {
+  const KEY = "alltimers.v1";
+  const blank = () => ({ version: 1, lists: [] });
+  function load(key) {
+    try {
+      const raw = localStorage.getItem(key || KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (!data || data.version !== 1 || !Array.isArray(data.lists)) return null;
+      return data;
+    } catch { return null; }
+  }
+  function save(data, key) {
+    try { localStorage.setItem(key || KEY, JSON.stringify(data)); }
+    catch (e) { console.error("save failed", e); toast("Browser storage is full — export a backup"); }
+  }
+  return { load, save, blank, KEY };
+})();
+
+/* ------------------------------ api ------------------------------
+   Talks to server.py when the app is served by it. When the file is
+   opened statically (no /api), accounts simply don't appear and
+   everything stays local — same file, both modes. */
+const API = {
+  available: false,
+  token: localStorage.getItem("alltimers.token") || "",
+  user: localStorage.getItem("alltimers.user") || "",
+  hdr() {
+    const h = { "Content-Type": "application/json" };
+    if (this.token) h["Authorization"] = "Bearer " + this.token;
+    return h;
+  },
+  setSession(t, u) {
+    this.token = t; this.user = u;
+    localStorage.setItem("alltimers.token", t);
+    localStorage.setItem("alltimers.user", u);
+  },
+  clearSession() {
+    this.token = ""; this.user = "";
+    localStorage.removeItem("alltimers.token");
+    localStorage.removeItem("alltimers.user");
+  },
+  async ping() {
+    try { const r = await fetch("/api/ping"); this.available = !!(r && r.ok); }
+    catch { this.available = false; }
+    return this.available;
+  },
+  async _auth(path, u, p) {
+    const r = await fetch(path, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: u, password: p }),
+    });
+    let d = {};
+    try { d = await r.json(); } catch { }
+    if (!r.ok) throw new Error(d.error || "Something went wrong");
+    this.setSession(d.token, d.username);
+    return d;
+  },
+  register(u, p) { return this._auth("/api/register", u, p); },
+  login(u, p) { return this._auth("/api/login", u, p); },
+  async logout() {
+    try { await fetch("/api/logout", { method: "POST", headers: this.hdr() }); } catch { }
+    this.clearSession();
+  },
+  async load() {
+    const r = await fetch("/api/data", { headers: this.hdr() });
+    if (r.status === 401) { this.clearSession(); return null; }
+    if (!r.ok) throw new Error("load failed");
+    return r.json();
+  },
+  async save(data) {
+    const r = await fetch("/api/data", { method: "PUT", headers: this.hdr(), body: JSON.stringify(data) });
+    if (r.status === 401) { this.clearSession(); throw new Error("session expired"); }
+    if (!r.ok) throw new Error("save failed");
+  },
+};
+const cacheKey = () => API.user ? Store.KEY + ":" + API.user : Store.KEY;
+
+/* Distill a list title into search-steering words: "Best Depeche Mode
+   Albums of All Time" → "depeche mode". */
+const CTX_STOP = new Set([
+  "best", "the", "of", "all", "time", "times", "ranked", "ranking", "rankings",
+  "top", "list", "lists", "my", "our", "favorite", "favorites", "favourite",
+  "favourites", "greatest", "ever", "definitive", "ultimate", "official",
+  "tv", "shows", "show", "series", "movies", "movie", "films", "film",
+  "albums", "album", "records", "record", "lps", "books", "book", "novels",
+  "novel", "teams", "team", "sports", "games", "game", "video", "episodes",
+  "episode", "seasons", "season", "characters", "character", "songs", "song",
+  "tracks", "track", "and", "by", "from",
+]);
+function contextTerms(list) {
+  return String(list.title || "").toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter(t => t.length > 1 && !CTX_STOP.has(t) && !/^\d+$/.test(t))
+    .filter((t, i, a) => a.indexOf(t) === i)
+    .slice(0, 4)
+    .join(" ");
+}
+
+/* ------------------------------ helpers -------------------- */
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const el = (tag, cls, text) => {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+};
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const fmtDate = ts => new Date(ts).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+const anim = (node, kf, opts) =>
+  (node && node.animate) ? node.animate(kf, opts) : { finished: Promise.resolve() };
+const debounce = (fn, ms) => {
+  let t;
+  return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+};
+const plural = (n, one, many) => n + " " + (n === 1 ? one : (many || one + "s"));
+const normTitle = s => String(s || "").toLowerCase()
+  .replace(/&/g, " and ").replace(/\(.*?\)/g, "").normalize("NFKD").replace(/[̀-ͯ]/g, "")
+  .replace(/[^a-z0-9]+/g, " ").trim();
+const vibrate = p => { try { if (navigator.vibrate) navigator.vibrate(p); } catch { } };
+const https = u => String(u || "").replace(/^http:/, "https:");
+const enc = encodeURIComponent;
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+/* toast — optionally with one action button (e.g. Undo) */
+function toast(msg, opts) {
+  opts = opts || {};
+  const t = document.getElementById("toast");
+  if (!t) return;
+  t.innerHTML = "";
+  t.appendChild(el("span", null, msg));
+  t.classList.toggle("has-act", !!opts.action);
+  if (opts.action) {
+    const b = el("button", "toast-act", opts.action.label);
+    b.addEventListener("click", () => { hide(); opts.action.fn(); });
+    t.appendChild(b);
+  }
+  t.classList.add("show");
+  function hide() { t.classList.remove("show", "has-act"); }
+  clearTimeout(toast._t);
+  toast._t = setTimeout(hide, opts.ms || (opts.action ? 6000 : 2400));
+}
+function announce(msg) {
+  const n = document.getElementById("live");
+  if (n) { n.textContent = ""; setTimeout(() => { n.textContent = msg; }, 30); }
+}
+async function copyText(s) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(s); return true; }
+  } catch { }
+  // plain-http LAN pages have no async clipboard — use the classic path
+  const ta = document.createElement("textarea");
+  ta.value = s; ta.setAttribute("readonly", "");
+  ta.style.position = "fixed"; ta.style.opacity = "0"; ta.style.top = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch { }
+  ta.remove();
+  return ok;
+}
+
+/* ---- color utilities ---- */
+function hslToRgb(h, s, l) {
+  h = ((h % 360) + 360) % 360 / 360;
+  const q = l < .5 ? l * (1 + s) : l + s - l * s;
+  const p = 2 * l - q;
+  const f = t => {
+    t = ((t % 1) + 1) % 1;
+    if (t < 1 / 6) return p + (q - p) * 6 * t;
+    if (t < 1 / 2) return q;
+    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+    return p;
+  };
+  return [f(h + 1 / 3), f(h), f(h - 1 / 3)].map(v => Math.round(v * 255));
+}
+function colToRgb(c) {
+  c = String(c).trim();
+  let m = c.match(/^#([0-9a-f]{6})$/i);
+  if (m) { const n = parseInt(m[1], 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+  m = c.match(/^hsl\(\s*([\d.]+)[,\s]+([\d.]+)%[,\s]+([\d.]+)%/i);
+  if (m) return hslToRgb(+m[1], +m[2] / 100, +m[3] / 100);
+  return [128, 128, 128];
+}
+const relLuma = c => { const [r, g, b] = colToRgb(c); return .2126 * r + .7152 * g + .0722 * b; };
+function darken(c, f) {
+  const [r, g, b] = colToRgb(c);
+  const k = 1 - f, h = v => Math.round(v * k).toString(16).padStart(2, "0");
+  return "#" + h(r) + h(g) + h(b);
+}
+function lighten(c, f) {
+  const [r, g, b] = colToRgb(c);
+  const h = v => Math.round(v + (255 - v) * f).toString(16).padStart(2, "0");
+  return "#" + h(r) + h(g) + h(b);
+}
+
+/* ---- Sound: tiny synthesized cues, no audio files ---- */
+const Sound = (() => {
+  let ctx = null;
+  const enabled = () => !state.settings || state.settings.sound !== false;
+  function ac() {
+    if (!enabled()) return null;
+    try {
+      if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+      if (ctx.state === "suspended") ctx.resume();
+      return ctx;
+    } catch { return null; }
+  }
+  function blip(freq, dur, peak, type, slideTo, delay) {
+    const c = ac();
+    if (!c) return;
+    const t = c.currentTime + (delay || 0);
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = type || "triangle";
+    o.frequency.setValueAtTime(freq, t);
+    if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(c.destination);
+    o.start(t); o.stop(t + dur + 0.02);
+  }
+  return {
+    pickup() { blip(260, .07, .06, "sine", 320); },
+    tick(rank) { blip(560 + Math.min(rank, 20) * 26, .045, .05, "triangle"); },
+    drop() { blip(1300, .03, .05, "square"); blip(210, .11, .14, "sine", 95); },
+    pop() { blip(520, .06, .06, "sine", 880); },
+    win() {
+      blip(660, .08, .06, "triangle", null, 0);
+      blip(880, .08, .06, "triangle", null, .07);
+      blip(1320, .16, .07, "triangle", null, .14);
+    },
+  };
+})();
+
+/* ============================================================
+   TVMAZE — one polite gateway for every TVMaze call.
+   TVMaze allows ~20 calls / 10 s per IP; this spaces calls out,
+   backs off on 429 and retries, so search + artwork + suggestions
+   can all run at once without tripping the limit.
+   ============================================================ */
+const Tv = (() => {
+  let nextAt = 0;
+  async function get(path, gap) {
+    gap = gap || 130;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const now = Date.now();
+      const at = Math.max(now, nextAt);
+      nextAt = at + gap;
+      if (at > now) await sleep(at - now);
+      let r;
+      try { r = await fetch("https://api.tvmaze.com" + path); }
+      catch (e) { if (attempt === 2) throw e; await sleep(700); continue; }
+      if (r.status === 429) { nextAt = Date.now() + 2200; continue; }
+      if (r.status === 404) return null;
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json();
+    }
+    throw new Error("rate limited");
+  }
+  return { get };
+})();
+
+/* ============================================================
+   MEDIA — artwork + metadata lookup and color extraction
+   ============================================================ */
+const Media = (() => {
+  const WIKI = "https://en.wikipedia.org/w/api.php";
+
+  /* JSONP for APIs without CORS headers (iTunes) */
+  function jsonp(url, timeout = 6000) {
+    return new Promise((resolve, reject) => {
+      const cb = "atcb_" + uid();
+      const s = document.createElement("script");
+      const timer = setTimeout(() => { cleanup(); reject(new Error("jsonp timeout")); }, timeout);
+      function cleanup() {
+        clearTimeout(timer);
+        window[cb] = () => { };
+        setTimeout(() => { delete window[cb]; }, 30000);
+        s.remove();
+      }
+      window[cb] = data => { cleanup(); resolve(data); };
+      s.onerror = () => { cleanup(); reject(new Error("jsonp failed")); };
+      s.src = url + (url.includes("?") ? "&" : "?") + "callback=" + cb;
+      document.head.appendChild(s);
+    });
+  }
+  async function getJSON(url) {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error("http " + r.status);
+    return r.json();
+  }
+  const withTimeout = (p, ms) => Promise.race([p, sleep(ms).then(() => { throw new Error("timeout"); })]);
+  const yearOf = d => (d && /^\d{4}/.test(d)) ? d.slice(0, 4) : "";
+
+  /* ---- TV ---- */
+  function fromTvmaze(show) {
+    const net = (show.network && show.network.name) || (show.webChannel && show.webChannel.name) || "";
+    const y1 = yearOf(show.premiered), y2 = show.ended ? yearOf(show.ended) : (y1 && show.status === "Running" ? "present" : "");
+    const years = y1 ? (y1 + (y2 && y2 !== y1 ? "–" + y2 : "")) : "";
+    const note = [net, years].filter(Boolean).join(" · ");
+    const im = show.image || {};
+    return {
+      id: show.id,
+      name: show.name,
+      sub: [note, (show.genres || []).slice(0, 2).join(", ")].filter(Boolean).join(" · "),
+      img: https(im.medium || im.original),
+      imgHi: https(im.original || im.medium),
+      note,
+      pop: (show.weight || 0) / 100,
+      source: "TVMaze",
+    };
+  }
+  async function tvmaze(q) {
+    const data = await Tv.get("/search/shows?q=" + enc(q));
+    return (data || []).slice(0, 8).map(d => fromTvmaze(d.show)).filter(r => r.name);
+  }
+
+  /* Wikipedia prefix search: "break" → "Breaking Bad". TVMaze's own
+     search only matches whole words, which is why half-typed titles
+     used to come up empty. Titles found here are resolved to TVMaze
+     (for posters, network and years). */
+  const TV_RE = /televi|tv series|sitcom|miniseries|mini-series|web series|anime|soap opera|animated series|streaming series|drama series|comedy series|tv program/i;
+  const FILM_RE = /\bfilm\b|\bmovie\b/i;
+  async function wikiPrefix(q, re) {
+    const data = await getJSON(WIKI + "?action=query&format=json&origin=*&redirects=1" +
+      "&generator=prefixsearch&gpslimit=12&gpssearch=" + enc(q) + "&prop=description");
+    const pages = data.query && data.query.pages ? Object.values(data.query.pages) : [];
+    pages.sort((a, b) => a.index - b.index);
+    const seen = new Set(), out = [];
+    for (const p of pages) {
+      const desc = p.description || "";
+      if (!re.test(desc) && !re.test(p.title)) continue;
+      const name = p.title.replace(/\s*\(([^)]*)\)\s*$/, (m, inner) =>
+        /series|tv|televi|film|miniseries|sitcom|show|\d{4}/i.test(inner) ? "" : m);
+      const year = (desc.match(/\b(19|20)\d{2}\b/) || p.title.match(/\b(19|20)\d{2}\b/) || [""])[0];
+      const k = normTitle(name) + "|" + year;
+      if (seen.has(k)) continue;
+      seen.add(k);
+      out.push({ name, year, desc });
+    }
+    return out;
+  }
+  async function tvResolve(name, year) {
+    const data = await Tv.get("/search/shows?q=" + enc(name));
+    if (!data || !data.length) return null;
+    const shows = data.map(d => d.show);
+    const nn = normTitle(name);
+    const pick = shows.find(s => normTitle(s.name) === nn && year && yearOf(s.premiered) === year)
+      || shows.find(s => normTitle(s.name) === nn)
+      || null;
+    return pick ? fromTvmaze(pick) : null;
+  }
+  async function tvPrefix(q, known) {
+    if (q.length < 2) return [];
+    const titles = await wikiPrefix(q, TV_RE);
+    const want = titles.filter(t => !known(t.name)).slice(0, 3);
+    const res = await Promise.all(want.map(t => tvResolve(t.name, t.year).catch(() => null)));
+    return res.filter(Boolean);
+  }
+
+  /* ---- movies / music / books / everything else ---- */
+  async function itunes(q, media, entity) {
+    const url = "https://itunes.apple.com/search?term=" + enc(q) +
+      "&media=" + media + (entity ? "&entity=" + entity : "") + "&limit=12";
+    const data = await jsonp(url);
+    return (data.results || []).map(r => {
+      const name = r.trackName || r.collectionName || "";
+      const year = yearOf(r.releaseDate);
+      const by = r.artistName || "";
+      const note = [by, year].filter(Boolean).join(" · ");
+      const base = r.artworkUrl100 || "";
+      return {
+        name, sub: note, note, source: "iTunes", year,
+        img: base.replace("100x100", "300x300"),
+        imgHi: base.replace("100x100", "1000x1000"),
+      };
+    }).filter(r => r.name);
+  }
+  async function moviePrefix(q, known) {
+    if (q.length < 2) return [];
+    const titles = (await wikiPrefix(q, FILM_RE)).filter(t => !known(t.name)).slice(0, 3);
+    const res = await Promise.all(titles.map(async t => {
+      try {
+        const hits = await itunes(t.name, "movie");
+        const nn = normTitle(t.name);
+        return hits.find(h => normTitle(h.name) === nn && (!t.year || h.year === t.year))
+          || hits.find(h => normTitle(h.name) === nn) || null;
+      } catch { return null; }
+    }));
+    return res.filter(Boolean);
+  }
+  async function musicbrainz(q) {
+    if (q.length < 3) return [];
+    const data = await getJSON(
+      "https://musicbrainz.org/ws/2/release-group?fmt=json&limit=8&query=" + enc(q)
+    );
+    return (data["release-groups"] || []).map(rg => {
+      const artist = (rg["artist-credit"] && rg["artist-credit"][0] && rg["artist-credit"][0].name) || "";
+      const year = (rg["first-release-date"] || "").slice(0, 4);
+      const note = [artist, year].filter(Boolean).join(" · ");
+      const cover = "https://coverartarchive.org/release-group/" + rg.id + "/front";
+      return {
+        name: rg.title, sub: [note, rg["primary-type"]].filter(Boolean).join(" · "),
+        img: cover + "-250", imgHi: cover + "-500", note, source: "MusicBrainz",
+      };
+    }).filter(r => r.name);
+  }
+  async function openlibrary(q) {
+    const data = await getJSON(
+      "https://openlibrary.org/search.json?limit=8&fields=title,author_name,first_publish_year,cover_i&q=" + enc(q)
+    );
+    return (data.docs || []).map(d => {
+      const note = [(d.author_name || [])[0], d.first_publish_year].filter(Boolean).join(" · ");
+      const cov = d.cover_i ? "https://covers.openlibrary.org/b/id/" + d.cover_i : "";
+      return { name: d.title, sub: note, img: cov ? cov + "-M.jpg" : "", imgHi: cov ? cov + "-L.jpg" : "", note, source: "Open Library" };
+    }).filter(r => r.name);
+  }
+  async function wikipedia(q, bias) {
+    const term = bias ? q + " " + bias : q;
+    const data = await getJSON(WIKI + "?action=query&format=json&origin=*" +
+      "&generator=search&gsrlimit=8&gsrsearch=" + enc(term) +
+      "&prop=pageimages%7Cdescription&piprop=thumbnail&pithumbsize=600&pilicense=any");
+    const pages = data.query && data.query.pages ? Object.values(data.query.pages) : [];
+    pages.sort((a, b) => a.index - b.index);
+    return pages.map(p => ({
+      name: p.title, sub: p.description || "Wikipedia article",
+      img: p.thumbnail ? p.thumbnail.source : "", note: p.description || "", source: "Wikipedia",
+    })).filter(r => r.name);
+  }
+
+  /* ---- official TV artwork ----
+     TVMaze marks the canonical poster and backdrop as `main`. We pick
+     those first: they are the show's own key art, not a random still. */
+  async function tvImages(showId) {
+    const data = await Tv.get("/shows/" + showId + "/images");
+    if (!Array.isArray(data)) return { posters: [], backdrops: [] };
+    const res = x => x.resolutions || {};
+    const map = x => {
+      const r = res(x);
+      const hi = r.original || r.large || r.medium;
+      const lo = r.medium || r.large || r.original;
+      return { main: !!x.main, img: https(lo && lo.url), imgHi: https(hi && hi.url), w: (hi && hi.width) || 0, h: (hi && hi.height) || 0 };
+    };
+    const sortFn = (a, b) => (b.main - a.main) || (b.w - a.w);
+    return {
+      posters: data.filter(x => x.type === "poster").map(map).filter(x => x.img).sort(sortFn),
+      backdrops: data.filter(x => x.type === "background").map(map).filter(x => x.img && (!x.h || x.w / x.h > 1.3)).sort(sortFn),
+    };
+  }
+  async function tvmazeBackdrop(showId) {
+    const im = await tvImages(showId);
+    return im.backdrops.length ? im.backdrops[0].imgHi : "";
+  }
+
+  /* template id → providers. `prefix` providers only run while typing. */
+  const ROUTES = {
+    "tv-shows": [q => tvmaze(q)],
+    "seasons":  [q => tvmaze(q)],
+    "movies":   [q => itunes(q, "movie")],
+    "albums":   [q => itunes(q, "music", "album"), q => musicbrainz(q)],
+    "books":    [q => openlibrary(q)],
+    "tv-chars": [q => wikipedia(q, "character")],
+    "episodes": [q => wikipedia(q, "episode")],
+    "teams":    [q => wikipedia(q)],
+    "games":    [q => wikipedia(q, "video game")],
+    "custom":   [q => wikipedia(q)],
+  };
+  const PREFIX = { "tv-shows": tvPrefix, "seasons": tvPrefix, "movies": moviePrefix };
+  const WIKI_BACKED = new Set(["tv-chars", "episodes", "teams", "games", "custom"]);
+  const norm = normTitle;
+
+  /* Relevance by name first; popularity and list-title context break ties. */
+  function reRank(results, q, ctx) {
+    const nq = norm(q);
+    const tokens = nq.split(" ").filter(Boolean);
+    const last = tokens[tokens.length - 1] || "";
+    const ctxTokens = ctx ? norm(ctx).split(" ").filter(Boolean) : [];
+    const scored = results.map((r, i) => {
+      const nn = norm(r.name);
+      const nnNoThe = nn.replace(/^(the|a|an) /, "");
+      const hay = nn + " " + norm(r.sub || "");
+      const words = nn.split(" ");
+      let base = 0;
+      if (nn === nq || nnNoThe === nq) base = 5;
+      else if (nn.startsWith(nq) || nnNoThe.startsWith(nq)) base = 4.4;
+      else {
+        // every typed word matches a word (last one may be half-typed)
+        const wordsOk = tokens.length && tokens.every((t, k) =>
+          words.some(w => k === tokens.length - 1 ? w.startsWith(t) : w === t || w.startsWith(t)));
+        const all = tokens.length && tokens.every(t => hay.includes(t));
+        if (wordsOk) base = 3.6;
+        else if (all && nn.includes(tokens[0])) base = 3;
+        else if (all) base = 2.2;
+        else if (nn.includes(nq) || (nn.length > 2 && nq.includes(nn))) base = 2;
+        else if (last && words.some(w => w.startsWith(last))) base = 1.2;
+        else if (tokens.some(t => nn.includes(t))) base = 1;
+      }
+      let s = base + (r.img ? .35 : 0) + (r.pop || 0) * .9;
+      if (ctxTokens.length) {
+        const hits = ctxTokens.filter(t => hay.includes(t)).length;
+        if (hits === ctxTokens.length) s += 1.5;
+        else if (hits) s += .4 * hits;
+      }
+      return { r, s, base, i };
+    });
+    const relevant = scored.filter(x => x.base >= 2);
+    const pool = relevant.length ? relevant : scored;
+    return pool.sort((a, b) => b.s - a.s || a.i - b.i).map(x => x.r);
+  }
+  function dedupe(list) {
+    const seen = new Set();
+    return list.filter(r => {
+      const k = r.id ? "tvm" + r.id : norm(r.name) + "|" + norm((r.note || "").split("·")[0]);
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+  }
+
+  /* search(templateId, q, ctx, {prefix, onUpdate})
+     Providers run in parallel; onUpdate fires as each one answers so
+     the dropdown fills progressively instead of waiting on the slowest. */
+  const cache = new Map();
+  async function search(templateId, q, ctx, opts) {
+    opts = opts || {};
+    const key = templateId + "|" + norm(q) + "|" + (ctx || "") + "|" + (opts.prefix ? 1 : 0);
+    const hit = cache.get(key);
+    if (hit && Date.now() - hit.t < 10 * 60 * 1000) { if (opts.onUpdate) opts.onUpdate(hit.v, true); return hit.v; }
+    const fns = ROUTES[templateId] || ROUTES.custom;
+    let acc = [];
+    let anyOk = false;
+    const known = name => acc.some(r => norm(r.name) === norm(name));
+    const emit = () => { if (opts.onUpdate) opts.onUpdate(reRank(dedupe(acc), q, ctx), false); };
+    const run = p => withTimeout(p, 9000).then(v => { anyOk = true; acc = acc.concat(v || []); emit(); }, () => { });
+    const calls = fns.map(f => run(f(q)));
+    if (ctx) for (const f of fns) calls.push(run(f(q + " " + ctx)));
+    if (opts.prefix && PREFIX[templateId]) {
+      // give the fast provider a head start so the prefix stage can skip what it already found
+      calls.push(sleep(160).then(() => run(PREFIX[templateId](q, known))));
+    }
+    await Promise.all(calls);
+    let out = reRank(dedupe(acc), q, ctx);
+    if (!out.length && !WIKI_BACKED.has(templateId)) {
+      try { out = reRank(dedupe(await wikipedia(ctx ? q + " " + ctx : q)), q, ctx); anyOk = true; } catch { }
+    }
+    if (!anyOk) throw new Error("all providers failed");
+    cache.set(key, { t: Date.now(), v: out });
+    if (cache.size > 200) cache.delete(cache.keys().next().value);
+    return out;
+  }
+
+  /* ---- color extraction ---- */
+  function hashColors(str) {
+    let h = 0;
+    for (const ch of String(str)) h = (h * 31 + ch.codePointAt(0)) >>> 0;
+    const hue = h % 360;
+    return {
+      c1: "hsl(" + hue + " 58% 52%)",
+      c2: "hsl(" + ((hue + 46) % 360) + " 55% 42%)",
+      palette: [],
+    };
+  }
+  function paletteFromCanvas(img) {
+    const S = 48;
+    const cv = document.createElement("canvas");
+    cv.width = S; cv.height = S;
+    const cx = cv.getContext("2d", { willReadFrequently: true });
+    cx.drawImage(img, 0, 0, S, S);
+    const d = cx.getImageData(0, 0, S, S).data; // throws if tainted
+    const buckets = new Map();
+    for (let i = 0; i < d.length; i += 4) {
+      const r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3];
+      if (a < 128) continue;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      const light = (max + min) / 2;
+      const sat = max === min ? 0 : (max - min) / (255 - Math.abs(2 * light - 255));
+      let w = 1 + sat * 4;
+      if (light > 35 && light < 215) w += 1.2;
+      const key = (r >> 5) + "," + (g >> 5) + "," + (b >> 5);
+      let bk = buckets.get(key);
+      if (!bk) { bk = { n: 0, r: 0, g: 0, b: 0 }; buckets.set(key, bk); }
+      bk.n += w; bk.r += r * w; bk.g += g * w; bk.b += b * w;
+    }
+    const ranked = [...buckets.values()].sort((a, b) => b.n - a.n);
+    if (!ranked.length) return null;
+    const hex = bk => {
+      const f = v => Math.round(v / bk.n).toString(16).padStart(2, "0");
+      return "#" + f(bk.r) + f(bk.g) + f(bk.b);
+    };
+    const dist = (a, b) => {
+      const dr = a.r / a.n - b.r / b.n, dg = a.g / a.n - b.g / b.n, db = a.b / a.n - b.b / b.n;
+      return Math.sqrt(dr * dr + dg * dg + db * db);
+    };
+    const picks = [];
+    for (const p of ranked) {
+      if (picks.every(q => dist(p, q) > 52)) picks.push(p);
+      if (picks.length >= 5) break;
+    }
+    const palette = picks.map(hex);
+    return { c1: palette[0], c2: palette[1] || darken(palette[0], .35), palette };
+  }
+  function loadImg(url, cors, timeout) {
+    return new Promise(res => {
+      const im = new Image();
+      if (cors) im.crossOrigin = "anonymous";
+      const t = setTimeout(() => { im.onload = im.onerror = null; res(null); }, timeout || 8000);
+      im.onload = () => { clearTimeout(t); res(im.naturalWidth > 8 ? im : null); };
+      im.onerror = () => { clearTimeout(t); res(null); };
+      im.src = url;
+    });
+  }
+  /* Load an image for real before trusting it; returns colors + `loaded`. */
+  async function probe(url, seed) {
+    if (!url) return Object.assign(hashColors(seed), { loaded: false });
+    let im = await loadImg(url, true);
+    if (im) {
+      try { const p = paletteFromCanvas(im); if (p) return Object.assign(p, { loaded: true }); } catch { }
+      return Object.assign(hashColors(seed), { loaded: true });
+    }
+    im = await loadImg(url, false);
+    return Object.assign(hashColors(seed), { loaded: !!im });
+  }
+
+  /* best-match for a plain-typed title (strict: real name match only) */
+  async function bestMatch(templateId, title, ctx, loose) {
+    const results = await search(templateId, title, ctx);
+    if (!results.length) return null;
+    const nq = norm(title);
+    const scored = results.map(r => {
+      const nn = norm(r.name);
+      let score = 0;
+      if (nn === nq) score = 3;
+      else if (nn.startsWith(nq) || nq.startsWith(nn)) score = 2;
+      else if (nn.includes(nq) || nq.includes(nn)) score = 1;
+      if (r.img) score += 0.5;
+      score += (r.pop || 0) * .4;
+      return { r, score };
+    }).sort((a, b) => b.score - a.score);
+    if (scored[0].score >= 1) return scored[0].r;
+    return loose && results[0].img ? results[0] : null;
+  }
+
+  return { search, probe, hashColors, bestMatch, tvmazeBackdrop, tvImages, fromTvmaze };
+})();
+
+/* ============================================================
+   RECS — "Have you seen…?"
+   Walks the creators and top-billed cast of your highest-ranked
+   shows (TVMaze cast/crew credits), scores every show they're
+   connected to, and surfaces the strongest links first. Results are
+   cached on this device for a week, so it's instant after the first run.
+   ============================================================ */
+const Recs = (() => {
+  const LS = "alltimers.tvcache.v1";
+  let mem = {};
+  try { mem = JSON.parse(localStorage.getItem(LS) || "{}") || {}; } catch { mem = {}; }
+  let saveT = null;
+  function persistCache() {
+    clearTimeout(saveT);
+    saveT = setTimeout(() => {
+      try {
+        const keys = Object.keys(mem);
+        if (keys.length > 700) keys.sort((a, b) => mem[a].t - mem[b].t).slice(0, keys.length - 700).forEach(k => delete mem[k]);
+        localStorage.setItem(LS, JSON.stringify(mem));
+      } catch { /* full — the in-memory copy still works */ }
+    }, 900);
+  }
+  async function cached(key, fn) {
+    const c = mem[key];
+    if (c && Date.now() - c.t < 7 * 864e5) return c.v;
+    const v = await fn();
+    mem[key] = { t: Date.now(), v };
+    persistCache();
+    return v;
+  }
+  const GAP = 420; // slower lane: leaves headroom for search
+  const BAD_TYPES = new Set(["Talk Show", "News", "Sports", "Award Show", "Variety", "Game Show", "Reality", "Panel Show"]);
+  const slim = s => {
+    if (!s) return null;
+    const m = Media.fromTvmaze(s);
+    return { id: s.id, name: s.name, type: s.type || "", lang: s.language || "", weight: s.weight || 0,
+      rating: (s.rating && s.rating.average) || 0, img: m.img, imgHi: m.imgHi, note: m.note };
+  };
+  const resolveId = title => cached("rs:" + normTitle(title), async () => {
+    const s = await Tv.get("/singlesearch/shows?q=" + enc(title), GAP);
+    return s ? s.id : 0;
+  });
+  const people = id => cached("sp:" + id, async () => {
+    const s = await Tv.get("/shows/" + id + "?embed[]=cast&embed[]=crew", GAP);
+    if (!s || !s._embedded) return { creators: [], cast: [], lang: "" };
+    const crew = s._embedded.crew || [], cast = s._embedded.cast || [];
+    const creators = [], seen = new Set();
+    for (const c of crew) {
+      if (!/^(creator|developer)$/i.test(c.type || "") || !c.person || seen.has(c.person.id)) continue;
+      seen.add(c.person.id);
+      creators.push({ id: c.person.id, name: c.person.name });
+    }
+    const lead = [];
+    for (const c of cast) {
+      if (!c.person || c.self || c.voice || lead.some(x => x.id === c.person.id)) continue;
+      lead.push({ id: c.person.id, name: c.person.name });
+      if (lead.length >= 3) break;
+    }
+    return { creators: creators.slice(0, 3), cast: lead, lang: s.language || "" };
+  });
+  const crewShows = pid => cached("cc:" + pid, async () => {
+    const d = await Tv.get("/people/" + pid + "/crewcredits?embed=show", GAP);
+    return (d || []).filter(c => /^(creator|developer)$/i.test(c.type || "") && c._embedded)
+      .map(c => slim(c._embedded.show)).filter(Boolean);
+  });
+  const castShows = pid => cached("ac:" + pid, async () => {
+    const d = await Tv.get("/people/" + pid + "/castcredits?embed=show", GAP);
+    return (d || []).filter(c => !c.self && !c.voice && c._embedded)
+      .map(c => slim(c._embedded.show)).filter(Boolean);
+  });
+
+  /* per-list run state survives re-renders within a session */
+  const runs = new Map();
+
+  function haveSets(list) {
+    const ids = new Set(), names = new Set();
+    for (const it of list.items) { if (it.tvmazeId) ids.add(it.tvmazeId); names.add(normTitle(it.title)); }
+    for (const id of (list.dismissed || [])) ids.add(id);
+    return { ids, names };
+  }
+
+  function ranked(run, list) {
+    const have = haveSets(list);
+    return [...run.cands.values()]
+      .filter(c => !have.ids.has(c.show.id) && !have.names.has(normTitle(c.show.name)))
+      .map(c => {
+        const s = c.show;
+        let score = c.score + Math.min(s.weight, 100) / 45 + s.rating / 4;
+        if (run.langs.size && s.lang && !run.langs.has(s.lang)) score *= .55;
+        return { show: s, score, reasons: c.reasons };
+      })
+      .filter(c => c.score > 2.4)
+      .sort((a, b) => b.score - a.score);
+  }
+
+  /* start (or resume) a run; onUpdate(sortedCandidates, done) */
+  function start(list, onUpdate) {
+    let run = runs.get(list.id);
+    if (run) {
+      run.listeners = [onUpdate];
+      onUpdate(ranked(run, list), run.done);
+      if (run.running || run.done) return;
+    } else {
+      run = { cands: new Map(), langs: new Set(), done: false, running: false, seedIdx: 0, listeners: [onUpdate] };
+      runs.set(list.id, run);
+    }
+    run.running = true;
+    (async () => {
+      const seeds = list.items.filter(it => !it.unranked).slice(0, 12)
+        .concat(list.items.filter(it => it.unranked).slice(0, 3));
+      for (; run.seedIdx < seeds.length; run.seedIdx++) {
+        const si = run.seedIdx;
+        const it = seeds[si];
+        if (!getList(list.id)) break;
+        const w = it.unranked ? .7 : Math.max(.6, 1.6 - si * .08);
+        try {
+          let id = it.tvmazeId || await resolveId(it.title);
+          if (!id) continue;
+          if (!it.tvmazeId) { const live = getList(list.id); const li = live && live.items.find(x => x.id === it.id); if (li) li.tvmazeId = id; }
+          const ppl = await people(id);
+          if (ppl.lang) run.langs.add(ppl.lang);
+          const add = (s, pts, reason) => {
+            if (!s || s.id === id || BAD_TYPES.has(s.type) || s.weight < 8) return;
+            let c = run.cands.get(s.id);
+            if (!c) { c = { show: s, score: 0, reasons: [], seeds: new Set() }; run.cands.set(s.id, c); }
+            const firstFromSeed = !c.seeds.has(it.id);
+            c.score += firstFromSeed ? pts : pts * .35;
+            if (firstFromSeed) { c.seeds.add(it.id); c.reasons.push(reason); }
+          };
+          for (const p of ppl.creators.slice(0, 2)) {
+            for (const s of await crewShows(p.id)) add(s, 3.2 * w, "From " + p.name + ", who made " + it.title);
+          }
+          for (const [k, p] of ppl.cast.slice(0, 2).entries()) {
+            for (const s of await castShows(p.id)) add(s, (k === 0 ? 1.5 : 1.1) * w, p.name + " from " + it.title);
+          }
+        } catch { if (!navigator.onLine) break; }
+        for (const fn of run.listeners) fn(ranked(run, list), false);
+      }
+      run.running = false;
+      run.done = true;
+      for (const fn of run.listeners) fn(ranked(run, list), true);
+    })();
+  }
+  return { start, reset: id => runs.delete(id) };
+})();
+
+/* ------------------------------ templates ------------------ */
+const THEMES = [
+  { id: "studio",    label: "Porcelain", tone: "light", bg: "#F2EFEA", a: "#6464EE", b: "#D07BE6" },
+  { id: "ledger",    label: "Oat",       tone: "light", bg: "#F3EDE1", a: "#BC6A3E", b: "#DDA645" },
+  { id: "stadium",   label: "Matcha",    tone: "light", bg: "#EDF1E7", a: "#3E9160", b: "#B6C84A" },
+  { id: "broadcast", label: "Midnight",  tone: "dark",  bg: "#0B0F22", a: "#7DE8D4", b: "#8FA8FF" },
+  { id: "neon",      label: "Berry",     tone: "dark",  bg: "#160A1B", a: "#FF7DB8", b: "#B38DFF" },
+  { id: "marquee",   label: "Velvet",    tone: "dark",  bg: "#150F0B", a: "#F3BA68", b: "#F0866A" },
+];
+const themeOf = id => THEMES.find(t => t.id === id) || THEMES[0];
+const swatchBg = th => "radial-gradient(circle at 32% 28%, " + lighten(th.b, .35) + ", " + th.a + " 55%, " + th.bg + " 100%)";
+
+const TEMPLATES = [
+  { id:"tv-shows", label:"TV Shows",      sub:"series, all-time",    title:"Best TV Shows of All Time",      theme:"broadcast", ph:"Type a show — e.g. Breaking Bad", phNote:"Auto-filled, or write your own" },
+  { id:"movies",   label:"Movies",        sub:"features, all-time",  title:"Best Movies of All Time",        theme:"marquee",   ph:"Type a movie — e.g. Goodfellas",  phNote:"Auto-filled, or write your own" },
+  { id:"tv-chars", label:"TV Characters", sub:"the icons",           title:"Best TV Characters of All Time", theme:"broadcast", ph:"e.g. Omar Little",                phNote:"Auto-filled, or write your own" },
+  { id:"episodes", label:"TV Episodes",   sub:"single hours",        title:"Best TV Episodes of All Time",   theme:"broadcast", ph:"e.g. Ozymandias",                 phNote:"Auto-filled, or write your own" },
+  { id:"seasons",  label:"TV Seasons",    sub:"full runs",           title:"Best TV Seasons of All Time",    theme:"broadcast", ph:"e.g. The Wire",                   phNote:"e.g. Season 4 · 2006" },
+  { id:"teams",    label:"Sports Teams",  sub:"dynasties & legends", title:"Best Sports Teams of All Time",  theme:"stadium",   ph:"e.g. 1985 Chicago Bears",         phNote:"Auto-filled, or write your own" },
+  { id:"albums",   label:"Albums",        sub:"front to back",       title:"Best Albums of All Time",        theme:"neon",      ph:"e.g. Rumours",                    phNote:"Auto-filled, or write your own" },
+  { id:"games",    label:"Video Games",   sub:"any platform",        title:"Best Video Games of All Time",   theme:"neon",      ph:"e.g. Chrono Trigger",             phNote:"Auto-filled, or write your own" },
+  { id:"books",    label:"Books",         sub:"page-turners",        title:"Best Books of All Time",         theme:"ledger",    ph:"e.g. East of Eden",               phNote:"Auto-filled, or write your own" },
+  { id:"custom",   label:"Custom",        sub:"anything you love",   title:"",                               theme:"studio",    ph:"Add an entry…",                   phNote:"Optional note (year, why it rules…)" },
+];
+const isTv = list => list.template === "tv-shows";
+
+/* ------------------------------ state ---------------------- */
+function seededState() {
+  const s = Store.blank();
+  s.lists.push({
+    id: uid(),
+    title: "Best TV Shows of All Time",
+    subtitle: "The starter list — type a show below and watch the row dress itself.",
+    theme: "broadcast",
+    template: "tv-shows",
+    items: [
+      { id: uid(), title: "The Wire",     note: "HBO · 2002–2008" },
+      { id: uid(), title: "The Sopranos", note: "HBO · 1999–2007" },
+      { id: uid(), title: "Breaking Bad", note: "AMC · 2008–2013" },
+      { id: uid(), title: "Mad Men",      note: "AMC · 2007–2015" },
+      { id: uid(), title: "Twin Peaks",   note: "ABC/Showtime" },
+    ],
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  });
+  s.settings = { sound: true, v4: 1 };
+  return s;
+}
+
+/* unranked entries always live after ranked ones */
+function normalize(list) {
+  if (!list.items.some(it => it.unranked)) return;
+  list.items = list.items.filter(it => !it.unranked).concat(list.items.filter(it => it.unranked));
+}
+const rankedCount = list => list.items.reduce((n, it) => n + (it.unranked ? 0 : 1), 0);
+
+/* bring any saved state (older versions, server copies) up to v4 */
+function migrate(s) {
+  if (!s.settings) s.settings = { sound: true };
+  const first = !s.settings.v4;
+  for (const l of s.lists) {
+    if (!Array.isArray(l.items)) l.items = [];
+    if (l.duelOnAdd && !l.addMode) l.addMode = "duel";
+    delete l.duelOnAdd;
+    if (first) for (const it of l.items) {
+      // v2/v3 put every artworked row on its backdrop by default;
+      // v4's poster-colored Glow represents the show better
+      if (it.look === "backdrop") it.look = "glow";
+    }
+    for (const it of l.items) if (it.look === "backdrop") it.look = "scene";
+    normalize(l);
+  }
+  s.settings.v4 = 1;
+  return s;
+}
+
+let state = Store.load(cacheKey());
+if (!state) state = seededState();
+migrate(state);
+Store.save(state, cacheKey());
+const getList = id => state.lists.find(l => l.id === id);
+
+/* the view that's on screen right now */
+const View = { listId: null, findQ: "" };
+
+/* ---- sync ---- */
+let pushTimer = null, pushDirty = false, pushWarned = false, pushDirtySince = 0;
+let syncState = "saved";
+function paintSync(n) {
+  const label = { saving: "Saving…", saved: "Synced", offline: "Offline · cached" }[syncState] || "";
+  n.className = "sync " + syncState;
+  n.innerHTML = "<i></i><span>" + label + "</span>";
+  n.title = label;
+}
+function setSync(s) {
+  syncState = s;
+  const n = document.querySelector(".sync");
+  if (n) paintSync(n);
+}
+function persist(list) {
+  if (list) list.updatedAt = Date.now();
+  Store.save(state, cacheKey());
+  schedulePush();
+}
+async function doPush() {
+  clearTimeout(pushTimer);
+  pushDirty = false;
+  setSync("saving");
+  try { await API.save(state); pushWarned = false; if (!pushDirty) setSync("saved"); }
+  catch {
+    pushDirty = true; pushDirtySince = Date.now();
+    setSync("offline");
+    if (!pushWarned) { pushWarned = true; toast("Couldn't reach the server — changes are cached locally"); }
+    pushTimer = setTimeout(doPush, 15000);
+  }
+}
+function schedulePush() {
+  if (!API.token || !API.available) return;
+  if (!pushDirty) { pushDirty = true; pushDirtySince = Date.now(); }
+  if (syncState !== "offline") setSync("saving");
+  clearTimeout(pushTimer);
+  const waited = Date.now() - pushDirtySince;
+  pushTimer = setTimeout(doPush, waited > 4000 ? 0 : 900);
+}
+window.addEventListener("beforeunload", () => {
+  if (pushDirty && API.token && API.available) {
+    const body = JSON.stringify(state);
+    try { fetch("/api/data", { method: "PUT", headers: API.hdr(), body, keepalive: body.length < 60000 }); } catch { }
+  }
+});
+let pulling = false;
+async function pullRemote() {
+  if (pulling || !API.available || !API.token || pushDirty) return;
+  if (document.querySelector(".modal-veil") || document.body.classList.contains("drag-active")) return;
+  const ae = document.activeElement;
+  if (ae && (ae.isContentEditable || /^(INPUT|TEXTAREA)$/.test(ae.tagName))) return;
+  pulling = true;
+  try {
+    const remote = await API.load();
+    if (!remote || !Array.isArray(remote.lists) || pushDirty) return;
+    migrate(remote);
+    if (JSON.stringify(remote.lists) === JSON.stringify(state.lists)) return;
+    state = remote;
+    Store.save(state, cacheKey());
+    History.clear();
+    route({ keepScroll: true });
+    toast("Pulled in changes from your other device");
+  } catch { }
+  finally { pulling = false; }
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") { if (pushDirty && API.token && API.available) doPush(); }
+  else pullRemote();
+});
+
+/* ------------------------------ history ------------------- */
+const History = (() => {
+  let undoS = [], redoS = [];
+  function snap(listId) {
+    if (listId == null) return { kind: "lists", data: JSON.stringify(state.lists) };
+    const l = getList(listId);
+    return l ? { kind: "items", listId, data: JSON.stringify({ items: l.items, dismissed: l.dismissed || [] }) } : null;
+  }
+  function push(listOrNull, label) {
+    const s = snap(listOrNull ? listOrNull.id : null);
+    if (!s) return;
+    s.label = label;
+    undoS.push(s);
+    if (undoS.length > 80) undoS.shift();
+    redoS = [];
+  }
+  function apply(s) {
+    if (s.kind === "lists") state.lists = JSON.parse(s.data);
+    else {
+      const l = getList(s.listId);
+      const d = JSON.parse(s.data);
+      l.items = d.items; l.dismissed = d.dismissed;
+      l.updatedAt = Date.now();
+    }
+  }
+  function step(from, to, verb) {
+    const s = from.pop();
+    if (!s) { toast("Nothing to " + verb.toLowerCase()); return; }
+    if (s.kind === "items" && !getList(s.listId)) { toast("That list no longer exists"); return; }
+    const inv = snap(s.kind === "items" ? s.listId : null);
+    inv.label = s.label;
+    to.push(inv);
+    apply(s);
+    persist();
+    route({ keepScroll: true, quiet: true });
+    toast(verb + " · " + s.label);
+  }
+  return {
+    push,
+    undo: () => step(undoS, redoS, "Undo"),
+    redo: () => step(redoS, undoS, "Redo"),
+    clear() { undoS = []; redoS = []; },
+  };
+})();
+
+/* ------------------------------ icons ---------------------- */
+const ICONS = {
+  grip:  '<svg viewBox="0 0 16 16" fill="currentColor"><circle cx="5.5" cy="3.5" r="1.3"/><circle cx="10.5" cy="3.5" r="1.3"/><circle cx="5.5" cy="8" r="1.3"/><circle cx="10.5" cy="8" r="1.3"/><circle cx="5.5" cy="12.5" r="1.3"/><circle cx="10.5" cy="12.5" r="1.3"/></svg>',
+  up:    '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12.5v-9M4 7l4-3.5L12 7"/></svg>',
+  down:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3.5v9M4 9l4 3.5L12 9"/></svg>',
+  edit:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11.3 2.4l2.3 2.3L5.4 12.9l-3 .7.7-3zM10 3.7l2.3 2.3"/></svg>',
+  trash: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5h11M6.5 2.5h3M4 4.5l.7 8.6a1 1 0 001 .9h4.6a1 1 0 001-.9l.7-8.6M6.5 7v4M9.5 7v4"/></svg>',
+  print: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 5.5v-3h7v3M4.5 11.5h-2v-4a2 2 0 012-2h7a2 2 0 012 2v4h-2M4.5 9.5h7v4h-7z"/></svg>',
+  back:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg>',
+  save:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg>',
+  spark: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8l1.5 3.6 3.7.4-2.8 2.5.8 3.7L8 10.1 4.8 12l.8-3.7L2.8 5.8l3.7-.4z"/></svg>',
+  photo: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="2"/><circle cx="5.5" cy="6.5" r="1.2"/><path d="M14 10.5l-3.5-3.5-4 4-1.5-1.5L2 12.5"/></svg>',
+  paint: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.1c-3.3 0-6 2.5-6 5.6s2.7 5.6 6 5.6c.9 0 1.6-.6 1.6-1.4 0-.4-.2-.8-.4-1.1-.2-.3-.4-.6-.4-1 0-.7.6-1.3 1.4-1.3h1.6c1.5 0 2.7-1.2 2.7-2.7C14.5 3.8 11.5 2.1 8 2.1z"/><circle cx="5.1" cy="6.3" r=".85" fill="currentColor" stroke="none"/><circle cx="8" cy="4.8" r=".85" fill="currentColor" stroke="none"/><circle cx="10.9" cy="6.3" r=".85" fill="currentColor" stroke="none"/></svg>',
+  sound: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6v4h2.4L8.5 13V3L4.9 6z" fill="currentColor" stroke="none"/><path d="M10.8 5.6a3.4 3.4 0 010 4.8M12.6 3.8a6 6 0 010 8.4"/></svg>',
+  mute:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6v4h2.4L8.5 13V3L4.9 6z" fill="currentColor" stroke="none"/><path d="M10.7 6.3l3.4 3.4M14.1 6.3l-3.4 3.4"/></svg>',
+  more:  '<svg viewBox="0 0 16 16" fill="currentColor"><circle cx="3.2" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="12.8" cy="8" r="1.5"/></svg>',
+  user:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5.2" r="2.6"/><path d="M2.8 13.6c.9-2.6 2.9-3.9 5.2-3.9s4.3 1.3 5.2 3.9"/></svg>',
+  search:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="7" cy="7" r="4.3"/><path d="M10.3 10.3L14 14"/></svg>',
+  cozy:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="2.5" y="2.5" width="11" height="4.5" rx="1.5"/><rect x="2.5" y="9" width="11" height="4.5" rx="1.5"/></svg>',
+  compact:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 3.5h11M2.5 6.5h11M2.5 9.5h11M2.5 12.5h11"/></svg>',
+  copy:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="5.5" width="8" height="8" rx="2"/><path d="M10.5 5.5v-2a1 1 0 00-1-1h-6a1 1 0 00-1 1v6a1 1 0 001 1h2"/></svg>',
+  bolt:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 1.8L3.8 9.1h4.1l-1.1 5.1 5.4-7.3H8.1z"/></svg>',
+  shelf: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12.5h11M4 12.5V5.5M7 12.5V3.5M10.5 12.5l-1.6-7 2-.5 1.6 7"/></svg>',
+  bottom:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5v8M4.5 7L8 10.5 11.5 7M3 13.5h10"/></svg>',
+  hash:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6.2 2.5L4.8 13.5M11.2 2.5L9.8 13.5M2.8 5.8h11M2.2 10.2h11"/></svg>',
+  x:     '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>',
+  check: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg>',
+  sliders:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 4.5h6M11.5 4.5h2M2.5 11.5h2M7.5 11.5h6"/><circle cx="10" cy="4.5" r="1.6"/><circle cx="6" cy="11.5" r="1.6"/></svg>',
+  chev:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>',
+};
+
+/* ------------------------------ router --------------------- */
+function route(opts) {
+  opts = opts || {};
+  const y = window.scrollY;
+  const hash = location.hash || "#/";
+  const m = hash.match(/^#\/list\/([a-z0-9]+)$/i);
+  if (m && getList(m[1])) renderList(m[1], opts);
+  else renderHome();
+  window.scrollTo(0, opts.keepScroll ? y : 0);
+}
+window.addEventListener("hashchange", () => route());
+
+function setChrome(themeId, title) {
+  const th = themeOf(themeId);
+  const root = document.documentElement;
+  root.dataset.theme = th.id;
+  root.dataset.tone = th.tone;
+  document.title = title ? title + " — ALL·TIMERS" : "ALL·TIMERS — rank the things you love";
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.content = th.bg;
+}
+/* the page's ambient light takes its color from your top three */
+function setAmbient(list) {
+  const amb = document.querySelector(".ambient");
+  if (!amb) return;
+  const b = amb.style;
+  const tops = list ? list.items.filter(it => !it.unranked && it.c1).slice(0, 3) : [];
+  ["--amb1", "--amb2", "--amb3"].forEach((v, i) => {
+    const it = tops[i] || tops[0];
+    if (it) b.setProperty(v, (i === 1 && it.palette && it.palette[1]) ? it.palette[1] : it.c1);
+    else b.removeProperty(v);
+  });
+}
+
+/* ------------------------------ modal helper --------------- */
+function makeModal(extraClass, onKey) {
+  const veil = el("div", "modal-veil");
+  const modal = el("div", "modal" + (extraClass ? " " + extraClass : ""));
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  veil.appendChild(modal);
+  const prevFocus = document.activeElement;
+  let closed = false;
+  const m = { veil, modal, close, onClose: null };
+  const keyH = e => {
+    if (e.key === "Escape") { e.preventDefault(); close(); return; }
+    if (onKey) onKey(e);
+  };
+  function close() {
+    if (closed) return;
+    closed = true;
+    document.removeEventListener("keydown", keyH);
+    veil.remove();
+    if (m.onClose) m.onClose();
+    else if (prevFocus && prevFocus.focus && document.contains(prevFocus)) prevFocus.focus();
+  }
+  veil.addEventListener("pointerdown", e => { veil._down = e.target === veil; });
+  veil.addEventListener("click", e => { if (e.target === veil && veil._down) close(); veil._down = false; });
+  document.addEventListener("keydown", keyH);
+  document.body.appendChild(veil);
+  return m;
+}
+
+/* ============================================================
+   HOME
+   ============================================================ */
+function renderHome() {
+  enrichGen++;
+  View.listId = null; View.findQ = "";
+  setChrome("studio");
+  setAmbient(null);
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  app.appendChild(buildTopbar(true));
+
+  const hero = el("div", "home-hero");
+  hero.appendChild(el("div", "eyebrow", "Your library"));
+  const h1 = el("h1");
+  h1.innerHTML = 'Rank the things<br>you <em>love.</em>';
+  hero.appendChild(h1);
+  hero.appendChild(el("p", null, "Every list gets its own mood, and every entry dresses itself in the artwork and colors of the thing you're ranking. Drag into place, settle debates head-to-head, and discover what you've been missing."));
+  if (state.lists.length) {
+    const total = state.lists.reduce((n, l) => n + rankedCount(l), 0);
+    const unr = state.lists.reduce((n, l) => n + l.items.length - rankedCount(l), 0);
+    const stats = el("div", "home-stats");
+    stats.innerHTML = "<span><b>" + state.lists.length + "</b>" + (state.lists.length === 1 ? "list" : "lists") + "</span>" +
+      "<span><b>" + total + "</b>ranked</span>" + (unr ? "<span><b>" + unr + "</b>waiting to be placed</span>" : "");
+    hero.appendChild(stats);
+  }
+  app.appendChild(hero);
+
+  const grid = el("div", "card-grid");
+  state.lists.forEach((list, li) => {
+    const th = themeOf(list.theme);
+    const card = el("div", "list-card");
+    card.setAttribute("role", "link");
+    card.tabIndex = 0;
+    card.dataset.theme = th.id;
+    card.dataset.tone = th.tone;
+    card.style.animation = "rise .7s var(--spring) backwards";
+    card.style.animationDelay = (li * 60) + "ms";
+    card.setAttribute("aria-label", "Open list: " + (list.title || "Untitled"));
+    const open = () => { location.hash = "#/list/" + list.id; };
+    card.addEventListener("click", open);
+    card.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target === card) { e.preventDefault(); open(); } });
+
+    const arts = list.items.filter(it => it.img && !it.unranked).slice(0, 4);
+    if (arts.length) {
+      const strip = el("div", "card-art");
+      strip.style.gridTemplateColumns = "repeat(" + arts.length + ",1fr)";
+      for (const it of arts) {
+        const im = el("img");
+        im.src = it.img; im.alt = ""; im.loading = "lazy";
+        im.addEventListener("error", () => im.remove(), { once: true });
+        strip.appendChild(im);
+      }
+      card.appendChild(strip);
+    }
+    const tpl = TEMPLATES.find(t => t.id === list.template);
+    card.appendChild(el("div", "card-eyebrow", tpl ? tpl.label : "List"));
+    card.appendChild(el("h3", null, list.title || "Untitled list"));
+
+    const pv = el("div", "card-preview");
+    const top3 = list.items.filter(it => !it.unranked).slice(0, 3);
+    if (top3.length === 0) pv.appendChild(el("div", "pv", "No entries yet — No. 1 is up for grabs."));
+    else top3.forEach((it, i) => {
+      const row = el("div", "pv");
+      row.appendChild(el("b", null, String(i + 1)));
+      row.appendChild(el("span", null, it.title));
+      pv.appendChild(row);
+    });
+    card.appendChild(pv);
+
+    const rc = rankedCount(list), unr = list.items.length - rc;
+    const meta = el("div", "card-meta");
+    meta.appendChild(el("span", "card-count", rc + " ranked" + (unr ? " · " + unr + " unranked" : "")));
+    meta.appendChild(el("span", null, fmtDate(list.updatedAt)));
+    card.appendChild(meta);
+
+    const del = el("button", "iconbtn danger card-del");
+    del.setAttribute("aria-label", "Delete list");
+    del.title = "Delete list";
+    del.innerHTML = ICONS.trash;
+    del.addEventListener("click", e => {
+      e.stopPropagation();
+      if (!confirm('Delete "' + (list.title || "Untitled") + '" and all ' + plural(list.items.length, "entry", "entries") + "?")) return;
+      History.push(null, "Deleted “" + (list.title || "Untitled") + "”");
+      state.lists = state.lists.filter(l => l.id !== list.id);
+      persist();
+      renderHome();
+      toast("List deleted", { action: { label: "Undo", fn: () => History.undo() }, ms: 8000 });
+    });
+    card.appendChild(del);
+    grid.appendChild(card);
+  });
+
+  const add = el("button", "new-card");
+  add.innerHTML = '<span class="plus">+</span><span>Start a new list</span>';
+  add.addEventListener("click", openNewListModal);
+  grid.appendChild(add);
+  app.appendChild(grid);
+}
+
+function buildTopbar(isHome) {
+  const bar = el("div", "topbar");
+  const mark = el("a", "wordmark");
+  mark.href = "#/";
+  mark.innerHTML = '<span class="mark">1</span><span>All<span class="dot">·</span>Timers</span>';
+  bar.appendChild(mark);
+  const actions = el("div", "topbar-actions");
+  if (API.available) {
+    if (API.user) {
+      const s = el("span", "sync");
+      paintSync(s);
+      actions.appendChild(s);
+      const chip = el("button", "btn btn-ghost");
+      chip.innerHTML = ICONS.user + "<span>" + escapeHTML(API.user) + "</span>";
+      chip.title = "Signed in — click to sign out";
+      chip.addEventListener("click", async () => {
+        if (!confirm("Sign out of " + API.user + "? Your rankings stay saved on the server.")) return;
+        clearTimeout(pushTimer);
+        try { if (pushDirty) { pushDirty = false; await API.save(state); } } catch { }
+        await API.logout();
+        state = migrate(Store.load(cacheKey()) || seededState());
+        History.clear();
+        route();
+        toast("Signed out");
+      });
+      actions.appendChild(chip);
+    } else {
+      const si = el("button", "btn");
+      si.innerHTML = ICONS.user + "<span>Sign in</span>";
+      si.addEventListener("click", openAuthModal);
+      actions.appendChild(si);
+    }
+  }
+  if (isHome) {
+    const imp = el("button", "btn btn-ghost", "Import");
+    imp.addEventListener("click", importJSON);
+    const exp = el("button", "btn btn-ghost", "Export");
+    exp.addEventListener("click", exportJSON);
+    const nw = el("button", "btn btn-accent", "New list");
+    nw.addEventListener("click", openNewListModal);
+    actions.append(imp, exp, nw);
+  }
+  bar.appendChild(actions);
+  return bar;
+}
+
+/* ============================================================
+   AUTH MODAL
+   ============================================================ */
+function openAuthModal() {
+  let mode = "login";
+  const m = makeModal("");
+  const modal = m.modal;
+  const h2 = el("h2", null, "Sign in");
+  modal.appendChild(h2);
+  modal.appendChild(el("p", "hint", "Accounts live on your ALL·TIMERS server — just a username and password, no email. Signing in for the first time brings your current lists with you."));
+  modal.appendChild(el("label", "field-lbl", "Username"));
+  const u = el("input");
+  u.type = "text"; u.maxLength = 24; u.autocomplete = "username"; u.spellcheck = false; u.autocapitalize = "none";
+  modal.appendChild(u);
+  modal.appendChild(el("label", "field-lbl", "Password"));
+  const p = el("input");
+  p.type = "password"; p.maxLength = 200; p.autocomplete = "current-password";
+  modal.appendChild(p);
+  const err = el("div", "auth-err");
+  modal.appendChild(err);
+  const actions = el("div", "modal-actions");
+  const swap = el("button", "btn btn-ghost", "Create account");
+  const go = el("button", "btn btn-accent", "Sign in");
+  actions.append(swap, go);
+  modal.appendChild(actions);
+  function setMode(md) {
+    mode = md;
+    h2.textContent = md === "login" ? "Sign in" : "Create account";
+    go.textContent = h2.textContent;
+    swap.textContent = md === "login" ? "Create account" : "Have an account? Sign in";
+    p.autocomplete = md === "login" ? "current-password" : "new-password";
+    err.textContent = "";
+  }
+  swap.addEventListener("click", () => setMode(mode === "login" ? "register" : "login"));
+  async function submit() {
+    err.textContent = "";
+    go.disabled = true;
+    try {
+      const guestState = state;
+      if (mode === "login") await API.login(u.value.trim(), p.value);
+      else await API.register(u.value.trim(), p.value);
+      let remote = null;
+      try { remote = await API.load(); } catch { }
+      if (remote && Array.isArray(remote.lists) && remote.lists.length) state = migrate(remote);
+      else { state = guestState; try { await API.save(state); } catch { } }
+      Store.save(state, cacheKey());
+      History.clear();
+      m.close();
+      route();
+      toast("Welcome, " + API.user);
+    } catch (e) { err.textContent = e.message || "Something went wrong"; }
+    go.disabled = false;
+  }
+  go.addEventListener("click", submit);
+  u.addEventListener("keydown", e => { if (e.key === "Enter") p.focus(); });
+  p.addEventListener("keydown", e => { if (e.key === "Enter") submit(); });
+  u.focus();
+}
+
+/* ============================================================
+   NEW LIST MODAL
+   ============================================================ */
+function openNewListModal() {
+  let chosenTpl = TEMPLATES[0];
+  let chosenTheme = chosenTpl.theme;
+  const m = makeModal("");
+  const modal = m.modal;
+  modal.appendChild(el("div", "eyebrow", "New list"));
+  modal.appendChild(el("h2", null, "What are we ranking?"));
+  modal.appendChild(el("p", "hint", "A template sets the title, the mood, and where artwork comes from — everything stays editable."));
+  modal.appendChild(el("label", "field-lbl", "Template"));
+  const tplGrid = el("div", "tpl-grid");
+  const tplBtns = [];
+  const titleInput = el("input");
+  for (const t of TEMPLATES) {
+    const b = el("button", "tpl");
+    b.innerHTML = "<span>" + t.label + "</span><small>" + t.sub + "</small>";
+    b.addEventListener("click", () => {
+      chosenTpl = t; chosenTheme = t.theme;
+      tplBtns.forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      titleInput.value = t.title;
+      titleInput.placeholder = t.id === "custom" ? "Best ______ of All Time" : t.title;
+      paintSwatches();
+      if (t.id === "custom") titleInput.focus();
+    });
+    tplBtns.push(b);
+    tplGrid.appendChild(b);
+  }
+  tplBtns[0].classList.add("active");
+  modal.appendChild(tplGrid);
+  modal.appendChild(el("label", "field-lbl", "Title"));
+  titleInput.type = "text";
+  titleInput.value = chosenTpl.title;
+  titleInput.maxLength = 120;
+  modal.appendChild(titleInput);
+  modal.appendChild(el("label", "field-lbl", "Mood"));
+  const sw = el("div", "swatches");
+  function paintSwatches() {
+    sw.innerHTML = "";
+    for (const th of THEMES) {
+      const s = el("button", "swatch" + (th.id === chosenTheme ? " active" : ""));
+      s.title = th.label;
+      s.setAttribute("aria-label", "Theme: " + th.label);
+      s.style.background = swatchBg(th);
+      s.addEventListener("click", () => { chosenTheme = th.id; paintSwatches(); });
+      sw.appendChild(s);
+    }
+  }
+  paintSwatches();
+  modal.appendChild(sw);
+  const actions = el("div", "modal-actions");
+  const cancel = el("button", "btn btn-ghost", "Cancel");
+  cancel.addEventListener("click", m.close);
+  const create = el("button", "btn btn-accent", "Create list");
+  const doCreate = () => {
+    const list = {
+      id: uid(), title: titleInput.value.trim() || "Untitled list", subtitle: "",
+      theme: chosenTheme, template: chosenTpl.id, items: [], createdAt: Date.now(), updatedAt: Date.now(),
+    };
+    state.lists.unshift(list);
+    persist();
+    m.onClose = () => { };
+    m.close();
+    location.hash = "#/list/" + list.id;
+  };
+  create.addEventListener("click", doCreate);
+  titleInput.addEventListener("keydown", e => { if (e.key === "Enter") doCreate(); });
+  actions.append(cancel, create);
+  modal.appendChild(actions);
+  titleInput.focus();
+  titleInput.select();
+}
+
+/* ============================================================
+   LIST VIEW
+   ============================================================ */
+const itemMatches = (it, q) => normTitle(it.title + " " + (it.note || "")).includes(q);
+const rowEl = (ol, id) => ol && ol.querySelector('.rank-row[data-id="' + id + '"]');
+function flashRow(row) {
+  if (!row) return;
+  row.classList.remove("flash");
+  void row.offsetWidth;
+  row.classList.add("flash");
+  setTimeout(() => row.classList.remove("flash"), 1500);
+}
+function plainPaste(e) {
+  e.preventDefault();
+  const t = (e.clipboardData || window.clipboardData).getData("text").replace(/\s+/g, " ");
+  document.execCommand("insertText", false, t);
+}
+
+function renderList(id, opts) {
+  opts = opts || {};
+  const list = getList(id);
+  View.listId = list.id; View.findQ = "";
+  setChrome(list.theme, list.title);
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  app.appendChild(buildTopbar(false));
+
+  const back = el("a", "backlink");
+  back.href = "#/";
+  back.innerHTML = ICONS.back + "<span>All lists</span>";
+  app.appendChild(back);
+
+  const head = el("div", "list-head");
+  const tpl = TEMPLATES.find(t => t.id === list.template) || TEMPLATES[TEMPLATES.length - 1];
+  const eyebrow = el("div", "eyebrow");
+  eyebrow.id = "listCount";
+  head.appendChild(eyebrow);
+
+  const title = el("h1", "list-title", list.title);
+  title.contentEditable = "true";
+  title.spellcheck = false;
+  title.setAttribute("aria-label", "List title, click to edit");
+  title.addEventListener("blur", () => {
+    const v = title.textContent.trim();
+    if (v && v !== list.title) { list.title = v; persist(list); setChrome(list.theme, list.title); }
+    else title.textContent = list.title;
+  });
+  title.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); title.blur(); } });
+  title.addEventListener("paste", plainPaste);
+  head.appendChild(title);
+
+  const sub = el("div", "list-sub", list.subtitle);
+  sub.contentEditable = "true";
+  sub.spellcheck = false;
+  sub.dataset.placeholder = "Add a subtitle — the rules, the stakes, the trash talk…";
+  sub.addEventListener("blur", () => {
+    const v = sub.textContent.trim();
+    if (v !== list.subtitle) { list.subtitle = v; persist(list); }
+    if (!v) sub.textContent = "";
+  });
+  sub.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); sub.blur(); } });
+  sub.addEventListener("paste", plainPaste);
+  head.appendChild(sub);
+  app.appendChild(head);
+
+  /* toolbar (frosted, sticky) */
+  const bar = el("div", "list-toolbar");
+  const sw = el("div", "swatches");
+  for (const th of THEMES) {
+    const s = el("button", "swatch" + (th.id === list.theme ? " active" : ""));
+    s.title = th.label;
+    s.setAttribute("aria-label", "Theme: " + th.label);
+    s.style.background = swatchBg(th);
+    s.addEventListener("click", () => {
+      list.theme = th.id;
+      persist(list);
+      setChrome(th.id, list.title);
+      sw.querySelectorAll(".swatch").forEach(x => x.classList.remove("active"));
+      s.classList.add("active");
+    });
+    sw.appendChild(s);
+  }
+  bar.appendChild(sw);
+
+  const right = el("div", "toolbar-right");
+  const find = el("label", "find");
+  find.innerHTML = ICONS.search;
+  const fi = el("input");
+  fi.type = "search"; fi.placeholder = "Find in list"; fi.autocomplete = "off";
+  fi.setAttribute("aria-label", "Find in list");
+  const fc = el("span", "find-count");
+  find.append(fi, fc);
+  right.appendChild(find);
+
+  let findIdx = -1;
+  function runFind(advance) {
+    const q = normTitle(fi.value);
+    View.findQ = q;
+    const hits = q ? list.items.map((it, i) => itemMatches(it, q) ? i : -1).filter(i => i >= 0) : [];
+    ol.classList.toggle("finding", !!q && hits.length > 0);
+    ol.querySelectorAll(".rank-row").forEach(r => {
+      const it = list.items.find(x => x.id === r.dataset.id);
+      r.classList.toggle("find-hit", !!q && !!it && itemMatches(it, q));
+    });
+    if (!q) { fc.textContent = ""; findIdx = -1; return; }
+    if (!hits.length) { fc.textContent = "none"; findIdx = -1; return; }
+    findIdx = advance ? (findIdx + 1) % hits.length : 0;
+    fc.textContent = (findIdx + 1) + "/" + hits.length;
+    const row = rowEl(ol, list.items[hits[findIdx]].id);
+    if (row) { if (row.scrollIntoView) row.scrollIntoView({ block: "center", behavior: "smooth" }); flashRow(row); }
+  }
+  fi.addEventListener("input", debounce(() => runFind(false), 140));
+  fi.addEventListener("keydown", e => {
+    if (e.key === "Enter") { e.preventDefault(); runFind(true); }
+    else if (e.key === "Escape") { e.preventDefault(); fi.value = ""; runFind(false); fi.blur(); }
+  });
+
+  /* one labeled Options menu instead of a row of mystery icons */
+  const optWrap = el("div", "opt-wrap");
+  const optBtn = el("button", "btn opt-btn");
+  optBtn.innerHTML = ICONS.sliders + "<span>Options</span>";
+  optBtn.setAttribute("aria-haspopup", "menu");
+  optBtn.setAttribute("aria-expanded", "false");
+  optWrap.appendChild(optBtn);
+  let menu = null;
+  const outside = e => { if (menu && !optWrap.contains(e.target)) closeMenu(); };
+  function closeMenu() {
+    if (!menu) return;
+    menu.remove(); menu = null;
+    optBtn.setAttribute("aria-expanded", "false");
+    document.removeEventListener("pointerdown", outside, true);
+  }
+  optBtn.addEventListener("click", () => {
+    if (menu) { closeMenu(); return; }
+    menu = el("div", "opt-menu");
+    menu.setAttribute("role", "menu");
+    const item = (icon, label, fn, on) => {
+      const b = el("button", "opt-item");
+      b.setAttribute("role", on === undefined ? "menuitem" : "menuitemcheckbox");
+      if (on !== undefined) b.setAttribute("aria-checked", on ? "true" : "false");
+      b.innerHTML = '<span class="oi">' + icon + "</span><span>" + label + "</span>" +
+        (on !== undefined ? '<span class="tgl' + (on ? " on" : "") + '"></span>' : "");
+      b.addEventListener("click", () => { closeMenu(); fn(); });
+      menu.appendChild(b);
+    };
+    item(ICONS.compact, "Compact rows", () => {
+      list.density = list.density === "compact" ? "cozy" : "compact";
+      persist(list);
+      drawRows(list, ol);
+    }, list.density === "compact");
+    item(ICONS.sound, "Sounds", () => {
+      state.settings.sound = !(state.settings.sound !== false);
+      persist();
+      if (state.settings.sound) Sound.drop();
+    }, state.settings.sound !== false);
+    item(ICONS.spark, "Find missing artwork", () => enrichAll(list, null));
+    item(ICONS.copy, "Copy as text", async () => {
+      const ok = await copyText(listAsText(list));
+      toast(ok ? "Copied the ranking as text" : "Couldn't reach the clipboard");
+    });
+    item(ICONS.print, "Print or save as PDF", () => { loadAllBgs(); setTimeout(() => window.print(), 450); });
+    optWrap.appendChild(menu);
+    optBtn.setAttribute("aria-expanded", "true");
+    setTimeout(() => document.addEventListener("pointerdown", outside, true), 0);
+  });
+  optBtn.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
+  right.appendChild(optWrap);
+  bar.appendChild(right);
+  app.appendChild(bar);
+
+  const ol = el("ol", "rank-list");
+  ol.id = "rankList";
+  ol.dataset.listId = list.id;
+  app.appendChild(ol);
+  drawRows(list, ol, { intro: !opts.quiet });
+
+  if (isTv(list)) app.appendChild(buildDiscover(list, ol));
+  app.appendChild(buildAddBar(list, tpl, ol));
+
+  const pf = el("div", "print-footer");
+  pf.innerHTML = "<span>ALL·TIMERS</span><span>" + escapeHTML(list.title) + " · " + fmtDate(Date.now()) + "</span>";
+  app.appendChild(pf);
+
+  autoEnrich(list);
+}
+
+function listAsText(list) {
+  const lines = [String(list.title || "")];
+  if (list.subtitle) lines.push(list.subtitle);
+  lines.push("");
+  const rc = rankedCount(list);
+  list.items.slice(0, rc).forEach((it, i) => lines.push((i + 1) + ". " + it.title + (it.note ? " — " + it.note : "")));
+  if (rc < list.items.length) {
+    lines.push("", "Unranked:");
+    list.items.slice(rc).forEach(it => lines.push("• " + it.title + (it.note ? " — " + it.note : "")));
+  }
+  return lines.join("\n");
+}
+
+/* quietly dress undressed entries when a list opens */
+let enrichGen = 0;
+function autoEnrich(list) {
+  const myGen = ++enrichGen;
+  (async () => {
+    const targets = list.items.filter(it => !it.img && !it.bg && !it.tried).slice(0, 15);
+    for (const item of targets) {
+      if (myGen !== enrichGen || View.listId !== list.id) return;
+      if (!list.items.some(x => x.id === item.id)) continue;
+      try {
+        const m = await Media.bestMatch(list.template, item.title, contextTerms(list));
+        if (myGen !== enrichGen || View.listId !== list.id) return;
+        if (m) await applyMedia(list, item, m);
+        else markTried(list, item);
+      } catch { return; }
+      await sleep(260);
+    }
+  })();
+}
+function markTried(list, ref) {
+  const live = getList(list.id);
+  const it = live && live.items.find(x => x.id === ref.id);
+  if (it && !it.img) { it.tried = 1; persist(live); }
+}
+
+/* ============================================================
+   DISCOVER — "Have you seen…?" as a swipeable card deck.
+   One big card at a time: swipe right (or tap "Seen it") and it
+   lands on your Unranked shelf; swipe left (or "Haven't seen") and
+   it's gone for good; Skip sends it to the back of the deck.
+   ============================================================ */
+function buildDiscover(list, ol) {
+  const sec = el("section", "discover" + (list.discoverHidden ? " collapsed" : ""));
+  const head = el("div", "disc-head");
+  const h3 = el("h3");
+  h3.innerHTML = "Have you <em>seen…?</em>";
+  const count = el("span", "disc-count");
+  const tog = el("button", "btn btn-ghost disc-tog");
+  const paintTog = () => { tog.textContent = list.discoverHidden ? "Show" : "Hide"; };
+  paintTog();
+  tog.addEventListener("click", () => {
+    list.discoverHidden = !list.discoverHidden;
+    persist(list);
+    sec.classList.toggle("collapsed", !!list.discoverHidden);
+    paintTog();
+    if (!list.discoverHidden) boot();
+  });
+  head.append(h3, count, tog);
+  sec.appendChild(head);
+
+  const body = el("div", "disc-body");
+  body.appendChild(el("p", "disc-sub", "Picked from the creators and stars of your top shows. Swipe right if you've seen it — it goes on your Unranked shelf to place later. Swipe left if you haven't."));
+  const deck = el("div", "deck");
+  deck.setAttribute("aria-live", "polite");
+  const actions = el("div", "deck-actions");
+  const noBtn = el("button", "deck-btn no");
+  noBtn.innerHTML = ICONS.x + "<span>Haven't seen</span>";
+  const skipBtn = el("button", "deck-btn skip", "Skip");
+  const yesBtn = el("button", "deck-btn yes");
+  yesBtn.innerHTML = ICONS.check + "<span>Seen it</span>";
+  actions.append(noBtn, skipBtn, yesBtn);
+  body.append(deck, actions);
+  sec.appendChild(body);
+
+  let queue = [];
+  const answered = new Set(), skipped = new Set();
+  const nodes = new Map();
+  let started = false, done = false, busy = false;
+
+  function cardFor(c) {
+    const s = c.show;
+    const card = el("div", "deck-card");
+    const art = el("div", "deck-art");
+    if (s.imgHi || s.img) {
+      const im = el("img");
+      im.src = s.imgHi || s.img; im.alt = ""; im.draggable = false;
+      im.addEventListener("error", () => im.remove(), { once: true });
+      art.appendChild(im);
+    }
+    const info = el("div", "deck-info");
+    info.appendChild(el("div", "deck-why", c.reasons[0]));
+    info.appendChild(el("div", "deck-name", s.name));
+    if (s.note) info.appendChild(el("div", "deck-meta", s.note));
+    if (c.reasons.length > 1) info.appendChild(el("div", "deck-more", "Also: " + c.reasons.slice(1, 3).join(" · ")));
+    card.append(art, info, el("div", "stamp yes", "Seen it"), el("div", "stamp no", "Nope"));
+    bindSwipe(card);
+    return card;
+  }
+
+  function render() {
+    const top = queue.slice(0, 3);
+    count.textContent = queue.length ? plural(queue.length, "suggestion") + (done ? "" : "…") : "";
+    for (const [id, n] of nodes) if (!top.some(c => c.show.id === id)) { n.remove(); nodes.delete(id); }
+    top.forEach((c, depth) => {
+      let n = nodes.get(c.show.id);
+      if (!n) {
+        n = cardFor(c);
+        nodes.set(c.show.id, n);
+        n.classList.add("enter");
+        deck.appendChild(n);
+        void n.offsetWidth;
+        requestAnimationFrame(() => n.classList.remove("enter"));
+      }
+      n.dataset.depth = depth;
+      n.style.zIndex = String(10 - depth);
+      if (!n.classList.contains("grabbing")) n.style.transform = "";
+    });
+    let empty = deck.querySelector(".deck-empty");
+    if (!top.length) {
+      const msg = done
+        ? (list.items.length ? "That's everyone for now — nothing new to suggest." : "Add a few shows you love and suggestions appear here.")
+        : "Finding shows you might have missed…";
+      if (!empty) { empty = el("div", "deck-empty"); deck.appendChild(empty); }
+      empty.textContent = msg;
+      deck.classList.toggle("loading", !done);
+    } else {
+      if (empty) empty.remove();
+      deck.classList.remove("loading");
+    }
+    [noBtn, skipBtn, yesBtn].forEach(b => { b.disabled = !top.length; });
+    skipBtn.disabled = queue.length < 2;
+  }
+
+  function bindSwipe(card) {
+    let sx = 0, sy = 0, dx = 0, dy = 0, pid = null, axis = null;
+    card.addEventListener("pointerdown", e => {
+      if (busy || card.dataset.depth !== "0") return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      pid = e.pointerId; sx = e.clientX; sy = e.clientY; dx = dy = 0; axis = null; card._t = e.timeStamp;
+    });
+    card.addEventListener("pointermove", e => {
+      if (e.pointerId !== pid) return;
+      const mx = e.clientX - sx, my = e.clientY - sy;
+      if (axis === null) {
+        if (Math.abs(mx) < 7 && Math.abs(my) < 7) return;
+        axis = Math.abs(mx) > Math.abs(my) ? "x" : "y";
+        if (axis === "y") { pid = null; return; }   // vertical: let the page scroll
+        try { card.setPointerCapture(pid); } catch { }
+        card.classList.add("grabbing");
+      }
+      dx = mx; dy = my;
+      card.style.transform = "translate3d(" + dx + "px," + (dy * .12) + "px,0) rotate(" + (dx / 22) + "deg)";
+      card.style.setProperty("--yes", Math.max(0, Math.min(1, dx / 100)).toFixed(2));
+      card.style.setProperty("--no", Math.max(0, Math.min(1, -dx / 100)).toFixed(2));
+    });
+    const release = e => {
+      if (e.pointerId !== pid) return;
+      pid = null;
+      if (axis !== "x") return;
+      card.classList.remove("grabbing");
+      const fast = Math.abs(dx) > 60 && e.timeStamp - (card._t || 0) < 250;
+      if (dx > 110 || (fast && dx > 0)) decide("yes");
+      else if (dx < -110 || (fast && dx < 0)) decide("no");
+      else {
+        card.style.transform = "";
+        card.style.setProperty("--yes", 0);
+        card.style.setProperty("--no", 0);
+      }
+    };
+    card.addEventListener("pointerup", release);
+    card.addEventListener("pointercancel", release);
+  }
+
+  function decide(kind) {
+    if (busy || !queue.length) return;
+    busy = true;
+    const c = queue.shift();
+    const card = nodes.get(c.show.id);
+    nodes.delete(c.show.id);
+    if (card) {
+      card.classList.remove("grabbing");
+      card.classList.add("leaving");
+      card.style.setProperty("--yes", kind === "yes" ? 1 : 0);
+      card.style.setProperty("--no", kind === "no" ? 1 : 0);
+      const dir = kind === "yes" ? 1 : kind === "no" ? -1 : 0;
+      card.style.transform = dir
+        ? "translate3d(" + (dir * 125) + "%, -6%, 0) rotate(" + (dir * 14) + "deg)"
+        : "translate3d(0, 40px, 0) scale(.88)";
+      card.style.opacity = "0";
+      setTimeout(() => card.remove(), 450);
+    }
+    if (kind === "skip") { skipped.add(c.show.id); queue.push(c); }
+    else answered.add(c.show.id);
+    if (kind === "yes") seen(c.show);
+    if (kind === "no") {
+      list.dismissed = (list.dismissed || []).concat(c.show.id).slice(-500);
+      persist(list);
+    }
+    vibrate(8);
+    setTimeout(() => { busy = false; render(); }, 180);
+  }
+
+  function seen(s) {
+    const item = { id: uid(), title: s.name, note: s.note, noteAuto: true, unranked: true, tvmazeId: s.id };
+    History.push(list, "Added “" + s.name + "” to Unranked");
+    list.items.push(item);
+    normalize(list);
+    persist(list);
+    drawRows(list, ol);
+    Sound.pop();
+    applyMedia(list, item, { id: s.id, name: s.name, img: s.img, imgHi: s.imgHi, note: s.note, source: "TVMaze" });
+    toast("“" + s.name + "” is on your Unranked shelf", { action: { label: "Rank it now", fn: () => openDuel(list, item.id) } });
+  }
+
+  noBtn.addEventListener("click", () => decide("no"));
+  yesBtn.addEventListener("click", () => decide("yes"));
+  skipBtn.addEventListener("click", () => decide("skip"));
+  sec.addEventListener("keydown", e => {
+    if (e.target.closest("input")) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); decide("yes"); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); decide("no"); }
+  });
+
+  function onRecs(cands, isDone) {
+    if (View.listId !== list.id) return;
+    done = isDone;
+    const have = new Set(list.items.map(it => it.tvmazeId).filter(Boolean));
+    const haveNames = new Set(list.items.map(it => normTitle(it.title)));
+    const dismissed = new Set(list.dismissed || []);
+    const fresh = cands.filter(c => !answered.has(c.show.id) && !have.has(c.show.id) &&
+      !haveNames.has(normTitle(c.show.name)) && !dismissed.has(c.show.id));
+    // the three cards on screen stay put; everything behind them re-sorts
+    const keep = queue.slice(0, 3).map(c => c.show.id).filter(id => fresh.some(c => c.show.id === id) || skipped.has(id));
+    const front = keep.map(id => fresh.find(c => c.show.id === id) || queue.find(c => c.show.id === id)).filter(Boolean);
+    const rest = fresh.filter(c => !keep.includes(c.show.id));
+    queue = front.concat(rest.filter(c => !skipped.has(c.show.id)), rest.filter(c => skipped.has(c.show.id)));
+    render();
+  }
+
+  function boot() {
+    if (started || list.discoverHidden) return;
+    started = true;
+    render();
+    if (!list.items.length) { done = true; render(); return; }
+    Recs.start(list, onRecs);
+  }
+  setTimeout(boot, 900);
+  return sec;
+}
+
+/* ============================================================
+   ADD BAR — live suggestions, add modes
+   ============================================================ */
+function buildAddBar(list, tpl, ol) {
+  const wrap = el("div", "add-wrap");
+  const add = el("div", "add-bar");
+  const fields = el("div", "add-fields");
+
+  const ti = el("input", "add-title-input");
+  ti.type = "text"; ti.maxLength = 200;
+  ti.placeholder = tpl.ph;
+  ti.autocomplete = "off";
+  ti.setAttribute("aria-label", "New entry title");
+  ti.setAttribute("aria-autocomplete", "list");
+  const ni = el("input", "add-note-input");
+  ni.type = "text"; ni.maxLength = 300;
+  ni.placeholder = tpl.phNote;
+  ni.setAttribute("aria-label", "New entry note");
+  fields.append(ti, ni);
+  const go = el("button", "btn btn-accent", "Add");
+  go.setAttribute("aria-label", "Add to list");
+
+  /* where new entries go */
+  const foot = el("div", "add-foot");
+  const modeWrap = el("div", "add-mode");
+  modeWrap.appendChild(el("span", null, "Add to"));
+  const seg = el("div", "seg");
+  const MODES = [["bottom", "Bottom", ICONS.bottom, "Add at the bottom of the ranking"],
+                 ["unranked", "Unranked", ICONS.shelf, "Add to the Unranked shelf to place later"],
+                 ["duel", "Matchup", ICONS.bolt, "Place each new entry by picking winners head-to-head"]];
+  const paintModes = () => seg.querySelectorAll(".seg-btn").forEach(b => {
+    const on = b.dataset.mode === (list.addMode || "bottom");
+    b.classList.toggle("active", on);
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+  for (const [id, label, icon, tip] of MODES) {
+    const b = el("button", "seg-btn");
+    b.type = "button"; b.dataset.mode = id; b.title = tip;
+    b.innerHTML = icon + "<span>" + label + "</span>";
+    b.addEventListener("click", () => { list.addMode = id; persist(list); paintModes(); ti.focus(); });
+    seg.appendChild(b);
+  }
+  paintModes();
+  modeWrap.appendChild(seg);
+  foot.append(modeWrap);
+  add.append(fields, go, foot);
+  wrap.appendChild(add);
+
+  let panel = null, pending = null, selIdx = -1, reqToken = 0, dupArmed = "";
+
+  function closePanel() {
+    if (panel) { panel.remove(); panel = null; }
+    selIdx = -1;
+    ti.setAttribute("aria-expanded", "false");
+  }
+  function renderPanel(results, status, busy) {
+    const hadSel = selIdx;
+    if (panel) panel.remove();
+    panel = null;
+    if (!results.length && !status) { ti.setAttribute("aria-expanded", "false"); return; }
+    panel = el("div", "sugg-panel");
+    panel.setAttribute("role", "listbox");
+    results.forEach(r => {
+      const b = el("button", "sugg");
+      b.type = "button";
+      b.setAttribute("role", "option");
+      const art = el("div", "s-art");
+      if (r.img) {
+        const im = el("img"); im.src = r.img; im.alt = ""; im.loading = "lazy";
+        im.addEventListener("error", () => { im.remove(); art.innerHTML = ICONS.photo; }, { once: true });
+        art.appendChild(im);
+      } else art.innerHTML = ICONS.photo;
+      const mid = el("div");
+      mid.appendChild(el("div", "s-name", r.name));
+      if (r.sub) mid.appendChild(el("div", "s-sub", r.sub));
+      const at = list.items.findIndex(it => (r.id && it.tvmazeId === r.id) || normTitle(it.title) === normTitle(r.name));
+      const rc = rankedCount(list);
+      const src = at >= 0 ? el("span", "s-src s-have", at < rc ? "Ranked #" + (at + 1) : "Unranked") : el("span", "s-src", r.source);
+      b.append(art, mid, src);
+      b.addEventListener("mousedown", e => e.preventDefault());
+      b.addEventListener("click", () => pickSuggestion(r));
+      panel.appendChild(b);
+    });
+    if (status) {
+      const st = el("div", "sugg-status");
+      if (busy) st.appendChild(el("span", "spin"));
+      st.appendChild(el("span", null, status));
+      panel.appendChild(st);
+    }
+    wrap.appendChild(panel);
+    ti.setAttribute("aria-expanded", "true");
+    const opts = panel.querySelectorAll(".sugg");
+    if (hadSel >= 0 && opts[hadSel]) { selIdx = hadSel; opts[hadSel].classList.add("sel"); }
+    else selIdx = -1;
+  }
+  function pickSuggestion(r) {
+    pending = r;
+    ti.value = r.name;
+    if (r.note) ni.value = r.note;
+    closePanel();
+    ni.focus();
+  }
+
+  const runSearch = debounce(async () => {
+    const q = ti.value.trim();
+    pending = null;
+    if (q.length < 2) { closePanel(); return; }
+    const token = ++reqToken;
+    const stillHere = () => token === reqToken && (document.activeElement === ti || document.activeElement === ni);
+    let shownAny = false;
+    renderPanel([], "Searching…", true);
+    let failed = false, results = [];
+    try {
+      results = await Media.search(list.template, q, contextTerms(list), {
+        prefix: true,
+        onUpdate: (res, fromCache) => {
+          if (!stillHere()) return;
+          if (res.length) { shownAny = true; renderPanel(res.slice(0, 7), fromCache ? "" : "Looking for more…", !fromCache); }
+        },
+      });
+    } catch { failed = true; }
+    if (token !== reqToken) return;
+    if (!stillHere()) { closePanel(); return; }
+    if (failed) renderPanel([], "Lookup offline — press Enter to add it as typed");
+    else if (!results.length) renderPanel([], "No matches — press Enter to add it as typed");
+    else renderPanel(results.slice(0, 7));
+    void shownAny;
+  }, 200);
+
+  ti.addEventListener("input", () => { dupArmed = ""; runSearch(); });
+  ti.addEventListener("keydown", e => {
+    const opts = panel ? [...panel.querySelectorAll(".sugg")] : [];
+    const mark = () => opts.forEach((o, i) => { o.classList.toggle("sel", i === selIdx); o.setAttribute("aria-selected", i === selIdx); });
+    if (e.key === "ArrowDown" && opts.length) {
+      e.preventDefault(); selIdx = (selIdx + 1) % opts.length; mark();
+      if (opts[selIdx].scrollIntoView) opts[selIdx].scrollIntoView({ block: "nearest" });
+    } else if (e.key === "ArrowUp" && opts.length) {
+      e.preventDefault(); selIdx = (selIdx - 1 + opts.length) % opts.length; mark();
+      if (opts[selIdx].scrollIntoView) opts[selIdx].scrollIntoView({ block: "nearest" });
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (selIdx >= 0 && opts[selIdx]) opts[selIdx].click();
+      else commitAdd();
+    } else if (e.key === "Escape") {
+      if (panel) { e.preventDefault(); closePanel(); } else ti.blur();
+    }
+  });
+  ni.addEventListener("keydown", e => {
+    if (e.key === "Enter") { e.preventDefault(); commitAdd(); }
+    else if (e.key === "Escape") ni.blur();
+  });
+  wrap.addEventListener("focusout", () => {
+    setTimeout(() => { if (!wrap.contains(document.activeElement)) closePanel(); }, 0);
+  });
+
+  function commitAdd() {
+    const t = ti.value.trim();
+    if (!t) { ti.focus(); return; }
+    closePanel();
+    const nt = normTitle(t);
+    const at = list.items.findIndex(it => normTitle(it.title) === nt);
+    if (at >= 0 && dupArmed !== nt) {
+      dupArmed = nt;
+      const row = rowEl(ol, list.items[at].id);
+      if (row) { if (row.scrollIntoView) row.scrollIntoView({ block: "center", behavior: "smooth" }); flashRow(row); }
+      const rc = rankedCount(list);
+      toast((at < rc ? "Already ranked at #" + (at + 1) : "Already on your Unranked shelf") + " — press Enter again to add it anyway", { ms: 3800 });
+      return;
+    }
+    dupArmed = "";
+    const mode = list.addMode || "bottom";
+    const item = { id: uid(), title: t, note: ni.value.trim() };
+    const chosen = pending && pending.name === t ? pending : null;
+    if (chosen && item.note && item.note === chosen.note) item.noteAuto = true;
+    if (chosen && chosen.id && chosen.source === "TVMaze") item.tvmazeId = chosen.id;
+    if (mode !== "bottom") item.unranked = true;
+    pending = null;
+    ti.value = ""; ni.value = "";
+
+    History.push(list, "Added “" + t + "”");
+    if (mode === "bottom") list.items.splice(rankedCount(list), 0, item);
+    else list.items.push(item);
+    persist(list);
+    drawRows(list, ol);
+    const row = rowEl(ol, item.id);
+    if (row) {
+      anim(row, [{ opacity: 0, transform: "translateY(14px) scale(.98)" }, { opacity: 1, transform: "none" }], { duration: 500, easing: "cubic-bezier(.2,1.25,.35,1)" });
+      if (row.scrollIntoView) row.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+    Sound.pop();
+    announce(t + (mode === "bottom" ? " added at number " + rankedCount(list) : " added to Unranked"));
+
+    if (mode === "duel" && rankedCount(list) >= 1) {
+      ti.blur();
+      openDuel(list, item.id, { onDone: () => ti.focus() });
+    } else if (mode === "duel") {
+      relocate(list, item.id, 0, false, ol, { quietToast: true }); // first entry: straight to #1
+      ti.focus();
+    } else ti.focus();
+
+    if (chosen) applyMedia(list, item, chosen);
+    else Media.bestMatch(list.template, t, contextTerms(list)).then(m => {
+      if (m) applyMedia(list, item, m); else markTried(list, item);
+    }).catch(() => { });
+  }
+  go.addEventListener("click", commitAdd);
+  return wrap;
+}
+
+/* ============================================================
+   ARTWORK
+   ============================================================ */
+/* Apply artwork + colors to an item. Every image is verified first.
+   Hand-picked looks/colors are never overwritten by automatic lookups.
+   opts.force: the user explicitly chose this match (picker). */
+async function applyMedia(list, ref, media, opts) {
+  opts = opts || {};
+  const seed = ref.title;
+  let img = media.img || "", imgHi = media.imgHi || "", bg = "";
+  if (media.source === "TVMaze" && media.id) {
+    try { bg = await Media.tvmazeBackdrop(media.id); } catch { }
+  }
+  let pal = null;
+  if (img) {
+    pal = await Media.probe(img, seed);
+    if (!pal.loaded && imgHi && imgHi !== img) { img = imgHi; pal = await Media.probe(img, seed); }
+    if (!pal.loaded) { img = ""; imgHi = ""; pal = null; }
+  }
+  if (bg) {
+    const pb = await Media.probe(bg, seed);
+    if (!pb.loaded) bg = "";
+    else if (!pal || !(pal.palette && pal.palette.length)) pal = (pb.palette && pb.palette.length) ? pb : (pal || pb);
+  }
+  if (!pal) pal = Media.hashColors(seed);
+
+  const live = getList(list.id);
+  const item = live && live.items.find(x => x.id === ref.id);
+  if (!item) return false;
+  if (opts.force) { delete item.img; delete item.imgHi; delete item.bg; delete item.custom; }
+  if (img) item.img = img;
+  if (img && imgHi && imgHi !== img) item.imgHi = imgHi;
+  if (bg) item.bg = bg;
+  if (media.source === "TVMaze" && media.id) item.tvmazeId = media.id;
+  if (media.note && (!item.note || (opts.replaceNote && item.noteAuto))) { item.note = media.note; item.noteAuto = true; }
+  item.source = media.source;
+  delete item.tried;
+  if (!item.custom) { item.c1 = pal.c1; item.c2 = pal.c2; item.palette = pal.palette || []; }
+  const hasArt = !!(item.img || item.bg);
+  if (!item.look || (item.look === "scene" && !item.bg && !item.img)) item.look = hasArt ? "glow" : "tint";
+  persist(live);
+  refreshRow(live, item);
+  return hasArt;
+}
+
+/* set one specific poster or backdrop (official gallery) */
+async function applyArt(list, ref, art, kind) {
+  const L = getList(list.id);
+  const item = L && L.items.find(x => x.id === ref.id);
+  if (!item) return;
+  const p = await Media.probe(art.img || art.imgHi, item.title);
+  if (!p.loaded) { toast("That image didn't load — try another"); return; }
+  History.push(L, (kind === "poster" ? "New poster for “" : "New backdrop for “") + item.title + "”");
+  if (kind === "poster") {
+    item.img = art.img; item.imgHi = art.imgHi;
+    if (!item.custom) { item.c1 = p.c1; item.c2 = p.c2; item.palette = p.palette || []; }
+    if (!item.look || item.look === "plain") item.look = "glow";
+  } else {
+    item.bg = art.imgHi;
+    item.look = "scene";
+    if (!item.custom && !(item.palette && item.palette.length)) { item.c1 = p.c1; item.c2 = p.c2; item.palette = p.palette || []; }
+  }
+  delete item.tried;
+  persist(L);
+  refreshRow(L, item);
+  toast(kind === "poster" ? "Poster updated" : "Backdrop set — row switched to Scene");
+}
+
+function refreshRow(list, item) {
+  const ol = document.getElementById("rankList");
+  if (!ol || ol.dataset.listId !== list.id) return;
+  if (document.body.classList.contains("drag-active")) return;
+  const row = rowEl(ol, item.id);
+  if (!row) return;
+  if (row.querySelector(".row-edit, .rank-jump, .row-style, .row-actions")) return;
+  const fresh = buildRow(list, item, list.items.indexOf(item), ol);
+  row.replaceWith(fresh);
+  observeBgs(fresh);
+  anim(fresh, [{ opacity: .4 }, { opacity: 1 }], { duration: 400, easing: "ease-out" });
+  if (list.items.indexOf(item) < 3) setAmbient(list);
+}
+
+async function enrichAll(list, btn) {
+  const bare = list.items.filter(it => !(it.img || it.bg) || !(it.palette && it.palette.length));
+  if (!bare.length) { toast("Every entry is already dressed"); return; }
+  if (enrichAll.running) { toast("Already looking — hang tight"); return; }
+  enrichAll.running = true;
+  const label = btn && btn.querySelector("span");
+  if (btn) btn.disabled = true;
+  let done = 0, found = 0;
+  toast("Looking up artwork for " + plural(bare.length, "entry", "entries") + "…");
+  for (const item of bare) {
+    if (View.listId !== list.id) break;
+    if (label) label.textContent = "Finding… " + (done + 1) + "/" + bare.length;
+    try {
+      const m = await Media.bestMatch(list.template, item.title, contextTerms(list), true);
+      if (m && await applyMedia(list, item, m)) found++;
+    } catch (e) { console.warn("enrich failed for", item.title, e); }
+    done++;
+    await sleep(300);
+  }
+  enrichAll.running = false;
+  if (btn) btn.disabled = false;
+  if (label) label.textContent = "Find artwork";
+  toast(found ? "Artwork found for " + plural(found, "entry", "entries") : "No new artwork found — check spelling or your connection");
+}
+
+/* lazy backdrops */
+const bgLoaded = new Set();
+const bgIO = ("IntersectionObserver" in window)
+  ? new IntersectionObserver(ents => {
+      for (const e of ents) if (e.isIntersecting) { setBg(e.target); bgIO.unobserve(e.target); }
+    }, { rootMargin: "700px 0px" })
+  : null;
+function setBg(node) {
+  const u = node.dataset.src;
+  if (!u) return;
+  node.style.backgroundImage = 'url("' + u.replace(/"/g, "%22") + '")';
+  bgLoaded.add(u);
+  delete node.dataset.src;
+}
+function lazyBg(node, url) {
+  node.dataset.src = url;
+  if (!bgIO || bgLoaded.has(url)) setBg(node);
+}
+function observeBgs(root) {
+  if (!bgIO) return;
+  root.querySelectorAll(".row-bg[data-src]").forEach(n => bgIO.observe(n));
+}
+function loadAllBgs() {
+  document.querySelectorAll(".row-bg[data-src]").forEach(n => { if (bgIO) bgIO.unobserve(n); setBg(n); });
+  document.querySelectorAll(".rank-row").forEach(r => { r.style.contentVisibility = "visible"; });
+}
+window.addEventListener("beforeprint", loadAllBgs);
+
+/* ============================================================
+   ROWS
+   ============================================================ */
+const MILESTONES = [10, 25, 50, 100, 250, 500];
+function buildMilestone(n) {
+  const m = el("li", "milestone");
+  m.dataset.at = n;
+  m.setAttribute("aria-hidden", "true");
+  m.textContent = "the top " + n;
+  return m;
+}
+function buildUnrankedHead(list, ol) {
+  const n = list.items.length - rankedCount(list);
+  const h = el("li", "unranked-head");
+  h.appendChild(el("h4", null, "Unranked"));
+  h.appendChild(el("span", "u-sub", plural(n, "entry", "entries") + " seen, not placed yet"));
+  if (rankedCount(list) >= 1 || n > 1) {
+    const b = el("button", "btn");
+    b.innerHTML = ICONS.bolt + "<span>" + (n > 1 ? "Rank them all" : "Rank it") + "</span>";
+    b.addEventListener("click", () => rankAll(list));
+    h.appendChild(b);
+  }
+  return h;
+}
+function rankAll(list) {
+  const next = () => {
+    const L = getList(list.id);
+    const it = L && L.items.find(x => x.unranked);
+    if (!it || View.listId !== list.id) return;
+    if (!rankedCount(L)) { relocate(L, it.id, 0, false, document.getElementById("rankList")); return next(); }
+    openDuel(L, it.id, { onFinish: next, chain: true });
+  };
+  next();
+}
+function placeMilestones(ol) {
+  const kids = [...ol.children];
+  const ranked = [];
+  for (const k of kids) { if (k.classList.contains("unranked-head")) break; if (k.classList.contains("rank-row")) ranked.push(k); }
+  ol.querySelectorAll(".milestone").forEach(m => {
+    const r = ranked[+m.dataset.at - 1];
+    if (r && r.nextElementSibling !== m) r.after(m);
+  });
+}
+function updateCount(list) {
+  const n = document.getElementById("listCount");
+  if (!n) return;
+  const rc = rankedCount(list), unr = list.items.length - rc;
+  n.textContent = "The definitive ranking · " + rc + " ranked" + (unr ? " · " + unr + " unranked" : "");
+}
+
+function drawRows(list, ol, opts) {
+  opts = opts || {};
+  ol.innerHTML = "";
+  ol.classList.toggle("compact", list.density === "compact");
+  ol.classList.toggle("intro", !!opts.intro);
+  if (opts.intro) setTimeout(() => ol.classList.remove("intro"), 1600);
+  updateCount(list);
+  setAmbient(list);
+  if (list.items.length === 0) {
+    ol.classList.remove("finding");
+    const es = el("li", "empty-state");
+    es.appendChild(el("div", "big", "No. 1 is waiting"));
+    es.appendChild(el("div", null, "Start typing below — suggestions bring the artwork with them."));
+    ol.appendChild(es);
+    return;
+  }
+  const rc = rankedCount(list);
+  const frag = document.createDocumentFragment();
+  list.items.forEach((item, i) => {
+    if (i === rc) frag.appendChild(buildUnrankedHead(list, ol));
+    const row = buildRow(list, item, i, ol);
+    row.style.setProperty("--i", Math.min(i, 14));
+    frag.appendChild(row);
+    if (i < rc && MILESTONES.includes(i + 1) && rc > i + 1) frag.appendChild(buildMilestone(i + 1));
+  });
+  ol.appendChild(frag);
+  if (View.findQ) ol.classList.toggle("finding", list.items.some(it => itemMatches(it, View.findQ)));
+  observeBgs(ol);
+}
+
+const normLook = l => l === "backdrop" ? "scene" : l;
+function buildRow(list, item, index, ol) {
+  const rc = rankedCount(list);
+  const unr = !!item.unranked;
+  const li = el("li", "rank-row");
+  if (!unr && index === 0) li.classList.add("is-top");
+  else if (!unr && index < 3) li.classList.add("is-podium");
+  if (unr) li.classList.add("unranked");
+  li.dataset.id = item.id;
+  if (View.findQ && itemMatches(item, View.findQ)) li.classList.add("find-hit");
+
+  const hasArt = !!(item.img || item.bg);
+  const look = normLook(item.look) || (hasArt ? "glow" : (item.c1 ? "tint" : "plain"));
+  const pal = (item.palette && item.palette.length) ? item.palette : [];
+  if (item.c1) {
+    li.style.setProperty("--p1", item.c1);
+    li.style.setProperty("--p2", pal[1] || item.c2 || item.c1);
+    li.style.setProperty("--p3", pal[2] || item.c2 || item.c1);
+  }
+  if (look === "scene" && hasArt) {
+    li.classList.add("look-scene");
+    if (!(pal.length && item.c1)) li.style.setProperty("--p1", "#0A0C10");
+    const bg = el("div", "row-bg");
+    lazyBg(bg, item.bg || item.imgHi || item.img);
+    li.appendChild(bg);
+    li.appendChild(el("div", "row-scrim"));
+  } else if (look === "bold" && item.c1) {
+    li.classList.add("look-bold");
+    li.style.setProperty("--row-ink", relLuma(item.c1) > 160 ? "#15171C" : "#FFFFFF");
+  } else if (look === "glow" && item.c1) {
+    li.classList.add("look-glow");
+  } else if (item.c1 && look !== "plain") {
+    li.classList.add("look-tint");
+  }
+
+  const num = el("div", "rank-num", unr ? "–" : String(index + 1));
+  num.tabIndex = 0;
+  num.title = "Tap to type a rank";
+  num.setAttribute("aria-label", (unr ? "Unranked" : "Rank " + (index + 1)) + ". Press Enter to type a rank");
+  num.addEventListener("keydown", e => {
+    if ((e.key === "Enter" || e.key === " ") && e.target === num) { e.preventDefault(); openRankJump(list, item.id, ol); }
+  });
+  li.appendChild(num);
+
+  if (item.img) {
+    li.classList.add("has-art");
+    const art = el("div", "row-art");
+    const im = el("img");
+    im.src = (!unr && index === 0 && item.imgHi) ? item.imgHi : item.img;
+    im.alt = ""; im.loading = "lazy"; im.decoding = "async";
+    im.addEventListener("error", () => { art.remove(); li.classList.remove("has-art"); }, { once: true });
+    art.appendChild(im);
+    li.appendChild(art);
+  }
+
+  const body = el("div", "row-body");
+  if (!unr && index === 0 && rc > 1 && list.density !== "compact") body.appendChild(el("div", "crown", "The GOAT"));
+  body.appendChild(el("div", "row-title", item.title));
+  if (item.note) body.appendChild(el("div", "row-note", item.note));
+  if (unr) {
+    const ri = el("button", "rank-it");
+    ri.innerHTML = ICONS.bolt + "<span>" + (rc ? "Rank it" : "Make it #1") + "</span>";
+    ri.addEventListener("click", () => rc ? openDuel(list, item.id) : relocate(list, item.id, 0, false, ol));
+    body.appendChild(ri);
+  }
+  li.appendChild(body);
+
+  /* controls: a grip + ⋯ on hover with a mouse; on touch, just a big ⋯ */
+  const zoneStart = unr ? rc : 0, zoneEnd = unr ? list.items.length - 1 : rc - 1;
+  const ctl = el("div", "row-ctl");
+  const grip = el("button", "iconbtn drag-handle");
+  grip.innerHTML = ICONS.grip;
+  grip.title = "Drag to reorder (arrow keys work too)";
+  grip.setAttribute("aria-label", "Reorder " + item.title + " — arrow keys move it");
+  grip.addEventListener("keydown", e => {
+    const i = list.items.findIndex(x => x.id === item.id);
+    if (e.key === "ArrowUp" && i > zoneStart) { e.preventDefault(); moveTo(list, i, i - 1, ol, { focus: ".drag-handle" }); }
+    if (e.key === "ArrowDown" && i < zoneEnd) { e.preventDefault(); moveTo(list, i, i + 1, ol, { focus: ".drag-handle" }); }
+  });
+  const more = el("button", "iconbtn more-btn");
+  more.innerHTML = ICONS.more;
+  more.title = "Actions";
+  more.setAttribute("aria-label", "Actions for " + item.title);
+  more.addEventListener("click", () => openRowSheet(list, item.id, ol));
+  ctl.append(grip, more);
+  li.appendChild(ctl);
+  attachSort(li, list, ol);
+  li.addEventListener("contextmenu", e => {
+    if (li.classList.contains("pressing") || li.classList.contains("lifted")) e.preventDefault();
+  });
+  return li;
+}
+
+/* ---- the ⋯ menu: every row action, labeled, thumb-sized ---- */
+function openRowSheet(listRef, itemId, ol) {
+  const list = getList(listRef.id);
+  const item = list && list.items.find(x => x.id === itemId);
+  if (!item) return;
+  const idx = list.items.indexOf(item);
+  const rc = rankedCount(list), unr = !!item.unranked;
+  const zoneStart = unr ? rc : 0, zoneEnd = unr ? list.items.length - 1 : rc - 1;
+  const m = makeModal("sheet");
+  const md = m.modal;
+  const head = el("div", "sheet-head");
+  if (item.img) { const im = el("img"); im.src = item.img; im.alt = ""; head.appendChild(im); }
+  const ht = el("div");
+  ht.append(el("div", "eyebrow", unr ? "Unranked" : "Ranked #" + (idx + 1)), el("div", "sheet-title", item.title));
+  if (item.note) ht.appendChild(el("div", "sheet-note", item.note));
+  head.appendChild(ht);
+  md.appendChild(head);
+  const grid = el("div", "sheet-actions");
+  const act = (icon, label, sub, fn, cls) => {
+    const b = el("button", "sheet-btn" + (cls ? " " + cls : ""));
+    b.innerHTML = '<span class="si">' + icon + '</span><span class="st"><b>' + escapeHTML(label) + "</b>" +
+      (sub ? "<small>" + escapeHTML(sub) + "</small>" : "") + "</span>";
+    b.addEventListener("click", () => { m.onClose = () => { }; m.close(); fn(); });
+    grid.appendChild(b);
+  };
+  if (unr) {
+    act(ICONS.bolt, rc ? "Rank it" : "Make it #1", rc ? "Pick winners head-to-head" : "Start the ranking with it",
+      () => rc ? openDuel(list, itemId) : relocate(list, itemId, 0, false, ol), "wide");
+  } else if (rc > 1) {
+    act(ICONS.bolt, "Re-rank by matchup", "Pick winners head-to-head", () => openDuel(list, itemId), "wide");
+  }
+  act(ICONS.hash, "Type a rank", unr ? "Drop it straight in" : "Jump anywhere", () => openRankJump(list, itemId, ol));
+  if (!unr) act(ICONS.shelf, "Move to Unranked", "Seen it, not placed", () => relocate(list, itemId, list.items.length - 1, true, ol));
+  if (idx > zoneStart) act(ICONS.up, "Move up", "One spot", () => moveTo(list, idx, idx - 1, ol));
+  if (idx < zoneEnd) act(ICONS.down, "Move down", "One spot", () => moveTo(list, idx, idx + 1, ol));
+  act(ICONS.spark, (item.img || item.bg) ? "Artwork" : "Find artwork", isTv(list) ? "Official posters" : "Swap or remove", () => openArtPicker(list, item));
+  act(ICONS.paint, "Style", "Look & color", () => {
+    const li = rowEl(ol, itemId);
+    if (li && !li.querySelector(".row-style")) li.appendChild(buildStyleStrip(list, item, ol));
+  });
+  act(ICONS.edit, "Edit", "Title & note", () => { const li = rowEl(ol, itemId); if (li) enterEdit(list, item, li, ol); });
+  act(ICONS.trash, "Delete", "Undo is one tap away", () => deleteItem(list, itemId, ol), "danger");
+  md.appendChild(grid);
+}
+
+function deleteItem(list, id, ol) {
+  const item = list.items.find(x => x.id === id);
+  if (!item) return;
+  History.push(list, "Removed “" + item.title + "”");
+  list.items = list.items.filter(x => x.id !== id);
+  persist(list);
+  announce(item.title + " removed");
+  const li = rowEl(ol, id);
+  const done = () => drawRows(list, ol);
+  if (li) anim(li, [{ opacity: 1 }, { opacity: 0, transform: "translateX(24px) scale(.97)" }], { duration: 240, easing: "ease-out" }).finished.then(done, done);
+  else done();
+  toast("Removed “" + item.title + "”", { action: { label: "Undo", fn: () => History.undo() } });
+}
+
+/* per-row style editor */
+function rebuildRowKeepStrip(list, item, ol) {
+  const idx = list.items.findIndex(x => x.id === item.id);
+  const old = rowEl(ol, item.id);
+  const fresh = buildRow(list, item, idx, ol);
+  if (old) old.replaceWith(fresh);
+  fresh.appendChild(buildStyleStrip(list, item, ol));
+  observeBgs(fresh);
+  if (idx < 3) setAmbient(list);
+}
+function buildStyleStrip(list, item, ol) {
+  const strip = el("div", "row-style");
+  const lookGrp = el("div", "grp");
+  lookGrp.appendChild(el("span", "lbl", "Look"));
+  const seg = el("div", "seg");
+  const hasArt = !!(item.img || item.bg);
+  const cur = normLook(item.look) || (hasArt ? "glow" : (item.c1 ? "tint" : "plain"));
+  for (const [id, label] of [["plain", "Plain"], ["tint", "Subtle"], ["glow", "Glow"], ["scene", "Scene"], ["bold", "Bold"]]) {
+    const b = el("button", "seg-btn" + (cur === id ? " active" : ""), label);
+    b.type = "button";
+    if (id === "scene" && !hasArt) { b.disabled = true; b.title = "Needs artwork — try the ✦ button"; }
+    if ((id === "tint" || id === "bold" || id === "glow") && !item.c1) { b.disabled = true; b.title = "Needs colors — try the ✦ button"; }
+    b.addEventListener("click", () => {
+      if (normLook(item.look) === id) return;
+      History.push(list, "Restyled “" + item.title + "”");
+      item.look = id;
+      persist(list);
+      rebuildRowKeepStrip(list, item, ol);
+    });
+    seg.appendChild(b);
+  }
+  lookGrp.appendChild(seg);
+  strip.appendChild(lookGrp);
+  const opts = [...new Set([...(item.palette || []), item.c1].filter(Boolean))];
+  if (opts.length) {
+    const colGrp = el("div", "grp");
+    colGrp.appendChild(el("span", "lbl", "Color"));
+    const dots = el("div", "cdots");
+    for (const c of opts.slice(0, 6)) {
+      const d = el("button", "cdot" + (c === item.c1 ? " active" : ""));
+      d.type = "button";
+      d.style.background = c;
+      d.title = "Lead with this color";
+      d.setAttribute("aria-label", "Set row color " + c);
+      d.addEventListener("click", () => {
+        if (item.c1 === c && item.custom) return;
+        History.push(list, "Recolored “" + item.title + "”");
+        // move the chosen color to the front so Glow leads with it
+        const rest = (item.palette || []).filter(x => x !== c);
+        item.palette = item.palette && item.palette.length ? [c].concat(rest) : item.palette;
+        item.c1 = c;
+        item.c2 = rest[0] || darken(c, .35);
+        item.custom = true;
+        persist(list);
+        rebuildRowKeepStrip(list, item, ol);
+      });
+      dots.appendChild(d);
+    }
+    colGrp.appendChild(dots);
+    strip.appendChild(colGrp);
+  }
+  const done = el("button", "btn btn-ghost", "Done");
+  done.style.marginLeft = "auto";
+  done.addEventListener("click", () => strip.remove());
+  strip.appendChild(done);
+  return strip;
+}
+
+/* ============================================================
+   MOVING
+   ============================================================ */
+/* Move an entry to index `toIdx` (index in the array after removing it),
+   optionally changing whether it's ranked. Every move path ends here. */
+function relocate(list, id, toIdx, makeUnranked, ol, opts) {
+  opts = opts || {};
+  const from = list.items.findIndex(x => x.id === id);
+  if (from < 0 || !ol) return;
+  const item = list.items[from];
+  const was = !!item.unranked;
+  const will = !!makeUnranked;
+  if (from === toIdx && was === will) return;
+  const label = was && !will ? "Ranked “" + item.title + "”" : !was && will ? "Unranked “" + item.title + "”" : "Moved “" + item.title + "”";
+  if (!opts.noHistory) History.push(list, label);
+  flip(ol, () => {
+    list.items.splice(from, 1);
+    if (will) item.unranked = true; else delete item.unranked;
+    list.items.splice(Math.max(0, Math.min(toIdx, list.items.length)), 0, item);
+    normalize(list);
+    persist(list);
+    drawRows(list, ol);
+  });
+  const to = list.items.indexOf(item);
+  if (was && !will) badge(ol, id, "new", "★ #" + (to + 1));
+  else if (!was && will) badge(ol, id, "down", "unranked");
+  else if (!will) badge(ol, id, to < from ? "up" : "down", (to < from ? "▲ " : "▼ ") + Math.abs(from - to));
+  announce(item.title + (will ? " moved to Unranked" : " is now number " + (to + 1)));
+  const row = rowEl(ol, id);
+  if (row && opts.scroll) { if (row.scrollIntoView) row.scrollIntoView({ block: "center", behavior: "smooth" }); flashRow(row); }
+  if (row && opts.focus) {
+    const f = row.querySelector(opts.focus);
+    if (f && !f.disabled) f.focus();
+    else { const n = row.querySelector(".rank-num"); if (n) n.focus(); }
+  }
+  if (!opts.quietToast && !was && will) toast("Moved to Unranked", { action: { label: "Undo", fn: () => History.undo() } });
+}
+function moveTo(list, from, to, ol, opts) {
+  if (to < 0 || to >= list.items.length || to === from || from < 0) return;
+  const item = list.items[from];
+  relocate(list, item.id, to, !!item.unranked, ol, opts);
+}
+function badge(ol, id, cls, text) {
+  const row = rowEl(ol, id);
+  const t = row && row.querySelector(".row-title");
+  if (!t) return;
+  const d = el("span", "delta " + cls, text);
+  d.setAttribute("aria-hidden", "true");
+  t.appendChild(d);
+  setTimeout(() => d.remove(), 3100);
+}
+function flip(ol, mutate) {
+  const before = new Map();
+  for (const row of ol.children) if (row.dataset.id) before.set(row.dataset.id, row.getBoundingClientRect().top);
+  mutate();
+  for (const row of ol.children) {
+    const prev = before.get(row.dataset.id);
+    if (prev === undefined) continue;
+    const dy = prev - row.getBoundingClientRect().top;
+    if (dy) anim(row, [{ transform: "translateY(" + dy + "px)" }, { transform: "translateY(0)" }],
+      { duration: 420, easing: "cubic-bezier(.2,1.1,.35,1)" });
+  }
+}
+
+/* type-a-rank (works for unranked entries too — typing a number ranks them) */
+function openRankJump(list, id, ol) {
+  const li = rowEl(ol, id);
+  if (!li) return;
+  const num = li.querySelector(".rank-num");
+  if (!num || num.querySelector("input")) return;
+  const from = list.items.findIndex(x => x.id === id);
+  if (from < 0) return;
+  const item = list.items[from];
+  const unr = !!item.unranked;
+  const rc = rankedCount(list);
+  const maxRank = unr ? rc + 1 : rc;
+  const inp = el("input", "rank-jump");
+  inp.type = "text"; inp.inputMode = "numeric"; inp.enterKeyHint = "go"; inp.maxLength = 5;
+  inp.value = unr ? "" : String(from + 1);
+  inp.placeholder = unr ? "#" : "";
+  inp.setAttribute("aria-label", "Move to rank, 1 to " + maxRank);
+  const prevText = num.textContent;
+  num.textContent = "";
+  num.appendChild(inp);
+  inp.focus();
+  inp.select();
+  let done = false;
+  const finish = commit => {
+    if (done) return;
+    done = true;
+    const n = parseInt(inp.value, 10);
+    if (!commit || isNaN(n)) { num.textContent = prevText; return; }
+    const to = Math.max(1, Math.min(n, maxRank)) - 1;
+    if (!unr && to === from) { num.textContent = prevText; return; }
+    relocate(list, id, to, false, ol, { scroll: true });
+  };
+  inp.addEventListener("pointerdown", e => e.stopPropagation());
+  inp.addEventListener("input", () => { inp.value = inp.value.replace(/\D/g, ""); });
+  inp.addEventListener("keydown", e => {
+    e.stopPropagation();
+    if (e.key === "Enter") { e.preventDefault(); finish(true); }
+    else if (e.key === "Escape") { e.preventDefault(); finish(false); num.focus(); }
+  });
+  inp.addEventListener("blur", () => finish(true));
+}
+
+/* inline edit */
+function enterEdit(list, item, li, ol) {
+  const body = li.querySelector(".row-body");
+  if (!body) return;
+  const wrap = el("div", "row-edit");
+  const ti = el("input"); ti.type = "text"; ti.value = item.title; ti.maxLength = 200;
+  ti.setAttribute("aria-label", "Entry title");
+  const ni = el("input"); ni.type = "text"; ni.value = item.note || ""; ni.maxLength = 300;
+  ni.placeholder = "Optional note"; ni.setAttribute("aria-label", "Entry note");
+  const acts = el("div", "edit-actions");
+  const save = el("button", "btn btn-accent");
+  save.innerHTML = ICONS.save + "<span>Save</span>";
+  const cancel = el("button", "btn btn-ghost", "Cancel");
+  function commit() {
+    const t = ti.value.trim();
+    if (!t) { ti.focus(); return; }
+    const n = ni.value.trim();
+    const titleChanged = t !== item.title, noteChanged = n !== (item.note || "");
+    if (!titleChanged && !noteChanged) { drawRows(list, ol); return; }
+    History.push(list, "Edited “" + item.title + "”");
+    item.title = t; item.note = n;
+    if (noteChanged) delete item.noteAuto;
+    if (titleChanged) { delete item.tried; delete item.tvmazeId; }
+    persist(list);
+    drawRows(list, ol);
+    if (titleChanged && !item.img && !item.bg) {
+      Media.bestMatch(list.template, t, contextTerms(list)).then(m => { if (m) applyMedia(list, item, m); }).catch(() => { });
+    }
+  }
+  save.addEventListener("click", commit);
+  cancel.addEventListener("click", () => drawRows(list, ol));
+  const onKey = e => { if (e.key === "Enter") commit(); if (e.key === "Escape") drawRows(list, ol); };
+  ti.addEventListener("keydown", onKey);
+  ni.addEventListener("keydown", onKey);
+  acts.append(save, cancel);
+  wrap.append(ti, ni, acts);
+  body.replaceWith(wrap);
+  ti.focus();
+  ti.select();
+}
+
+/* ============================================================
+   SORTING — touch-first reordering.
+   Touch: press and hold ~⅓ s and the row lifts in place (moving
+   sooner just scrolls the page, as normal). Mouse: press and drag.
+   Tap/click a rank number to type a new rank instead.
+   While a row is held nothing in the DOM moves: the other rows glide
+   aside on GPU transforms, then one commit writes the final order.
+   ============================================================ */
+let sortActive = false;
+const NO_SORT = "button:not(.drag-handle), input, textarea, a, .row-style, .row-edit, .row-actions";
+
+function attachSort(li, list, ol) {
+  li.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    if (e.target.closest(NO_SORT)) return;
+    e.preventDefault();
+    sortGesture(list, li, ol, e.clientX, e.clientY, "mouse", e.target);
+  });
+  li.addEventListener("touchstart", e => {
+    if (e.touches.length !== 1 || e.target.closest(NO_SORT)) return;
+    const t = e.touches[0];
+    sortGesture(list, li, ol, t.clientX, t.clientY, "touch", e.target);
+  }, { passive: true });
+}
+
+function sortGesture(list, li, ol, sx, sy, kind, target) {
+  if (sortActive || li.querySelector(".row-edit, .rank-jump")) return;
+  const onNum = !!(target.closest && target.closest(".rank-num"));
+  const SLOP = kind === "touch" ? 10 : 5;
+  let sorter = null, ended = false, pressT = 0, liftT = 0;
+
+  if (kind === "touch") {
+    pressT = setTimeout(() => li.classList.add("pressing"), 120);
+    liftT = setTimeout(lift, 350);
+  }
+  function lift() {
+    if (ended || sorter) return;
+    clearTimeout(pressT);
+    li.classList.remove("pressing");
+    sorter = makeSorter(list, li, ol, sy);
+    if (!sorter) { finish(); return; }
+    vibrate(12);
+    Sound.pickup();
+  }
+  function onMove(cx, cy, ev) {
+    if (!sorter) {
+      if (Math.hypot(cx - sx, cy - sy) <= SLOP) return;
+      if (kind === "touch") { finish(); return; }   // finger moved first: it's a scroll
+      lift();
+      if (!sorter) return;
+    }
+    if (ev.cancelable) ev.preventDefault();          // held row: the page must not scroll
+    sorter.move(cy);
+  }
+  const mm = e => onMove(e.clientX, e.clientY, e);
+  const tm = e => { const t = e.touches[0]; if (t) onMove(t.clientX, t.clientY, e); };
+  function up(e) {
+    const s = sorter, wasTap = !sorter && !ended;
+    finish();
+    if (s) { s.drop(); return; }
+    if (wasTap && onNum && e.type !== "touchcancel" && e.type !== "pointercancel") {
+      if (e.type === "touchend" && e.cancelable) e.preventDefault(); // no ghost click
+      openRankJump(list, li.dataset.id, ol);
+    }
+  }
+  function finish() {
+    if (ended) return;
+    ended = true;
+    clearTimeout(pressT); clearTimeout(liftT);
+    li.classList.remove("pressing");
+    if (kind === "mouse") {
+      document.removeEventListener("pointermove", mm);
+      document.removeEventListener("pointerup", up);
+      document.removeEventListener("pointercancel", up);
+    } else {
+      document.removeEventListener("touchmove", tm);
+      document.removeEventListener("touchend", up);
+      document.removeEventListener("touchcancel", up);
+    }
+  }
+  if (kind === "mouse") {
+    document.addEventListener("pointermove", mm);
+    document.addEventListener("pointerup", up);
+    document.addEventListener("pointercancel", up);
+  } else {
+    document.addEventListener("touchmove", tm, { passive: false });
+    document.addEventListener("touchend", up);
+    document.addEventListener("touchcancel", up);
+  }
+}
+
+function makeSorter(list, li, ol, startClientY) {
+  const blocks = [...ol.children].filter(n =>
+    n.classList.contains("rank-row") || n.classList.contains("milestone") || n.classList.contains("unranked-head"));
+  const d = blocks.indexOf(li);
+  if (d < 0) return null;
+  sortActive = true;
+  const sy0 = window.scrollY;
+  const geo = blocks.map(b => {
+    const r = b.getBoundingClientRect(), cs = getComputedStyle(b);
+    return { top: r.top + sy0, h: r.height, mt: parseFloat(cs.marginTop) || 0, mb: parseFloat(cs.marginBottom) || 0 };
+  });
+  const GAP = parseFloat(getComputedStyle(ol).rowGap) || 12;
+  const others = blocks.map((_, i) => i).filter(i => i !== d);
+  const centers = others.map(i => geo[i].top + geo[i].h / 2);
+  const startTop = geo[0].top - geo[0].mt;
+  const startDocY = startClientY + sy0;
+  let t = others.filter(i => i < d).length;
+  let order = null, lastY = startClientY, raf = 0, alive = true;
+
+  ol.classList.add("sorting");
+  document.body.classList.add("drag-active");
+  li.classList.add("lifted");
+
+  function layout() {
+    order = others.slice();
+    order.splice(t, 0, d);
+    const tops = new Array(blocks.length);
+    let cur = startTop;
+    for (const i of order) { tops[i] = cur + geo[i].mt; cur += geo[i].mt + geo[i].h + geo[i].mb + GAP; }
+    return tops;
+  }
+  function apply() {
+    const tops = layout();
+    for (const i of others) {
+      const dy = Math.round(tops[i] - geo[i].top);
+      blocks[i].style.transform = dy ? "translate3d(0," + dy + "px,0)" : "";
+    }
+    let n = 0, unr = false;               // live numbering as rows make way
+    for (const i of order) {
+      const b = blocks[i];
+      if (b.classList.contains("unranked-head")) { unr = true; continue; }
+      if (!b.classList.contains("rank-row")) continue;
+      const num = b.querySelector(".rank-num");
+      if (num) num.textContent = unr ? "–" : String(++n);
+    }
+  }
+  function position() {
+    const dy = lastY + window.scrollY - startDocY;
+    li.style.transform = "translate3d(0," + dy + "px,0) scale(1.03)";
+    const center = geo[d].top + geo[d].h / 2 + dy;
+    let nt = 0;
+    for (const c of centers) if (center > c) nt++;
+    if (nt !== t) {
+      t = nt;
+      apply();
+      Sound.tick(Math.min(t + 1, 20));
+      vibrate(5);
+    }
+  }
+  function loop() {
+    if (!alive) return;
+    const edge = 96;
+    let v = 0;
+    if (lastY < edge) v = -Math.ceil((edge - lastY) / 5);
+    else if (lastY > innerHeight - edge) v = Math.ceil((lastY - (innerHeight - edge)) / 5);
+    if (v) { window.scrollBy(0, v); position(); }
+    raf = requestAnimationFrame(loop);
+  }
+  apply();
+  position();
+  raf = requestAnimationFrame(loop);
+
+  return {
+    move(y) { lastY = y; position(); },
+    drop() {
+      alive = false;
+      cancelAnimationFrame(raf);
+      const tops = layout();
+      li.classList.add("dropping");
+      li.style.transform = "translate3d(0," + Math.round(tops[d] - geo[d].top) + "px,0) scale(1)";
+      let committed = false;
+      const commit = () => {
+        if (committed) return;
+        committed = true;
+        sortActive = false;
+        ol.classList.remove("sorting");
+        document.body.classList.remove("drag-active");
+        const ids = [], zone = {};
+        let unr = false;
+        for (const i of order) {
+          const b = blocks[i];
+          if (b.classList.contains("unranked-head")) { unr = true; continue; }
+          if (b.classList.contains("rank-row")) { ids.push(b.dataset.id); zone[b.dataset.id] = unr; }
+        }
+        const id = li.dataset.id;
+        const L = getList(list.id) || list;
+        const from = L.items.findIndex(x => x.id === id);
+        const it = L.items[from];
+        const was = !!(it && it.unranked), now = !!zone[id];
+        const sig = arr => arr.map(x => x.id + (x.unranked ? "u" : "")).join();
+        const before = sig(L.items);
+        const after = ids.map(i => i + (zone[i] ? "u" : "")).join();
+        const changed = !!it && before !== after && ids.length === L.items.length;
+        if (changed) {
+          History.push(L, now && !was ? "Unranked “" + it.title + "”" : !now && was ? "Ranked “" + it.title + "”" : "Moved “" + it.title + "”");
+          const byId = new Map(L.items.map(x => [x.id, x]));
+          L.items = ids.map(i => byId.get(i));
+          for (const x of L.items) { if (zone[x.id]) x.unranked = true; else delete x.unranked; }
+          normalize(L);
+          persist(L);
+        }
+        drawRows(L, ol);
+        Sound.drop();
+        vibrate([10, 30, 8]);
+        if (changed) {
+          const to = L.items.findIndex(x => x.id === id);
+          if (was && !now) badge(ol, id, "new", "★ #" + (to + 1));
+          else if (!was && now) badge(ol, id, "down", "unranked");
+          else if (!now && to !== from) badge(ol, id, to < from ? "up" : "down", (to < from ? "▲ " : "▼ ") + Math.abs(from - to));
+          announce(it.title + (now ? " moved to Unranked" : " is now number " + (to + 1)));
+        }
+      };
+      li.addEventListener("transitionend", e => { if (e.propertyName === "transform") commit(); });
+      setTimeout(commit, 340);
+    },
+  };
+}
+
+/* ============================================================
+   HEAD-TO-HEAD — binary insertion against the ranked entries
+   ============================================================ */
+function duelCard(item, tag) {
+  const b = el("button", "duel-card");
+  b.type = "button";
+  const c1 = item.c1 || Media.hashColors(item.title).c1;
+  b.style.setProperty("--c1", c1);
+  b.style.setProperty("--c2", item.c2 || darken(c1, .35));
+  const art = el("div", "duel-art");
+  const initial = (String(item.title).trim()[0] || "?").toUpperCase();
+  const src = item.imgHi || item.img || item.bg;
+  if (src) {
+    const im = el("img"); im.src = src; im.alt = "";
+    im.addEventListener("error", () => { im.remove(); art.textContent = initial; }, { once: true });
+    art.appendChild(im);
+  } else art.textContent = initial;
+  const info = el("div", "duel-info");
+  info.append(el("div", "duel-tag", tag), el("div", "duel-name", item.title));
+  if (item.note) info.appendChild(el("div", "duel-note", item.note));
+  b.append(art, info);
+  b.setAttribute("aria-label", "Pick " + item.title);
+  return b;
+}
+function openDuel(listRef, itemId, opts) {
+  opts = opts || {};
+  const list = getList(listRef.id);
+  if (!list) return;
+  const item0 = list.items.find(x => x.id === itemId);
+  const others = list.items.filter(x => x.id !== itemId && !x.unranked);
+  if (!item0) return;
+  const ol0 = document.getElementById("rankList");
+  if (!others.length) { relocate(list, itemId, 0, false, ol0); if (opts.onFinish) opts.onFinish(); return; }
+  const wasUnranked = !!item0.unranked;
+  const startIdx = list.items.indexOf(item0);
+  let lo = 0, hi = others.length, round = 0, busy = false, cardA = null, cardB = null, finished = false;
+  const total = Math.ceil(Math.log2(others.length + 1));
+  const m = makeModal("duel", e => {
+    if (busy) return;
+    if (e.key === "ArrowLeft" || e.key === "1") { e.preventDefault(); pick(true); }
+    else if (e.key === "ArrowRight" || e.key === "2") { e.preventDefault(); pick(false); }
+  });
+  m.onClose = () => { if (opts.onDone) opts.onDone(); if (finished && opts.onFinish) setTimeout(opts.onFinish, 350); };
+  const md = m.modal;
+  md.appendChild(el("div", "eyebrow", "Head-to-head"));
+  const h2 = el("h2", null, "Which one's better?");
+  md.appendChild(h2);
+  const hint = el("p", "hint");
+  md.appendChild(hint);
+  const meter = el("div", "duel-meter");
+  const fill = el("div", "duel-fill");
+  meter.appendChild(fill);
+  md.appendChild(meter);
+  const stage = el("div", "duel-stage");
+  md.appendChild(stage);
+  const foot = el("div", "modal-actions");
+  foot.appendChild(el("span", "duel-keys", "← / → or 1 / 2 to pick · Esc to stop"));
+  const stop = el("button", "btn btn-ghost", wasUnranked ? "Leave it unranked" : "Keep it at #" + (startIdx + 1));
+  stop.addEventListener("click", m.close);
+  foot.appendChild(stop);
+  md.appendChild(foot);
+
+  function render() {
+    if (lo >= hi) return finish();
+    round++;
+    const mid = (lo + hi) >> 1;
+    const opp = others[mid];
+    const live = getList(list.id) || list;
+    const me = live.items.find(x => x.id === itemId) || item0;
+    hint.textContent = "Matchup " + round + " of about " + total + " · it lands somewhere from #" + (lo + 1) + " to #" + (hi + 1);
+    fill.style.width = Math.min(96, ((round - 1) / total) * 100) + "%";
+    stage.innerHTML = "";
+    cardA = duelCard(me, wasUnranked ? "Placing" : "Re-ranking");
+    cardB = duelCard(opp, "Currently #" + (live.items.indexOf(opp) + 1));
+    cardA.addEventListener("click", () => pick(true));
+    cardB.addEventListener("click", () => pick(false));
+    stage.append(cardA, el("div", "duel-vs", "vs"), cardB);
+    anim(stage, [{ opacity: 0, transform: "translateY(10px) scale(.99)" }, { opacity: 1, transform: "none" }], { duration: 320, easing: "cubic-bezier(.2,1.2,.35,1)" });
+  }
+  function pick(meBetter) {
+    if (busy || lo >= hi) return;
+    busy = true;
+    const mid = (lo + hi) >> 1;
+    if (meBetter) hi = mid; else lo = mid + 1;
+    (meBetter ? cardA : cardB).classList.add("win");
+    (meBetter ? cardB : cardA).classList.add("lose");
+    Sound.tick(round + 4);
+    setTimeout(() => { busy = false; render(); }, 300);
+  }
+  function finish() {
+    fill.style.width = "100%";
+    finished = true;
+    const to = lo;
+    m.close();
+    const live = getList(list.id);
+    const ol = document.getElementById("rankList");
+    if (!live || !ol || ol.dataset.listId !== live.id) return;
+    const cur = live.items.findIndex(x => x.id === itemId);
+    if (cur < 0) return;
+    Sound.win();
+    if (!wasUnranked && to === cur) {
+      const row = rowEl(ol, itemId);
+      if (row) { if (row.scrollIntoView) row.scrollIntoView({ block: "center", behavior: "smooth" }); flashRow(row); }
+      toast("Settled: stays at #" + (cur + 1));
+      return;
+    }
+    relocate(live, itemId, to, false, ol, { scroll: true });
+    if (!opts.chain) toast("Settled at #" + (to + 1) + " after " + plural(round, "matchup"));
+  }
+  render();
+}
+
+/* ============================================================
+   ARTWORK PICKER — official gallery + "different title?" search
+   ============================================================ */
+function openArtPicker(listRef, itemRef) {
+  const m = makeModal("picker");
+  const md = m.modal;
+  const getItem = () => { const l = getList(listRef.id); return l && l.items.find(x => x.id === itemRef.id); };
+  const list0 = getList(listRef.id) || listRef;
+  md.appendChild(el("div", "eyebrow", "Artwork"));
+  md.appendChild(el("h2", null, itemRef.title));
+  md.appendChild(el("p", "hint", isTv(list0)
+    ? "Choose the poster that feels most like the show — the row's glow re-samples from it. Pick a backdrop to give the row a Scene. Wrong show entirely? Search below."
+    : "Wrong edition or wrong cover? Choose the match you meant — the row re-samples its colors from the new art."));
+
+  const gallery = el("div");
+  md.appendChild(gallery);
+
+  const searchSec = el("div", "pick-sec");
+  searchSec.appendChild(el("h5", null, isTv(list0) ? "Different show?" : "Search"));
+  const inp = el("input");
+  inp.type = "text"; inp.value = itemRef.title; inp.autocomplete = "off";
+  inp.setAttribute("aria-label", "Search for artwork");
+  searchSec.appendChild(inp);
+  const status = el("div", "sugg-status", "");
+  status.style.padding = "10px 2px 4px";
+  searchSec.appendChild(status);
+  const grid = el("div", "pick-grid");
+  searchSec.appendChild(grid);
+  md.appendChild(searchSec);
+
+  const acts = el("div", "modal-actions");
+  const rm = el("button", "btn btn-ghost", "Remove artwork");
+  const close = el("button", "btn", "Done");
+  acts.append(rm, close);
+  md.appendChild(acts);
+  close.addEventListener("click", m.close);
+  rm.disabled = !(itemRef.img || itemRef.bg);
+  rm.addEventListener("click", () => {
+    const list = getList(listRef.id), item = getItem();
+    if (!list || !item) return m.close();
+    History.push(list, "Removed artwork from “" + item.title + "”");
+    delete item.img; delete item.imgHi; delete item.bg; delete item.source;
+    if (!item.custom) { const h = Media.hashColors(item.title); item.c1 = h.c1; item.c2 = h.c2; item.palette = []; }
+    if (item.look === "scene" || item.look === "glow") item.look = "tint";
+    item.tried = 1;
+    persist(list);
+    refreshRow(list, item);
+    m.close();
+    toast("Artwork removed");
+  });
+
+  /* official gallery for TV shows */
+  (async () => {
+    if (!isTv(list0)) return;
+    const it = getItem();
+    if (!it) return;
+    let showId = it.tvmazeId;
+    gallery.innerHTML = '<div class="sugg-status"><span class="spin"></span><span>Loading the official artwork…</span></div>';
+    try {
+      if (!showId) {
+        const s = await Tv.get("/singlesearch/shows?q=" + enc(it.title));
+        showId = s && s.id;
+      }
+      if (!showId) { gallery.innerHTML = ""; return; }
+      const im = await Media.tvImages(showId);
+      gallery.innerHTML = "";
+      const section = (title, arr, kind, wide) => {
+        if (!arr.length) return;
+        const sec = el("div", "pick-sec");
+        sec.appendChild(el("h5", null, title));
+        const g = el("div", "pick-grid" + (wide ? " wide" : ""));
+        arr.slice(0, wide ? 9 : 14).forEach((a, i) => {
+          const b = el("button", "pick");
+          b.type = "button";
+          const cur = getItem();
+          if (cur && ((kind === "poster" && (cur.imgHi === a.imgHi || cur.img === a.img)) || (kind === "bg" && cur.bg === a.imgHi))) b.classList.add("current");
+          const art = el("div", "p-art");
+          const img = el("img"); img.src = a.img; img.alt = ""; img.loading = "lazy";
+          img.addEventListener("error", () => b.remove(), { once: true });
+          art.appendChild(img);
+          if (a.main || i === 0) art.appendChild(el("span", "p-tag", a.main ? "Official" : "Top pick"));
+          b.appendChild(art);
+          b.addEventListener("click", async () => {
+            g.querySelectorAll(".pick").forEach(x => x.classList.remove("current"));
+            b.classList.add("current");
+            const L = getList(listRef.id);
+            if (L) await applyArt(L, itemRef, a, kind);
+          });
+          g.appendChild(b);
+        });
+        sec.appendChild(g);
+        gallery.appendChild(sec);
+      };
+      section("Posters", im.posters, "poster", false);
+      section("Backdrops", im.backdrops, "bg", true);
+    } catch { gallery.innerHTML = ""; }
+  })();
+
+  let tok = 0;
+  async function run() {
+    const q = inp.value.trim();
+    if (q.length < 2) { grid.innerHTML = ""; status.textContent = ""; return; }
+    const my = ++tok;
+    status.innerHTML = '<span class="spin"></span><span>Searching…</span>';
+    let res = [], failed = false;
+    const list = getList(listRef.id) || listRef;
+    try { res = await Media.search(list.template, q, contextTerms(list), { prefix: true }); } catch { failed = true; }
+    if (my !== tok) return;
+    grid.innerHTML = "";
+    status.textContent = failed ? "Lookup failed — are you online?" :
+      res.length ? plural(res.length, "match", "matches") + " · pick one to switch to it" : "No matches — try other words (add a year or artist)";
+    const cur = getItem();
+    res.slice(0, 18).forEach(r => {
+      const b = el("button", "pick");
+      b.type = "button";
+      if (cur && r.img && (r.img === cur.img || (r.id && r.id === cur.tvmazeId))) b.classList.add("current");
+      const art = el("div", "p-art");
+      if (r.img) {
+        const im = el("img"); im.src = r.img; im.alt = ""; im.loading = "lazy";
+        im.addEventListener("error", () => { im.remove(); art.innerHTML = ICONS.photo; }, { once: true });
+        art.appendChild(im);
+      } else art.innerHTML = ICONS.photo;
+      const info = el("div", "p-info");
+      info.append(el("div", "p-name", r.name));
+      if (r.sub) info.appendChild(el("div", "p-sub", r.sub));
+      info.appendChild(el("div", "p-src", r.source));
+      b.append(art, info);
+      b.addEventListener("click", async () => {
+        grid.querySelectorAll(".pick").forEach(x => { x.disabled = true; });
+        status.textContent = "Applying…";
+        const L = getList(listRef.id), item = getItem();
+        if (!L || !item) return m.close();
+        History.push(L, "New artwork for “" + item.title + "”");
+        if (r.source === "TVMaze") delete item.bg;
+        const hasArt = await applyMedia(L, item, r, { force: true, replaceNote: true });
+        m.close();
+        toast(hasArt ? "Artwork updated" : "That match has no artwork — kept its colors and note");
+      });
+      grid.appendChild(b);
+    });
+  }
+  inp.addEventListener("input", debounce(run, 300));
+  inp.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); run(); } });
+  if (!isTv(list0)) run();
+  else status.textContent = "Type a title and press Enter to search";
+  if (!isTv(list0)) { inp.focus(); inp.select(); }
+}
+
+/* ============================================================
+   IMPORT / EXPORT
+   ============================================================ */
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "alltimers-backup-" + new Date().toISOString().slice(0, 10) + ".json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  toast("Backup downloaded");
+}
+function importJSON() {
+  const inp = document.createElement("input");
+  inp.type = "file";
+  inp.accept = "application/json,.json";
+  inp.addEventListener("change", () => {
+    const f = inp.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const data = JSON.parse(r.result);
+        if (!data || data.version !== 1 || !Array.isArray(data.lists)) throw new Error("bad shape");
+        History.push(null, "Imported lists");
+        const tmp = migrate({ version: 1, lists: data.lists.filter(l => l && typeof l === "object"), settings: {} });
+        let n = 0;
+        for (const l of tmp.lists) {
+          l.id = uid();
+          l.title = String(l.title || "Untitled list");
+          l.subtitle = String(l.subtitle || "");
+          if (!THEMES.some(t => t.id === l.theme)) l.theme = "studio";
+          if (!TEMPLATES.some(t => t.id === l.template)) l.template = "custom";
+          l.items = l.items.filter(it => it && it.title);
+          for (const it of l.items) { it.id = uid(); it.title = String(it.title); it.note = String(it.note || ""); }
+          l.createdAt = l.createdAt || Date.now();
+          l.updatedAt = Date.now();
+          state.lists.push(l);
+          n++;
+        }
+        persist();
+        renderHome();
+        toast("Imported " + plural(n, "list"), { action: { label: "Undo", fn: () => History.undo() } });
+      } catch { toast("Couldn't read that file — expected an ALL·TIMERS backup"); }
+    };
+    r.readAsText(f);
+  });
+  inp.click();
+}
+
+/* ------------------------------ keyboard ------------------- */
+document.addEventListener("keydown", e => {
+  if (document.querySelector(".modal-veil")) return;
+  const t = e.target;
+  const typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+  const mod = e.metaKey || e.ctrlKey;
+  const k = (e.key || "").toLowerCase();
+  if (mod && !e.altKey && k === "z" && !typing) { e.preventDefault(); if (e.shiftKey) History.redo(); else History.undo(); }
+  else if (mod && !e.altKey && k === "y" && !typing) { e.preventDefault(); History.redo(); }
+  else if (!mod && !e.altKey && e.key === "/" && !typing && View.listId) {
+    const a = document.querySelector(".add-title-input");
+    if (a) { e.preventDefault(); a.focus(); }
+  }
+});
+
+/* ------------------------------ boot ----------------------- */
+route();
+(async () => {
+  if (!(await API.ping())) return;
+  route({ keepScroll: true, quiet: true });
+  if (!API.token) return;
+  try {
+    const remote = await API.load();
+    if (!API.token) { route({ keepScroll: true, quiet: true }); return; }
+    if (remote && Array.isArray(remote.lists)) {
+      if (remote.lists.length === 0 && state.lists.length > 0) await API.save(state);
+      else { state = migrate(remote); Store.save(state, cacheKey()); History.clear(); }
+      setSync("saved");
+      route({ keepScroll: true, quiet: true });
+    }
+  } catch { setSync("offline"); }
+})();
+</script>
+</body>
+</html>
